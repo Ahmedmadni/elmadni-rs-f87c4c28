@@ -1,5 +1,5 @@
 import type { Property } from "@/lib/properties";
-import { WHATSAPP } from "@/lib/properties";
+import { WHATSAPP, getPropertyImage } from "@/lib/properties";
 import { MapPin, Maximize2, BedDouble, MessageCircle, Heart, GitCompare, ArrowLeft } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { useFavorites, useCompare, COMPARE_LIMIT } from "@/lib/property-store";
@@ -40,7 +40,7 @@ export function PropertyCard({ p }: { p: Property }) {
         className="relative block aspect-[4/3] overflow-hidden"
       >
         <img
-          src={p.image}
+          src={getPropertyImage(p)}
           alt={p.title}
           loading="lazy"
           className="h-full w-full object-cover transition-transform duration-[1200ms] group-hover:scale-110"

@@ -1,7 +1,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { Navbar } from "@/components/site/Navbar";
 import { Footer } from "@/components/site/Footer";
-import { properties, WHATSAPP, PHONE } from "@/lib/properties";
+import { properties, WHATSAPP, PHONE, getPropertyImage } from "@/lib/properties";
 import { useFavorites, useCompare, COMPARE_LIMIT } from "@/lib/property-store";
 import {
   MapPin,
@@ -33,7 +33,7 @@ export const Route = createFileRoute("/properties/$id")({
             content: `${loaderData.property.type} ${loaderData.property.status} في ${loaderData.property.location} — ${loaderData.property.price}.`,
           },
           { property: "og:title", content: loaderData.property.title },
-          { property: "og:image", content: loaderData.property.image },
+          { property: "og:image", content: getPropertyImage(loaderData.property) },
         ]
       : [],
   }),
@@ -72,7 +72,7 @@ function PropertyDetailsPage() {
 
           <div className="grid gap-8 lg:grid-cols-[1.5fr_1fr]">
             <div className="relative overflow-hidden rounded-3xl glass luxe-shadow">
-              <img src={p.image} alt={p.title} className="w-full h-[60vh] object-cover" />
+              <img src={getPropertyImage(p)} alt={p.title} className="w-full h-[60vh] object-cover" />
               <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent" />
               <div className="absolute bottom-6 right-6 left-6">
                 <div className="text-xs text-gold tracking-[0.25em] font-medium">{p.type} · {p.status}</div>
