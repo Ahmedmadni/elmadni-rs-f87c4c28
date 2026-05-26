@@ -9,10 +9,16 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SellRouteImport } from './routes/sell'
 import { Route as RequestRouteImport } from './routes/request'
 import { Route as PropertiesRouteImport } from './routes/properties'
 import { Route as IndexRouteImport } from './routes/index'
 
+const SellRoute = SellRouteImport.update({
+  id: '/sell',
+  path: '/sell',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const RequestRoute = RequestRouteImport.update({
   id: '/request',
   path: '/request',
@@ -33,34 +39,45 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/properties': typeof PropertiesRoute
   '/request': typeof RequestRoute
+  '/sell': typeof SellRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/properties': typeof PropertiesRoute
   '/request': typeof RequestRoute
+  '/sell': typeof SellRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/properties': typeof PropertiesRoute
   '/request': typeof RequestRoute
+  '/sell': typeof SellRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/properties' | '/request'
+  fullPaths: '/' | '/properties' | '/request' | '/sell'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/properties' | '/request'
-  id: '__root__' | '/' | '/properties' | '/request'
+  to: '/' | '/properties' | '/request' | '/sell'
+  id: '__root__' | '/' | '/properties' | '/request' | '/sell'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   PropertiesRoute: typeof PropertiesRoute
   RequestRoute: typeof RequestRoute
+  SellRoute: typeof SellRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/sell': {
+      id: '/sell'
+      path: '/sell'
+      fullPath: '/sell'
+      preLoaderRoute: typeof SellRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/request': {
       id: '/request'
       path: '/request'
@@ -89,6 +106,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   PropertiesRoute: PropertiesRoute,
   RequestRoute: RequestRoute,
+  SellRoute: SellRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
