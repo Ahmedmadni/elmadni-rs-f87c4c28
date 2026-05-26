@@ -19,7 +19,7 @@ export const Route = createFileRoute("/properties")({
   component: PropertiesPage,
 });
 
-const types = ["الكل", "شقة", "فيلا", "تاون هاوس", "مكتب", "شاليه", "محل"];
+const types = ["الكل", "شقة", "بيت", "أرض", "مكتب", "فيلا", "تاون هاوس", "شاليه", "محل"];
 const statuses = ["الكل", "للبيع", "للإيجار"];
 
 function PropertiesPage() {
