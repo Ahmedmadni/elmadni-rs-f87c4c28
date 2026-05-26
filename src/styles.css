@@ -168,6 +168,12 @@
     font-weight: 700;
   }
 
+  /* Force the reference Arabic heading font on ALL headings across the site */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-arabic-display) !important;
+    font-feature-settings: "kern", "liga";
+  }
+
   html {
     scroll-behavior: smooth;
     background: var(--color-background);
