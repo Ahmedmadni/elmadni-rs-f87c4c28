@@ -187,9 +187,9 @@
 
   .font-display {
     font-family: var(--font-display);
-    letter-spacing: 0;
+    letter-spacing: -0.02em;
     font-feature-settings: "kern", "liga", "dlig";
-    font-weight: 400;
+    font-weight: 600;
   }
 
   .glass {
