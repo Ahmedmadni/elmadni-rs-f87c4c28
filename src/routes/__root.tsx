@@ -13,6 +13,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { CinematicIntro } from "@/components/site/CinematicIntro";
 import { SmoothScroll } from "@/components/site/SmoothScroll";
 import { MobileBottomNav } from "@/components/site/MobileBottomNav";
+import { themeInitScript } from "@/components/site/ThemeToggle";
 
 function NotFoundComponent() {
   return (
@@ -98,8 +99,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="ar" dir="rtl">
+    <html lang="ar" dir="rtl" className="dark">
       <head>
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
         <HeadContent />
       </head>
       <body>
