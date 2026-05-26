@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Navbar } from "@/components/site/Navbar";
 import { Footer } from "@/components/site/Footer";
-import { properties, WHATSAPP } from "@/lib/properties";
+import { properties, WHATSAPP, getPropertyImage } from "@/lib/properties";
 import { useCompare } from "@/lib/property-store";
 import { GitCompare, X, MapPin, MessageCircle } from "lucide-react";
 
@@ -73,7 +73,7 @@ function ComparePage() {
                   {items.map((p) => (
                     <th key={p.id} className="p-4 text-right min-w-[240px] align-top">
                       <div className="relative rounded-2xl overflow-hidden mb-3">
-                        <img src={p.image} alt={p.title} className="w-full h-36 object-cover" />
+                        <img src={getPropertyImage(p)} alt={p.title} className="w-full h-36 object-cover" />
                         <button
                           onClick={() => cmp.toggle(p.id)}
                           aria-label="إزالة"
