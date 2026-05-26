@@ -4,7 +4,7 @@
 
 @custom-variant dark (&:is(.dark *));
 
-@import url('https://fonts.googleapis.com/css2?family=Rakkas&family=Lalezar&family=Changa:wght@500;600;700;800&family=Cairo:wght@400;600;700;800;900&family=Tajawal:wght@400;500;700;800&family=Readex+Pro:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Manrope:wght@300;400;500;600;700;800&display=swap');
 
 /*
  * Design system definition.
@@ -61,10 +61,10 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
-  --font-sans: 'Tajawal', 'Readex Pro', 'Cairo', system-ui, -apple-system, sans-serif;
-  --font-display: 'Rakkas', 'Lalezar', 'Cairo', 'Changa', system-ui, sans-serif;
-  --font-arabic-display: 'Rakkas', 'Lalezar', 'Cairo', system-ui, sans-serif;
-  --font-poster: 'Lalezar', 'Rakkas', 'Cairo', system-ui, sans-serif;
+  /* Premium bilingual stack — Arabic + geometric Latin in perfect harmony */
+  --font-sans: 'IBM Plex Sans Arabic', 'Plus Jakarta Sans', 'Manrope', system-ui, -apple-system, sans-serif;
+  --font-display: 'Plus Jakarta Sans', 'IBM Plex Sans Arabic', 'Manrope', system-ui, sans-serif;
+  --font-arabic-display: 'IBM Plex Sans Arabic', 'Plus Jakarta Sans', system-ui, sans-serif;
   --color-gold: var(--gold);
   --color-gold-soft: var(--gold-soft);
   --color-emerald-deep: var(--emerald-deep);
