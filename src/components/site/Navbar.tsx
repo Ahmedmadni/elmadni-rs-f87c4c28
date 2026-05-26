@@ -153,7 +153,7 @@ function IconLink({
   children,
   compact,
 }: {
-  to: string;
+  to: "/favorites" | "/compare";
   label: string;
   count: number;
   children: React.ReactNode;
