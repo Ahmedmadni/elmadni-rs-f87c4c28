@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import { toast } from "sonner";
 import { PropertyCard } from "@/components/site/PropertyCard";
+import { MortgageCalculator } from "@/components/site/MortgageCalculator";
 
 export const Route = createFileRoute("/properties/$id")({
   loader: ({ params }) => {
@@ -170,6 +171,10 @@ function PropertyDetailsPage() {
                 </div>
               ))}
             </div>
+          </div>
+
+          <div className="mt-10">
+            <MortgageCalculator defaultPrice={p.price} />
           </div>
 
           {related.length > 0 && (
