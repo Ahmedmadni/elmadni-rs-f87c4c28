@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Menu, X, Heart, GitCompare } from "lucide-react";
 import logo from "@/assets/madni-logo.jpg";
 import { useFavorites, useCompare } from "@/lib/property-store";
+import { ThemeToggle } from "@/components/site/ThemeToggle";
 
 const links = [
   { to: "/", label: "الرئيسية" },
@@ -70,6 +71,7 @@ export function Navbar() {
           </div>
 
           <div className="hidden lg:flex items-center gap-2">
+            <ThemeToggle />
             <IconLink to="/favorites" label="المفضلة" count={fav.ids.length}>
               <Heart size={16} />
             </IconLink>
@@ -86,6 +88,7 @@ export function Navbar() {
           </div>
 
           <div className="lg:hidden flex items-center gap-1">
+            <ThemeToggle compact />
             <IconLink to="/favorites" label="المفضلة" count={fav.ids.length} compact>
               <Heart size={16} />
             </IconLink>

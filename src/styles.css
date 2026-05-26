@@ -4,7 +4,7 @@
 
 @custom-variant dark (&:is(.dark *));
 
-@import url('https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300;400;500;600;700&family=Sora:wght@300;400;500;600;700;800&family=Cairo:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rakkas&family=Lalezar&family=Changa:wght@500;600;700;800&family=Cairo:wght@400;600;700;800;900&family=Tajawal:wght@400;500;700;800&family=Readex+Pro:wght@300;400;500;600;700&display=swap');
 
 /*
  * Design system definition.
@@ -61,9 +61,10 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
-  --font-sans: 'Readex Pro', 'Cairo', 'Sora', system-ui, -apple-system, sans-serif;
-  --font-display: 'Sora', 'Playfair Display', 'Cairo', system-ui, sans-serif;
-  --font-arabic-display: 'Cairo', 'Readex Pro', system-ui, sans-serif;
+  --font-sans: 'Tajawal', 'Readex Pro', 'Cairo', system-ui, -apple-system, sans-serif;
+  --font-display: 'Rakkas', 'Lalezar', 'Cairo', 'Changa', system-ui, sans-serif;
+  --font-arabic-display: 'Rakkas', 'Lalezar', 'Cairo', system-ui, sans-serif;
+  --font-poster: 'Lalezar', 'Rakkas', 'Cairo', system-ui, sans-serif;
   --color-gold: var(--gold);
   --color-gold-soft: var(--gold-soft);
   --color-emerald-deep: var(--emerald-deep);
@@ -71,28 +72,26 @@
 
 :root {
   --radius: 0.75rem;
-  /* Cinematic matte black with deep emerald undertone */
-  --background: oklch(0.11 0.014 165);
-  --foreground: oklch(0.97 0.015 88);
-  --card: oklch(0.155 0.018 162);
-  --card-foreground: oklch(0.97 0.015 88);
-  --popover: oklch(0.13 0.016 162);
-  --popover-foreground: oklch(0.97 0.015 88);
-  /* Deep emerald primary */
-  --primary: oklch(0.46 0.13 162);
-  --primary-foreground: oklch(0.98 0.01 88);
-  --secondary: oklch(0.21 0.025 162);
-  --secondary-foreground: oklch(0.97 0.015 88);
-  --muted: oklch(0.19 0.018 162);
-  --muted-foreground: oklch(0.72 0.022 88);
-  /* Warm soft gold accent */
-  --accent: oklch(0.80 0.135 84);
-  --accent-foreground: oklch(0.11 0.014 165);
+  /* LIGHT MODE — warm cream + emerald + gold */
+  --background: oklch(0.985 0.012 88);
+  --foreground: oklch(0.18 0.025 162);
+  --card: oklch(0.99 0.008 88);
+  --card-foreground: oklch(0.18 0.025 162);
+  --popover: oklch(0.99 0.008 88);
+  --popover-foreground: oklch(0.18 0.025 162);
+  --primary: oklch(0.40 0.12 162);
+  --primary-foreground: oklch(0.985 0.012 88);
+  --secondary: oklch(0.95 0.015 88);
+  --secondary-foreground: oklch(0.22 0.03 162);
+  --muted: oklch(0.94 0.012 88);
+  --muted-foreground: oklch(0.42 0.02 162);
+  --accent: oklch(0.72 0.14 78);
+  --accent-foreground: oklch(0.15 0.02 162);
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.984 0.003 247.858);
-  --border: oklch(0.80 0.135 84 / 16%);
-  --input: oklch(1 0 0 / 8%);
-  --ring: oklch(0.80 0.135 84 / 50%);
+  --border: oklch(0.40 0.12 162 / 16%);
+  --input: oklch(0.18 0.025 162 / 8%);
+  --ring: oklch(0.72 0.14 78 / 50%);
 
   --gold: oklch(0.80 0.135 84);
   --gold-soft: oklch(0.90 0.08 84);
@@ -125,7 +124,7 @@
 }
 
 .dark {
-  /* Dark mode mirrors the cinematic root palette (project is dark-first) */
+  /* DARK MODE — cinematic matte black with deep emerald undertone */
   --background: oklch(0.08 0.012 165);
   --foreground: oklch(0.97 0.015 88);
   --card: oklch(0.135 0.018 162);
@@ -188,22 +187,23 @@
 
   .font-display {
     font-family: var(--font-display);
-    letter-spacing: -0.015em;
+    letter-spacing: 0;
     font-feature-settings: "kern", "liga", "dlig";
+    font-weight: 400;
   }
 
   .glass {
-    background: oklch(0.155 0.018 162 / 0.55);
+    background: color-mix(in oklab, var(--card) 65%, transparent);
     backdrop-filter: blur(24px) saturate(170%);
     -webkit-backdrop-filter: blur(24px) saturate(170%);
-    border: 1px solid oklch(0.80 0.135 84 / 0.16);
+    border: 1px solid color-mix(in oklab, var(--gold) 22%, transparent);
   }
 
   .glass-strong {
-    background: oklch(0.10 0.014 165 / 0.82);
+    background: color-mix(in oklab, var(--card) 85%, transparent);
     backdrop-filter: blur(32px) saturate(180%);
     -webkit-backdrop-filter: blur(32px) saturate(180%);
-    border: 1px solid oklch(0.80 0.135 84 / 0.22);
+    border: 1px solid color-mix(in oklab, var(--gold) 28%, transparent);
   }
 
   .text-gold-gradient {

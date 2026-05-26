@@ -30,16 +30,39 @@ function Index() {
 function Hero() {
   return (
     <section className="relative min-h-[100svh] flex items-center justify-center overflow-hidden">
-      <img
-        src={heroCairo}
-        alt="القاهرة"
+      <video
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="auto"
+        poster={heroCairo}
         className="absolute inset-0 h-full w-full object-cover scale-105"
-      />
+      >
+        <source
+          src="https://cdn.pixabay.com/video/2023/10/27/186446-878499773_large.mp4"
+          type="video/mp4"
+        />
+        <source
+          src="https://cdn.coverr.co/videos/coverr-aerial-shot-of-a-city-3146/1080p.mp4"
+          type="video/mp4"
+        />
+      </video>
+      {/* Cinematic overlays for legibility */}
       <div
         className="absolute inset-0"
         style={{ background: "var(--gradient-hero)" }}
       />
-      <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-background/70" />
+      <div className="absolute inset-0 bg-gradient-to-t from-background via-background/55 to-background/30" />
+      <div className="absolute inset-0 bg-background/35" />
+      {/* Vignette */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(ellipse 80% 60% at 50% 50%, transparent 40%, oklch(0 0 0 / 0.55) 100%)",
+        }}
+      />
 
       {/* floating particles */}
       <div className="absolute inset-0 pointer-events-none">
