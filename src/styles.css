@@ -4,7 +4,7 @@
 
 @custom-variant dark (&:is(.dark *));
 
-@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Cairo:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600&family=Cormorant+Garamond:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300;400;500;600;700&family=Sora:wght@300;400;500;600;700;800&family=Cairo:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap');
 
 /*
  * Design system definition.
@@ -61,9 +61,9 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
-  --font-sans: 'Tajawal', 'Cairo', system-ui, sans-serif;
-  --font-display: 'Playfair Display', 'Cormorant Garamond', 'Cairo', serif;
-  --font-arabic-display: 'Cairo', 'Tajawal', serif;
+  --font-sans: 'Readex Pro', 'Cairo', 'Sora', system-ui, -apple-system, sans-serif;
+  --font-display: 'Sora', 'Playfair Display', 'Cairo', system-ui, sans-serif;
+  --font-arabic-display: 'Cairo', 'Readex Pro', system-ui, sans-serif;
   --color-gold: var(--gold);
   --color-gold-soft: var(--gold-soft);
   --color-emerald-deep: var(--emerald-deep);
