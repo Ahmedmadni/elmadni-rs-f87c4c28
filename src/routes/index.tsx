@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { Navbar } from "@/components/site/Navbar";
 import { Footer } from "@/components/site/Footer";
 import { PropertyCard } from "@/components/site/PropertyCard";
-import { properties, WHATSAPP, groupByType } from "@/lib/properties";
+import { WHATSAPP, groupByType } from "@/lib/properties";
 import heroCairo from "@/assets/hero-cairo.jpg";
 import { ArrowLeft, Building2, Search, KeyRound, ShieldCheck, Sparkles, MessageCircle } from "lucide-react";
 
