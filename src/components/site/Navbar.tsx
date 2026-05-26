@@ -7,6 +7,7 @@ import { useFavorites, useCompare } from "@/lib/property-store";
 const links = [
   { to: "/", label: "الرئيسية" },
   { to: "/properties", label: "العقارات" },
+  { to: "/projects", label: "المشاريع" },
   { to: "/request", label: "طلب عقار" },
   { to: "/sell", label: "اعرض عقارك" },
   { to: "/about", label: "من نحن" },

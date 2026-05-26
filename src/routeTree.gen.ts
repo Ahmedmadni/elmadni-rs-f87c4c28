@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as SellRouteImport } from './routes/sell'
 import { Route as RequestRouteImport } from './routes/request'
 import { Route as PropertiesRouteImport } from './routes/properties'
+import { Route as ProjectsRouteImport } from './routes/projects'
 import { Route as FavoritesRouteImport } from './routes/favorites'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CompareRouteImport } from './routes/compare'
@@ -32,6 +33,11 @@ const RequestRoute = RequestRouteImport.update({
 const PropertiesRoute = PropertiesRouteImport.update({
   id: '/properties',
   path: '/properties',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProjectsRoute = ProjectsRouteImport.update({
+  id: '/projects',
+  path: '/projects',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FavoritesRoute = FavoritesRouteImport.update({
@@ -71,6 +77,7 @@ export interface FileRoutesByFullPath {
   '/compare': typeof CompareRoute
   '/contact': typeof ContactRoute
   '/favorites': typeof FavoritesRoute
+  '/projects': typeof ProjectsRoute
   '/properties': typeof PropertiesRouteWithChildren
   '/request': typeof RequestRoute
   '/sell': typeof SellRoute
@@ -82,6 +89,7 @@ export interface FileRoutesByTo {
   '/compare': typeof CompareRoute
   '/contact': typeof ContactRoute
   '/favorites': typeof FavoritesRoute
+  '/projects': typeof ProjectsRoute
   '/properties': typeof PropertiesRouteWithChildren
   '/request': typeof RequestRoute
   '/sell': typeof SellRoute
@@ -94,6 +102,7 @@ export interface FileRoutesById {
   '/compare': typeof CompareRoute
   '/contact': typeof ContactRoute
   '/favorites': typeof FavoritesRoute
+  '/projects': typeof ProjectsRoute
   '/properties': typeof PropertiesRouteWithChildren
   '/request': typeof RequestRoute
   '/sell': typeof SellRoute
@@ -107,6 +116,7 @@ export interface FileRouteTypes {
     | '/compare'
     | '/contact'
     | '/favorites'
+    | '/projects'
     | '/properties'
     | '/request'
     | '/sell'
@@ -118,6 +128,7 @@ export interface FileRouteTypes {
     | '/compare'
     | '/contact'
     | '/favorites'
+    | '/projects'
     | '/properties'
     | '/request'
     | '/sell'
@@ -129,6 +140,7 @@ export interface FileRouteTypes {
     | '/compare'
     | '/contact'
     | '/favorites'
+    | '/projects'
     | '/properties'
     | '/request'
     | '/sell'
@@ -141,6 +153,7 @@ export interface RootRouteChildren {
   CompareRoute: typeof CompareRoute
   ContactRoute: typeof ContactRoute
   FavoritesRoute: typeof FavoritesRoute
+  ProjectsRoute: typeof ProjectsRoute
   PropertiesRoute: typeof PropertiesRouteWithChildren
   RequestRoute: typeof RequestRoute
   SellRoute: typeof SellRoute
@@ -167,6 +180,13 @@ declare module '@tanstack/react-router' {
       path: '/properties'
       fullPath: '/properties'
       preLoaderRoute: typeof PropertiesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/projects': {
+      id: '/projects'
+      path: '/projects'
+      fullPath: '/projects'
+      preLoaderRoute: typeof ProjectsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/favorites': {
@@ -232,6 +252,7 @@ const rootRouteChildren: RootRouteChildren = {
   CompareRoute: CompareRoute,
   ContactRoute: ContactRoute,
   FavoritesRoute: FavoritesRoute,
+  ProjectsRoute: ProjectsRoute,
   PropertiesRoute: PropertiesRouteWithChildren,
   RequestRoute: RequestRoute,
   SellRoute: SellRoute,

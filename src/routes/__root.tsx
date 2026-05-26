@@ -10,6 +10,9 @@ import {
 
 import appCss from "../styles.css?url";
 import { Toaster } from "@/components/ui/sonner";
+import { CinematicIntro } from "@/components/site/CinematicIntro";
+import { SmoothScroll } from "@/components/site/SmoothScroll";
+import { MobileBottomNav } from "@/components/site/MobileBottomNav";
 
 function NotFoundComponent() {
   return (
@@ -112,7 +115,10 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <SmoothScroll />
+      <CinematicIntro />
       <Outlet />
+      <MobileBottomNav />
       <Toaster position="top-center" />
     </QueryClientProvider>
   );
