@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { Navbar } from "@/components/site/Navbar";
 import { Footer } from "@/components/site/Footer";
 import { PropertyCard } from "@/components/site/PropertyCard";
-import { properties, WHATSAPP } from "@/lib/properties";
+import { properties, WHATSAPP, groupByType } from "@/lib/properties";
 import heroCairo from "@/assets/hero-cairo.jpg";
 import { ArrowLeft, Building2, Search, KeyRound, ShieldCheck, Sparkles, MessageCircle } from "lucide-react";
 
@@ -194,14 +194,22 @@ function ServiceSplit() {
 }
 
 function FeaturedListings() {
+  const groups = groupByType();
+  const order: Array<{ type: string; kicker: string; subtitle: string }> = [
+    { type: "شقة", kicker: "السكن العائلي", subtitle: "أحدث الشقق السكنية في أرقى المواقع." },
+    { type: "بيت", kicker: "البيوت والعمارات", subtitle: "بيوت متعددة الأدوار وفرص تطوير مميزة." },
+    { type: "أرض", kicker: "الأراضي والاستثمار", subtitle: "قطع أراضٍ بمواقع استراتيجية وأسعار تنافسية." },
+    { type: "مكتب", kicker: "الأدوار الإدارية", subtitle: "أدوار إدارية وتجارية بشوارع رئيسية." },
+  ];
+
   return (
     <section className="relative py-24 px-6">
       <div className="mx-auto max-w-7xl">
         <div className="flex items-end justify-between flex-wrap gap-4">
           <SectionHeading
             kicker="عقارات مختارة"
-            title="أحدث العقارات المميزة"
-            subtitle="مختارات من أفخم العقارات المعروضة حالياً."
+            title="استعرض العقارات حسب القسم"
+            subtitle={`60+ عقار متاح للبيع — شقق، بيوت، أراضٍ وأدوار إدارية بمواقع مميزة.`}
             align="start"
           />
           <Link
@@ -211,19 +219,46 @@ function FeaturedListings() {
             عرض الكل <ArrowLeft size={16} />
           </Link>
         </div>
-        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {properties.slice(0, 6).map((p, i) => (
-            <motion.div
-              key={p.id}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.6, delay: (i % 3) * 0.1 }}
-            >
-              <PropertyCard p={p} />
-            </motion.div>
-          ))}
-        </div>
+
+        {order.map(({ type, kicker, subtitle }) => {
+          const items = groups[type] ?? [];
+          if (!items.length) return null;
+          return (
+            <div key={type} className="mt-20">
+              <div className="flex items-end justify-between flex-wrap gap-3 mb-6">
+                <div>
+                  <div className="text-xs tracking-[0.3em] text-gold/80 uppercase mb-2">
+                    {kicker}
+                  </div>
+                  <h3 className="font-display text-2xl md:text-3xl text-foreground">
+                    {type} <span className="text-muted-foreground text-base">({items.length})</span>
+                  </h3>
+                  <p className="text-sm text-muted-foreground mt-1">{subtitle}</p>
+                </div>
+                <div className="flex-1 mx-6 hidden md:block hairline-gold" />
+                <Link
+                  to="/properties"
+                  className="text-sm text-gold/90 hover:text-gold inline-flex items-center gap-1"
+                >
+                  عرض كل {type} <ArrowLeft size={14} />
+                </Link>
+              </div>
+              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                {items.slice(0, 6).map((p, i) => (
+                  <motion.div
+                    key={p.id}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-60px" }}
+                    transition={{ duration: 0.6, delay: (i % 3) * 0.1 }}
+                  >
+                    <PropertyCard p={p} />
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          );
+        })}
       </div>
     </section>
   );
