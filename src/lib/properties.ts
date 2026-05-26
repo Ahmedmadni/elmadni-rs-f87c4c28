@@ -1,21 +1,41 @@
-import villa from "@/assets/property-villa.jpg";
-import apartment from "@/assets/property-apartment.jpg";
-import office from "@/assets/property-office.jpg";
-import coast from "@/assets/property-coast.jpg";
-import compound from "@/assets/property-compound.jpg";
-import retail from "@/assets/property-retail.jpg";
+import apartmentImg from "@/assets/type-apartment.jpg";
+import villaImg from "@/assets/type-villa.jpg";
+import townhouseImg from "@/assets/type-townhouse.jpg";
+import chaletImg from "@/assets/type-chalet.jpg";
+import officeImg from "@/assets/type-office.jpg";
+import retailImg from "@/assets/type-retail.jpg";
+import landImg from "@/assets/type-land.jpg";
+
+export type PropertyType =
+  | "شقة"
+  | "فيلا"
+  | "تاون هاوس"
+  | "شاليه"
+  | "مكتب"
+  | "محل"
+  | "أرض";
+
+export const TYPE_IMAGE: Record<PropertyType, string> = {
+  "شقة": apartmentImg,
+  "فيلا": villaImg,
+  "تاون هاوس": townhouseImg,
+  "شاليه": chaletImg,
+  "مكتب": officeImg,
+  "محل": retailImg,
+  "أرض": landImg,
+};
 
 export type Property = {
   id: string;
   title: string;
-  type: string;
+  type: PropertyType;
   status: "للبيع" | "للإيجار";
   badge?: "جديد" | "مميز" | "فرصة استثمارية";
   price: string;
   area: string;
   rooms: number;
   location: string;
-  image: string;
+  image?: string;
 };
 
 export const properties: Property[] = [
@@ -29,7 +49,6 @@ export const properties: Property[] = [
     area: "650 م²",
     rooms: 6,
     location: "التجمع الخامس، القاهرة الجديدة",
-    image: villa,
   },
   {
     id: "2",
@@ -41,7 +60,6 @@ export const properties: Property[] = [
     area: "210 م²",
     rooms: 3,
     location: "الزمالك، القاهرة",
-    image: apartment,
   },
   {
     id: "3",
@@ -53,7 +71,6 @@ export const properties: Property[] = [
     area: "120 م²",
     rooms: 2,
     location: "العاصمة الإدارية الجديدة",
-    image: office,
   },
   {
     id: "4",
@@ -65,7 +82,6 @@ export const properties: Property[] = [
     area: "180 م²",
     rooms: 3,
     location: "هاسيندا باي، الساحل الشمالي",
-    image: coast,
   },
   {
     id: "5",
@@ -77,7 +93,6 @@ export const properties: Property[] = [
     area: "320 م²",
     rooms: 4,
     location: "مدينتي، القاهرة",
-    image: compound,
   },
   {
     id: "6",
@@ -89,9 +104,12 @@ export const properties: Property[] = [
     area: "95 م²",
     rooms: 1,
     location: "مول العرب، 6 أكتوبر",
-    image: retail,
   },
 ];
+
+export function getPropertyImage(p: Property): string {
+  return p.image ?? TYPE_IMAGE[p.type];
+}
 
 export const PHONE = "01111337628";
 export const WHATSAPP = `https://wa.me/2${PHONE}`;
