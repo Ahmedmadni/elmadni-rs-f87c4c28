@@ -61,10 +61,10 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
-  /* Premium Arabic stack — Cairo, Tajawal, Alexandria + DIN Next Arabic fallback */
-  --font-sans: 'DIN Next Arabic', 'Alexandria', 'Tajawal', 'Cairo', system-ui, -apple-system, sans-serif;
-  --font-display: 'Cairo', 'DIN Next Arabic', 'Alexandria', 'Tajawal', system-ui, sans-serif;
-  --font-arabic-display: 'Cairo', 'DIN Next Arabic', 'Alexandria', 'Tajawal', system-ui, sans-serif;
+  /* Premium Arabic stack — Tajawal first (matches reference), with Cairo/Alexandria/DIN Next Arabic */
+  --font-sans: 'Tajawal', 'DIN Next Arabic', 'Alexandria', 'Cairo', system-ui, -apple-system, sans-serif;
+  --font-display: 'Tajawal', 'DIN Next Arabic', 'Cairo', 'Alexandria', system-ui, sans-serif;
+  --font-arabic-display: 'Tajawal', 'DIN Next Arabic', 'Cairo', 'Alexandria', system-ui, sans-serif;
   --color-gold: var(--gold);
   --color-gold-soft: var(--gold-soft);
   --color-emerald-deep: var(--emerald-deep);
