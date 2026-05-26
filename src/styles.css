@@ -286,3 +286,9 @@
   /* Bottom-nav safe area for mobile */
   .safe-pb { padding-bottom: max(env(safe-area-inset-bottom), 0.5rem); }
 }
+
+@layer base {
+  @media (max-width: 1023px) {
+    body { padding-bottom: 5.5rem; }
+  }
+}
