@@ -10,9 +10,9 @@ import { Check, ArrowLeft, ArrowRight, MessageCircle } from "lucide-react";
 export const Route = createFileRoute("/request")({
   head: () => ({
     meta: [
-      { title: "طلب عقار | المدني العقارية" },
+      { title: "طلب عقار | مدني العقارية" },
       { name: "description", content: "اطلب عقارك المثالي بمواصفات محددة وسنبحث لك عن أفضل الفرص." },
-      { property: "og:title", content: "طلب عقار | المدني العقارية" },
+      { property: "og:title", content: "طلب عقار | مدني العقارية" },
       { property: "og:description", content: "منظومة ذكية لطلب العقارات في مصر." },
     ],
   }),

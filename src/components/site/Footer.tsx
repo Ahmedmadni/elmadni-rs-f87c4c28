@@ -18,8 +18,8 @@ export function Footer() {
           <div className="flex items-center gap-3">
             <img src={logo} alt="logo" className="h-12 w-12 rounded-full ring-1 ring-gold/40" />
             <div>
-              <div className="font-display text-2xl text-gold-gradient">المدني العقارية</div>
-              <div className="text-xs tracking-[0.3em] text-muted-foreground">ELMADNI · EST. 2024</div>
+              <div className="font-display text-2xl text-gold-gradient">مدني العقارية</div>
+              <div className="text-xs tracking-[0.3em] text-muted-foreground">MADNI · EST. 2024</div>
             </div>
           </div>
           <p className="mt-5 text-muted-foreground leading-loose max-w-md">
@@ -57,7 +57,7 @@ export function Footer() {
             </li>
             <li className="flex items-center gap-2">
               <MapPin size={16} className="text-gold" />
-              <span>التجمع الخامس، القاهرة الجديدة</span>
+              <span>مغاغة، المنيا</span>
             </li>
           </ul>
           <div className="flex gap-3 mt-5">
@@ -67,7 +67,7 @@ export function Footer() {
         </div>
       </div>
       <div className="mx-auto max-w-7xl px-6 pb-8 pt-6 border-t border-gold/10 flex flex-col sm:flex-row justify-between gap-3 text-xs text-muted-foreground">
-        <div>© {new Date().getFullYear()} المدني العقارية. جميع الحقوق محفوظة.</div>
+        <div>© {new Date().getFullYear()} مدني العقارية. جميع الحقوق محفوظة.</div>
         <div>صُمّم بأناقة لتجربة عقارية فاخرة.</div>
       </div>
     </footer>

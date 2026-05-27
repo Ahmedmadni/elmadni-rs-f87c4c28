@@ -12,9 +12,9 @@ import { ArrowLeft, MapPin, Building2 } from "lucide-react";
 export const Route = createFileRoute("/projects")({
   head: () => ({
     meta: [
-      { title: "المشاريع | المدني العقارية" },
+      { title: "المشاريع | مدني العقارية" },
       { name: "description", content: "مشاريع عقارية فاخرة وفرص استثمارية مختارة في أرقى مناطق مصر." },
-      { property: "og:title", content: "المشاريع | المدني العقارية" },
+      { property: "og:title", content: "المشاريع | مدني العقارية" },
       { property: "og:description", content: "أبرز المشاريع العقارية والاستثمارية." },
     ],
   }),
@@ -37,7 +37,7 @@ const projects: Project[] = [
   {
     id: "p1",
     name: "مدني تاور",
-    developer: "المدني للتطوير العقاري",
+    developer: "مدني للتطوير العقاري",
     location: "العاصمة الإدارية الجديدة",
     type: "إداري · تجاري",
     delivery: "2027",
@@ -48,8 +48,8 @@ const projects: Project[] = [
   {
     id: "p2",
     name: "إميرالد ريزيدنس",
-    developer: "المدني العقارية",
-    location: "التجمع الخامس، القاهرة الجديدة",
+    developer: "مدني العقارية",
+    location: "مغاغة، المنيا",
     type: "سكني فاخر",
     delivery: "2026",
     units: "240 شقة",
@@ -59,7 +59,7 @@ const projects: Project[] = [
   {
     id: "p3",
     name: "غولد كمبوند",
-    developer: "المدني العقارية",
+    developer: "مدني العقارية",
     location: "مدينتي، القاهرة",
     type: "تاون هاوس وفلل",
     delivery: "2026",
@@ -70,7 +70,7 @@ const projects: Project[] = [
   {
     id: "p4",
     name: "هاسيندا إكلوسيف",
-    developer: "المدني العقارية",
+    developer: "مدني العقارية",
     location: "هاسيندا باي، الساحل الشمالي",
     type: "شاليهات وفلل",
     delivery: "2026",

@@ -84,7 +84,7 @@ function Hero() {
           transition={{ duration: 0.8 }}
           className="inline-flex items-center gap-2 rounded-full glass px-4 py-1.5 text-xs tracking-[0.25em] text-gold"
         >
-          <Sparkles size={14} /> ELMADNI · LUXURY REAL ESTATE
+          <Sparkles size={14} /> MADNI · LUXURY REAL ESTATE
         </motion.div>
 
         <motion.h1
@@ -93,7 +93,7 @@ function Hero() {
           transition={{ duration: 1, delay: 0.15 }}
           className="font-display mt-6 text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-semibold leading-[1.05]"
         >
-          المدني العقارية
+          مدني العقارية
           <span className="block mt-3 text-gold-gradient">خبرة عقارية تثق بها</span>
         </motion.h1>
 

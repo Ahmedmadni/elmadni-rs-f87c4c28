@@ -8,7 +8,7 @@ import { GitCompare, X, MapPin, MessageCircle } from "lucide-react";
 export const Route = createFileRoute("/compare")({
   head: () => ({
     meta: [
-      { title: "مقارنة العقارات | المدني العقارية" },
+      { title: "مقارنة العقارات | مدني العقارية" },
       { name: "description", content: "قارن بين العقارات لاتخاذ القرار الأنسب." },
     ],
   }),

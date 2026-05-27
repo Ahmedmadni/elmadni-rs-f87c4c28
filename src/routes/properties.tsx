@@ -10,9 +10,9 @@ import { Search } from "lucide-react";
 export const Route = createFileRoute("/properties")({
   head: () => ({
     meta: [
-      { title: "العقارات | المدني العقارية" },
+      { title: "العقارات | مدني العقارية" },
       { name: "description", content: "تصفّح أفخم العقارات في مصر — شقق، فلل، مكاتب، شاليهات وأراضٍ." },
-      { property: "og:title", content: "العقارات | المدني العقارية" },
+      { property: "og:title", content: "العقارات | مدني العقارية" },
       { property: "og:description", content: "أفخم العقارات في أرقى مناطق مصر." },
     ],
   }),

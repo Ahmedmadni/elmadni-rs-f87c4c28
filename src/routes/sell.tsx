@@ -10,9 +10,9 @@ import { UploadCloud, Check, MessageCircle } from "lucide-react";
 export const Route = createFileRoute("/sell")({
   head: () => ({
     meta: [
-      { title: "اعرض عقارك | المدني العقارية" },
+      { title: "اعرض عقارك | مدني العقارية" },
       { name: "description", content: "اعرض عقارك على أرقى منصة عقارية في مصر بصور وفيديوهات احترافية." },
-      { property: "og:title", content: "اعرض عقارك | المدني العقارية" },
+      { property: "og:title", content: "اعرض عقارك | مدني العقارية" },
       { property: "og:description", content: "بوابة البائع — تسويق احترافي وإدارة كاملة." },
     ],
   }),
