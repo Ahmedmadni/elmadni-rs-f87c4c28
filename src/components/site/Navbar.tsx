@@ -48,10 +48,10 @@ export function Navbar() {
             />
             <div className="leading-tight hidden sm:block">
               <div className="font-display text-lg text-gold-gradient font-semibold">
-                مدني العقارية
+                مدني
               </div>
               <div className="text-[10px] tracking-[0.25em] text-muted-foreground">
-                MADNI · REAL ESTATE
+                MADNI · MAGHAGHA
               </div>
             </div>
           </Link>
