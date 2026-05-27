@@ -19,12 +19,12 @@ export function Footer() {
             <img src={logo} alt="logo" className="h-12 w-12 rounded-full ring-1 ring-gold/40" />
             <div>
               <div className="font-display text-2xl text-gold-gradient">مدني العقارية</div>
-              <div className="text-xs tracking-[0.3em] text-muted-foreground">MADNI · EST. 2024</div>
+              <div className="text-xs tracking-[0.3em] text-muted-foreground">MADNI · MAGHAGHA · MINYA</div>
             </div>
           </div>
           <p className="mt-5 text-muted-foreground leading-loose max-w-md">
             خبرة عقارية تثق بها. نقدم تجربة فاخرة لشراء وبيع وطلب العقارات في
-            أرقى مناطق مصر، من القاهرة الجديدة إلى الساحل الشمالي.
+            قلب مغاغة بمحافظة المنيا وصعيد مصر.
           </p>
         </div>
 

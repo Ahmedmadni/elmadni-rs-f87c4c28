@@ -57,7 +57,7 @@ export function CinematicIntro() {
               transition={{ delay: 0.7, duration: 0.8 }}
               className="mt-6 text-[10px] tracking-[0.6em] text-gold/80"
             >
-              MADNI · EST. CAIRO
+              MADNI · MAGHAGHA · MINYA
             </motion.div>
             <motion.h1
               initial={{ opacity: 0, y: 15 }}
