@@ -88,7 +88,7 @@ function RequestPage() {
                   {step === 1 && (
                     <>
                       <Field label="المحافظة" value={form.governorate} onChange={set("governorate")} placeholder="القاهرة، الجيزة، الإسكندرية..." />
-                      <Field label="المنطقة" value={form.area} onChange={set("area")} placeholder="التجمع الخامس، الشيخ زايد..." />
+                      <Field label="المنطقة" value={form.area} onChange={set("area")} placeholder="مغاغة، المنيا، بني مزار..." />
                       <Field label="الميزانية (ج.م)" value={form.budget} onChange={set("budget")} placeholder="5,000,000" />
                     </>
                   )}
