@@ -23,7 +23,7 @@ export type WpPost = {
   content: string;
   date: string;
   featuredImage: string | null;
-  meta?: Record<string, unknown>;
+  meta?: Record<string, string | number | boolean | null>;
 };
 
 function base(): string | null {
@@ -53,7 +53,7 @@ function normalize(raw: {
   excerpt?: { rendered: string };
   content?: { rendered: string };
   date: string;
-  meta?: Record<string, unknown>;
+  meta?: Record<string, string | number | boolean | null>;
   _embedded?: WpEmbedded;
 }): WpPost {
   const media = raw._embedded?.["wp:featuredmedia"]?.[0]?.source_url ?? null;
