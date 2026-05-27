@@ -65,7 +65,7 @@ export function CinematicIntro() {
               transition={{ delay: 0.9, duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
               className="font-display mt-3 text-4xl sm:text-6xl font-semibold text-gold-gradient"
             >
-              مدني العقارية
+              مدني
             </motion.h1>
 
             <motion.div
