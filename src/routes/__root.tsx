@@ -80,10 +80,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "مدني العقارية | MADNI Real Estate — خبرة عقارية تثق بها" },
       { name: "description", content: "منصة عقارية مصرية فاخرة لشراء وبيع وطلب العقارات بتجربة سينمائية حديثة." },
-      { property: "og:title", content: "مدني العقارية | MADNI Real Estate" },
-      { property: "og:description", content: "خبرة عقارية تثق بها — تصفح، اطلب، أو اعرض عقارك." },
+      { property: "og:title", content: "مدني العقارية | MADNI Real Estate — خبرة عقارية تثق بها" },
+      { property: "og:description", content: "منصة عقارية مصرية فاخرة لشراء وبيع وطلب العقارات بتجربة سينمائية حديثة." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
+      { name: "twitter:title", content: "مدني العقارية | MADNI Real Estate — خبرة عقارية تثق بها" },
+      { name: "twitter:description", content: "منصة عقارية مصرية فاخرة لشراء وبيع وطلب العقارات بتجربة سينمائية حديثة." },
+      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/sHg6QnS04TcmbXVlhYYOOD3JhZB2/social-images/social-1779857606474-1000510384.webp" },
+      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/sHg6QnS04TcmbXVlhYYOOD3JhZB2/social-images/social-1779857606474-1000510384.webp" },
     ],
     links: [
       {
