@@ -43,15 +43,15 @@ export function Navbar() {
           <Link to="/" className="flex items-center gap-3 group">
             <img
               src={logo}
-              alt="المدني العقارية"
+              alt="مدني العقارية"
               className="h-10 w-10 rounded-full object-cover ring-1 ring-gold/40 group-hover:ring-gold transition"
             />
             <div className="leading-tight hidden sm:block">
               <div className="font-display text-lg text-gold-gradient font-semibold">
-                المدني العقارية
+                مدني
               </div>
               <div className="text-[10px] tracking-[0.25em] text-muted-foreground">
-                ELMADNI · REAL ESTATE
+                MADNI · MAGHAGHA
               </div>
             </div>
           </Link>

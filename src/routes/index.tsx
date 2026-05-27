@@ -40,11 +40,11 @@ function Hero() {
         className="absolute inset-0 h-full w-full object-cover scale-105"
       >
         <source
-          src="https://cdn.pixabay.com/video/2023/10/27/186446-878499773_large.mp4"
+          src="https://cdn.pixabay.com/video/2024/03/15/204140-925764063_large.mp4"
           type="video/mp4"
         />
         <source
-          src="https://cdn.coverr.co/videos/coverr-aerial-shot-of-a-city-3146/1080p.mp4"
+          src="https://cdn.pixabay.com/video/2022/12/09/142073-779966112_large.mp4"
           type="video/mp4"
         />
       </video>
@@ -84,16 +84,16 @@ function Hero() {
           transition={{ duration: 0.8 }}
           className="inline-flex items-center gap-2 rounded-full glass px-4 py-1.5 text-xs tracking-[0.25em] text-gold"
         >
-          <Sparkles size={14} /> ELMADNI · LUXURY REAL ESTATE
+          <Sparkles size={14} /> MADNI · MAGHAGHA · LUXURY REAL ESTATE
         </motion.div>
 
         <motion.h1
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.15 }}
-          className="font-display mt-6 text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-semibold leading-[1.05]"
+          className="font-display mt-6 text-[2rem] sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-semibold leading-[1.1]"
         >
-          المدني العقارية
+          مدني للعقارات
           <span className="block mt-3 text-gold-gradient">خبرة عقارية تثق بها</span>
         </motion.h1>
 
@@ -101,10 +101,10 @@ function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.35 }}
-          className="mt-6 mx-auto max-w-2xl text-base sm:text-lg text-foreground/85 leading-loose"
+          className="mt-6 mx-auto max-w-2xl text-sm sm:text-base md:text-lg text-foreground/85 leading-loose px-2"
         >
-          منصة عقارية حديثة تساعدك على شراء وبيع وطلب العقارات بسهولة وتجربة فاخرة
-          عبر أرقى مناطق مصر.
+          منصة عقارية حديثة من قلب مغاغة بمحافظة المنيا — شراء وبيع وطلب
+          العقارات بسهولة وتجربة فاخرة تخدم صعيد مصر.
         </motion.p>
 
         <motion.div

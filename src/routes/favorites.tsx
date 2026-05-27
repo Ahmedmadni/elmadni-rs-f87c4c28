@@ -9,7 +9,7 @@ import { Heart } from "lucide-react";
 export const Route = createFileRoute("/favorites")({
   head: () => ({
     meta: [
-      { title: "المفضلة | المدني العقارية" },
+      { title: "المفضلة | مدني العقارية" },
       { name: "description", content: "العقارات التي أضفتها إلى مفضلتك." },
     ],
   }),

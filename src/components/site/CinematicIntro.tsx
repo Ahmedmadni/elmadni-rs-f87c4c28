@@ -44,7 +44,7 @@ export function CinematicIntro() {
           >
             <motion.img
               src={logo}
-              alt="المدني العقارية"
+              alt="مدني العقارية"
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2, duration: 1 }}
@@ -57,7 +57,7 @@ export function CinematicIntro() {
               transition={{ delay: 0.7, duration: 0.8 }}
               className="mt-6 text-[10px] tracking-[0.6em] text-gold/80"
             >
-              ELMADNI · EST. CAIRO
+              MADNI · MAGHAGHA · MINYA
             </motion.div>
             <motion.h1
               initial={{ opacity: 0, y: 15 }}
@@ -65,7 +65,7 @@ export function CinematicIntro() {
               transition={{ delay: 0.9, duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
               className="font-display mt-3 text-4xl sm:text-6xl font-semibold text-gold-gradient"
             >
-              المدني العقارية
+              مدني
             </motion.h1>
 
             <motion.div

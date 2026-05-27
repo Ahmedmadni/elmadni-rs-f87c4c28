@@ -10,9 +10,9 @@ import { Check, ArrowLeft, ArrowRight, MessageCircle } from "lucide-react";
 export const Route = createFileRoute("/request")({
   head: () => ({
     meta: [
-      { title: "طلب عقار | المدني العقارية" },
+      { title: "طلب عقار | مدني العقارية" },
       { name: "description", content: "اطلب عقارك المثالي بمواصفات محددة وسنبحث لك عن أفضل الفرص." },
-      { property: "og:title", content: "طلب عقار | المدني العقارية" },
+      { property: "og:title", content: "طلب عقار | مدني العقارية" },
       { property: "og:description", content: "منظومة ذكية لطلب العقارات في مصر." },
     ],
   }),
@@ -88,7 +88,7 @@ function RequestPage() {
                   {step === 1 && (
                     <>
                       <Field label="المحافظة" value={form.governorate} onChange={set("governorate")} placeholder="القاهرة، الجيزة، الإسكندرية..." />
-                      <Field label="المنطقة" value={form.area} onChange={set("area")} placeholder="التجمع الخامس، الشيخ زايد..." />
+                      <Field label="المنطقة" value={form.area} onChange={set("area")} placeholder="مغاغة، المنيا، بني مزار..." />
                       <Field label="الميزانية (ج.م)" value={form.budget} onChange={set("budget")} placeholder="5,000,000" />
                     </>
                   )}

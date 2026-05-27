@@ -8,9 +8,9 @@ import { Phone, MessageCircle, Mail, MapPin } from "lucide-react";
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
-      { title: "تواصل معنا | المدني العقارية" },
-      { name: "description", content: "تواصل مع المدني العقارية للاستفسار عن العقارات أو الخدمات." },
-      { property: "og:title", content: "تواصل معنا | المدني العقارية" },
+      { title: "تواصل معنا | مدني العقارية" },
+      { name: "description", content: "تواصل مع مدني العقارية للاستفسار عن العقارات أو الخدمات." },
+      { property: "og:title", content: "تواصل معنا | مدني العقارية" },
       { property: "og:description", content: "نحن في خدمتك." },
     ],
   }),
@@ -22,7 +22,7 @@ function ContactPage() {
     { i: Phone, t: "اتصل بنا", v: PHONE, href: `tel:${PHONE}`, ltr: true },
     { i: MessageCircle, t: "واتساب", v: "تواصل مباشر", href: WHATSAPP },
     { i: Mail, t: "البريد", v: "info@elmadni.com", href: "mailto:info@elmadni.com", ltr: true },
-    { i: MapPin, t: "العنوان", v: "التجمع الخامس، القاهرة الجديدة" },
+    { i: MapPin, t: "العنوان", v: "مغاغة، المنيا" },
   ];
   return (
     <div className="min-h-screen">

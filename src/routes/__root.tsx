@@ -14,6 +14,7 @@ import { CinematicIntro } from "@/components/site/CinematicIntro";
 import { SmoothScroll } from "@/components/site/SmoothScroll";
 import { MobileBottomNav } from "@/components/site/MobileBottomNav";
 import { themeInitScript } from "@/components/site/ThemeToggle";
+import { SoundEffects } from "@/components/site/SoundEffects";
 
 function NotFoundComponent() {
   return (
@@ -77,9 +78,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "المدني العقارية | ELMADNI Real Estate — خبرة عقارية تثق بها" },
+      { title: "مدني العقارية | MADNI Real Estate — خبرة عقارية تثق بها" },
       { name: "description", content: "منصة عقارية مصرية فاخرة لشراء وبيع وطلب العقارات بتجربة سينمائية حديثة." },
-      { property: "og:title", content: "المدني العقارية | ELMADNI Real Estate" },
+      { property: "og:title", content: "مدني العقارية | MADNI Real Estate" },
       { property: "og:description", content: "خبرة عقارية تثق بها — تصفح، اطلب، أو اعرض عقارك." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
@@ -127,6 +128,7 @@ function RootComponent() {
       <CinematicIntro />
       <Outlet />
       <MobileBottomNav />
+      <SoundEffects />
       <Toaster position="top-center" />
     </QueryClientProvider>
   );

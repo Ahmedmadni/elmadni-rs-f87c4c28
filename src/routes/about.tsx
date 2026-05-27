@@ -7,9 +7,9 @@ import { ShieldCheck, Award, Users, Building2 } from "lucide-react";
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
-      { title: "من نحن | المدني العقارية" },
-      { name: "description", content: "تعرف على المدني العقارية — خبرة سنوات في السوق العقاري المصري." },
-      { property: "og:title", content: "من نحن | المدني العقارية" },
+      { title: "من نحن | مدني العقارية" },
+      { name: "description", content: "تعرف على مدني العقارية — خبرة سنوات في السوق العقاري المصري." },
+      { property: "og:title", content: "من نحن | مدني العقارية" },
       { property: "og:description", content: "خبرة عقارية تثق بها." },
     ],
   }),
@@ -27,7 +27,7 @@ function AboutPage() {
     <div className="min-h-screen">
       <Navbar />
       <div className="pt-36 pb-12 px-6">
-        <SectionHeading kicker="ABOUT · من نحن" title="خبرة عقارية تثق بها" subtitle="المدني العقارية شريكك الموثوق في رحلتك العقارية في مصر." />
+        <SectionHeading kicker="ABOUT · من نحن" title="خبرة عقارية تثق بها" subtitle="مدني العقارية شريكك الموثوق في رحلتك العقارية في مصر." />
 
         <div className="mt-12 mx-auto max-w-4xl rounded-3xl glass-strong p-10 leading-loose text-foreground/85">
           نؤمن بأن العقار ليس مجرد مكان، بل استثمار في حياتك ومستقبل عائلتك.
