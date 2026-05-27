@@ -14,6 +14,7 @@ import { CinematicIntro } from "@/components/site/CinematicIntro";
 import { SmoothScroll } from "@/components/site/SmoothScroll";
 import { MobileBottomNav } from "@/components/site/MobileBottomNav";
 import { themeInitScript } from "@/components/site/ThemeToggle";
+import { SoundEffects } from "@/components/site/SoundEffects";
 
 function NotFoundComponent() {
   return (
@@ -127,6 +128,7 @@ function RootComponent() {
       <CinematicIntro />
       <Outlet />
       <MobileBottomNav />
+      <SoundEffects />
       <Toaster position="top-center" />
     </QueryClientProvider>
   );
