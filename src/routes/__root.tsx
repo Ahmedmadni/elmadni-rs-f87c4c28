@@ -15,6 +15,8 @@ import { SmoothScroll } from "@/components/site/SmoothScroll";
 import { MobileBottomNav } from "@/components/site/MobileBottomNav";
 import { themeInitScript } from "@/components/site/ThemeToggle";
 import { SoundEffects } from "@/components/site/SoundEffects";
+import { AIAssistant } from "@/components/site/AIAssistant";
+import { PageTransition } from "@/components/site/PageTransition";
 
 function NotFoundComponent() {
   return (
@@ -130,9 +132,12 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       <SmoothScroll />
       <CinematicIntro />
-      <Outlet />
+      <PageTransition>
+        <Outlet />
+      </PageTransition>
       <MobileBottomNav />
       <SoundEffects />
+      <AIAssistant />
       <Toaster position="top-center" />
     </QueryClientProvider>
   );

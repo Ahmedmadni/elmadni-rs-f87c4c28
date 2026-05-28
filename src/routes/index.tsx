@@ -5,6 +5,8 @@ import { Footer } from "@/components/site/Footer";
 import { PropertyCard } from "@/components/site/PropertyCard";
 import { WHATSAPP, groupByType } from "@/lib/properties";
 import heroCairo from "@/assets/hero-cairo.jpg";
+import madniLogo from "@/assets/madni-logo.png";
+import { Dashboard3D } from "@/components/site/Dashboard3D";
 import { ArrowLeft, Building2, Search, KeyRound, ShieldCheck, Sparkles, MessageCircle } from "lucide-react";
 
 export const Route = createFileRoute("/")({
@@ -17,6 +19,7 @@ function Index() {
       <Navbar />
       <Hero />
       <ServiceSplit />
+      <Dashboard3D />
       <FeaturedListings />
       <RequestCTA />
       <SellCTA />
@@ -39,6 +42,10 @@ function Hero() {
         poster={heroCairo}
         className="absolute inset-0 h-full w-full object-cover scale-105"
       >
+        <source
+          src="https://cdn.pixabay.com/video/2023/10/10/184145-873058928_large.mp4"
+          type="video/mp4"
+        />
         <source
           src="https://cdn.pixabay.com/video/2024/03/15/204140-925764063_large.mp4"
           type="video/mp4"
@@ -78,6 +85,14 @@ function Hero() {
       </div>
 
       <div className="relative z-10 mx-auto max-w-5xl px-6 text-center pt-28 pb-20">
+        <motion.img
+          src={madniLogo}
+          alt="مدني العقارية - MADNI Real Estate"
+          initial={{ opacity: 0, scale: 0.85, y: -10 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+          className="mx-auto h-28 sm:h-36 md:h-44 w-auto object-contain drop-shadow-[0_0_40px_rgba(201,168,76,0.45)] mb-6"
+        />
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
