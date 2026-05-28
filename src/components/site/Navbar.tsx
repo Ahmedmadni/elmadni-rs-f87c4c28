@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Menu, X, Heart, GitCompare } from "lucide-react";
-import logo from "@/assets/madni-logo.jpg";
+import logo from "@/assets/madni-logo.png";
 import { useFavorites, useCompare } from "@/lib/property-store";
 import { ThemeToggle } from "@/components/site/ThemeToggle";
 

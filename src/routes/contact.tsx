@@ -21,7 +21,7 @@ function ContactPage() {
   const items = [
     { i: Phone, t: "اتصل بنا", v: PHONE, href: `tel:${PHONE}`, ltr: true },
     { i: MessageCircle, t: "واتساب", v: "تواصل مباشر", href: WHATSAPP },
-    { i: Mail, t: "البريد", v: "info@elmadni.com", href: "mailto:info@elmadni.com", ltr: true },
+    { i: Mail, t: "البريد", v: "elmadnima@gmail.com", href: "mailto:elmadnima@gmail.com", ltr: true },
     { i: MapPin, t: "العنوان", v: "مغاغة، المنيا" },
   ];
   return (
