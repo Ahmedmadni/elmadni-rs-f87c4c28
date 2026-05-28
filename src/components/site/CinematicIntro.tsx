@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import logo from "@/assets/madni-logo.jpg";
+import logo from "@/assets/madni-logo.png";
 
 const STORAGE_KEY = "madni:intro-seen";
 
@@ -48,8 +48,7 @@ export function CinematicIntro() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2, duration: 1 }}
-              className="mx-auto h-20 w-20 rounded-full ring-2 ring-gold/40"
-              style={{ boxShadow: "var(--shadow-gold-glow)" }}
+              className="mx-auto h-32 w-32 sm:h-40 sm:w-40 object-contain drop-shadow-[0_0_30px_rgba(201,168,76,0.35)]"
             />
             <motion.div
               initial={{ opacity: 0 }}

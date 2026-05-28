@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { PHONE, WHATSAPP } from "@/lib/properties";
 import { Phone, MessageCircle, Mail, MapPin, Facebook, Instagram } from "lucide-react";
-import logo from "@/assets/madni-logo.jpg";
+import logo from "@/assets/madni-logo.png";
 
 export function Footer() {
   return (
@@ -53,7 +53,7 @@ export function Footer() {
             </li>
             <li className="flex items-center gap-2">
               <Mail size={16} className="text-gold" />
-              <a href="mailto:info@elmadni.com" className="hover:text-gold">info@elmadni.com</a>
+              <a href="mailto:elmadnima@gmail.com" className="hover:text-gold">elmadnima@gmail.com</a>
             </li>
             <li className="flex items-center gap-2">
               <MapPin size={16} className="text-gold" />
