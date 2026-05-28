@@ -1,6 +1,6 @@
 import type { Property } from "@/lib/properties";
 import { WHATSAPP, getPropertyImage } from "@/lib/properties";
-import { MapPin, Maximize2, BedDouble, MessageCircle, Heart, GitCompare, ArrowLeft } from "lucide-react";
+import { MapPin, Maximize2, BedDouble, MessageCircle, Heart, GitCompare, ArrowLeft, CheckCircle2 } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { useFavorites, useCompare, COMPARE_LIMIT } from "@/lib/property-store";
 import { toast } from "sonner";
@@ -122,6 +122,19 @@ export function PropertyCard({ p }: { p: Property }) {
             </a>
           </div>
         </div>
+
+        <a
+          href={`${WHATSAPP}?text=${encodeURIComponent(
+            `مرحباً، أرغب في اختيار وطلب هذا العقار:\n\n• ${p.title}\n• النوع: ${p.type} (${p.status})\n• الموقع: ${p.location}\n• المساحة: ${p.area}\n• الغرف: ${p.rooms}\n• السعر: ${p.price}\n\nبرجاء التواصل لاستكمال الإجراءات.`,
+          )}`}
+          target="_blank"
+          rel="noreferrer"
+          onClick={(e) => e.stopPropagation()}
+          className="mt-3 flex items-center justify-center gap-2 rounded-full px-4 py-2.5 text-sm font-semibold text-accent-foreground transition hover:opacity-90"
+          style={{ background: "var(--gradient-gold)" }}
+        >
+          <CheckCircle2 size={16} /> اختيار وطلب عبر واتساب
+        </a>
       </div>
     </article>
   );
