@@ -132,3 +132,16 @@ export function getPropertyImage(p: Property): string {
 
 export const PHONE = "01111337628";
 export const WHATSAPP = `https://wa.me/2${PHONE}`;
+
+/**
+ * Sequential reference code for each property — used as a stable visible
+ * identifier ("M-001", "M-002"...) for fast lookup when speaking with clients
+ * and as a marker in WhatsApp request messages.
+ */
+const CODE_MAP: Map<string, string> = new Map(
+  properties.map((p, i) => [p.id, `M-${String(i + 1).padStart(3, "0")}`]),
+);
+
+export function getPropertyCode(id: string): string {
+  return CODE_MAP.get(id) ?? id;
+}
