@@ -85,8 +85,9 @@
   --secondary-foreground: oklch(0.22 0.03 162);
   --muted: oklch(0.94 0.012 88);
   --muted-foreground: oklch(0.42 0.02 162);
-  --accent: oklch(0.72 0.14 78);
-  --accent-foreground: oklch(0.15 0.02 162);
+  /* Refined gold-emerald accent — replaces the previous orange/ivory tone */
+  --accent: oklch(0.55 0.11 155);
+  --accent-foreground: oklch(0.985 0.012 88);
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.984 0.003 247.858);
   --border: oklch(0.40 0.12 162 / 16%);

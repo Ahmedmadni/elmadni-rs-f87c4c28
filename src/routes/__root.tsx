@@ -17,6 +17,7 @@ import { themeInitScript } from "@/components/site/ThemeToggle";
 import { SoundEffects } from "@/components/site/SoundEffects";
 import { AIAssistant } from "@/components/site/AIAssistant";
 import { PageTransition } from "@/components/site/PageTransition";
+import { FloatingWhatsApp } from "@/components/site/FloatingWhatsApp";
 
 function NotFoundComponent() {
   return (
@@ -138,6 +139,7 @@ function RootComponent() {
       <MobileBottomNav />
       <SoundEffects />
       <AIAssistant />
+      <FloatingWhatsApp />
       <Toaster position="top-center" />
     </QueryClientProvider>
   );
