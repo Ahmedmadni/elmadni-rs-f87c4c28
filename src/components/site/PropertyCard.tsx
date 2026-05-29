@@ -1,6 +1,6 @@
 import type { Property } from "@/lib/properties";
-import { WHATSAPP, getPropertyImage } from "@/lib/properties";
-import { MapPin, Maximize2, BedDouble, MessageCircle, Heart, GitCompare, ArrowLeft, CheckCircle2 } from "lucide-react";
+import { WHATSAPP, getPropertyImage, getPropertyCode } from "@/lib/properties";
+import { MapPin, Maximize2, BedDouble, Heart, GitCompare, CheckCircle2, Wallet, Info } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { useFavorites, useCompare, COMPARE_LIMIT } from "@/lib/property-store";
 import { toast } from "sonner";
@@ -16,6 +16,7 @@ export function PropertyCard({ p }: { p: Property }) {
   const cmp = useCompare();
   const isFav = fav.has(p.id);
   const isCmp = cmp.has(p.id);
+  const code = getPropertyCode(p.id);
 
   const onFav = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -31,6 +32,13 @@ export function PropertyCard({ p }: { p: Property }) {
     cmp.toggle(p.id);
     toast.success(isCmp ? "تمت الإزالة من المقارنة" : "تمت الإضافة إلى المقارنة");
   };
+
+  const inquiryMsg = encodeURIComponent(
+    `مرحباً، أرغب بالاستفسار عن بيانات إضافية عن العقار:\n\n• كود العقار: ${code}\n• ${p.title}\n• الموقع: ${p.location}\n• السعر: ${p.price}`,
+  );
+  const chooseMsg = encodeURIComponent(
+    `مرحباً، أرغب في اختيار هذا العقار:\n\n• كود العقار: ${code}\n• ${p.title}\n• النوع: ${p.type} (${p.status})\n• الموقع: ${p.location}\n• المساحة: ${p.area}\n• الغرف: ${p.rooms}\n• السعر: ${p.price}\n• طريقة الدفع: كاش\n\nبرجاء التواصل لاستكمال الإجراءات.`,
+  );
 
   return (
     <article className="group relative overflow-hidden rounded-3xl glass luxe-shadow transition-all duration-500 hover:-translate-y-1">
@@ -82,7 +90,12 @@ export function PropertyCard({ p }: { p: Property }) {
           </span>
         </div>
         <div className="absolute bottom-4 right-4 left-4">
-          <div className="text-xs text-gold/90 font-medium tracking-wider">{p.type}</div>
+          <div className="flex items-center justify-between gap-2">
+            <div className="text-xs text-gold/90 font-medium tracking-wider">{p.type}</div>
+            <span className="px-2 py-0.5 rounded-md text-[10px] font-bold tracking-wider glass-strong text-gold">
+              {code}
+            </span>
+          </div>
           <h3 className="mt-1 font-display text-xl text-foreground font-semibold leading-tight">
             {p.title}
           </h3>
@@ -104,36 +117,37 @@ export function PropertyCard({ p }: { p: Property }) {
           <div className="font-display text-xl text-gold-gradient font-semibold">
             {p.price}
           </div>
-          <div className="flex items-center gap-2">
-            <Link
-              to="/properties/$id"
-              params={{ id: p.id }}
-              className="inline-flex items-center gap-1 rounded-full px-3 py-1.5 text-xs font-medium glass hover:text-gold transition"
-            >
-              التفاصيل <ArrowLeft size={12} />
-            </Link>
-            <a
-              href={`${WHATSAPP}?text=${encodeURIComponent("مرحباً، أرغب بالاستفسار عن: " + p.title)}`}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-1 rounded-full px-3 py-1.5 text-xs font-medium glass hover:text-gold transition"
-            >
-              <MessageCircle size={14} />
-            </a>
+          <a
+            href={`${WHATSAPP}?text=${inquiryMsg}`}
+            target="_blank"
+            rel="noreferrer"
+            onClick={(e) => e.stopPropagation()}
+            className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-medium glass hover:text-gold transition"
+          >
+            <Info size={12} /> التفاصيل
+          </a>
+        </div>
+
+        {/* Payment method box */}
+        <div className="mt-4 rounded-2xl border border-primary/25 bg-primary/5 p-3">
+          <div className="flex items-center gap-1.5 text-xs font-semibold text-primary">
+            <Wallet size={14} /> طريقة الدفع
+          </div>
+          <div className="mt-1 text-xs text-foreground/85 leading-relaxed">
+            الدفع <span className="font-semibold">كاش</span> فقط. للدفع على دفعات
+            <span className="font-semibold"> تواصل معنا</span>.
           </div>
         </div>
 
         <a
-          href={`${WHATSAPP}?text=${encodeURIComponent(
-            `مرحباً، أرغب في اختيار وطلب هذا العقار:\n\n• ${p.title}\n• النوع: ${p.type} (${p.status})\n• الموقع: ${p.location}\n• المساحة: ${p.area}\n• الغرف: ${p.rooms}\n• السعر: ${p.price}\n\nبرجاء التواصل لاستكمال الإجراءات.`,
-          )}`}
+          href={`${WHATSAPP}?text=${chooseMsg}`}
           target="_blank"
           rel="noreferrer"
           onClick={(e) => e.stopPropagation()}
-          className="mt-3 flex items-center justify-center gap-2 rounded-full px-4 py-2.5 text-sm font-semibold text-accent-foreground transition hover:opacity-90"
-          style={{ background: "var(--gradient-gold)" }}
+          className="mt-3 flex items-center justify-center gap-2 rounded-full px-4 py-2.5 text-sm font-semibold text-primary-foreground transition hover:opacity-90"
+          style={{ background: "var(--gradient-emerald)" }}
         >
-          <CheckCircle2 size={16} /> اختيار وطلب عبر واتساب
+          <CheckCircle2 size={16} /> اختيار
         </a>
       </div>
     </article>
