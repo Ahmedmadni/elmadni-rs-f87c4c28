@@ -1,7 +1,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { Navbar } from "@/components/site/Navbar";
 import { Footer } from "@/components/site/Footer";
-import { properties, WHATSAPP, PHONE, getPropertyImage } from "@/lib/properties";
+import { properties, WHATSAPP, PHONE, getPropertyImage, getPropertyCode } from "@/lib/properties";
 import { useFavorites, useCompare, COMPARE_LIMIT } from "@/lib/property-store";
 import {
   MapPin,
@@ -55,6 +55,7 @@ function PropertyDetailsPage() {
   const cmp = useCompare();
   const isFav = fav.has(p.id);
   const isCmp = cmp.has(p.id);
+  const code = getPropertyCode(p.id);
 
   const related = properties.filter((x) => x.id !== p.id && x.type === p.type).slice(0, 3);
 
@@ -76,7 +77,12 @@ function PropertyDetailsPage() {
               <img src={getPropertyImage(p)} alt={p.title} className="w-full h-[60vh] object-cover" />
               <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent" />
               <div className="absolute bottom-6 right-6 left-6">
-                <div className="text-xs text-gold tracking-[0.25em] font-medium">{p.type} · {p.status}</div>
+                <div className="flex items-center justify-between gap-3">
+                  <div className="text-xs text-gold tracking-[0.25em] font-medium">{p.type} · {p.status}</div>
+                  <span className="px-2.5 py-1 rounded-md text-xs font-bold tracking-wider glass-strong text-gold">
+                    كود: {code}
+                  </span>
+                </div>
                 <h1 className="mt-2 font-display text-3xl sm:text-5xl text-foreground font-semibold leading-tight">
                   {p.title}
                 </h1>
@@ -131,7 +137,7 @@ function PropertyDetailsPage() {
 
               <div className="space-y-2 pt-2 border-t border-gold/15">
                 <a
-                  href={`${WHATSAPP}?text=${encodeURIComponent("مرحباً، أرغب بالاستفسار عن: " + p.title)}`}
+                  href={`${WHATSAPP}?text=${encodeURIComponent(`مرحباً، أرغب بالاستفسار عن العقار:\n\n• كود العقار: ${code}\n• ${p.title}\n• الموقع: ${p.location}\n• السعر: ${p.price}`)}`}
                   target="_blank"
                   rel="noreferrer"
                   className="flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-medium text-accent-foreground"
