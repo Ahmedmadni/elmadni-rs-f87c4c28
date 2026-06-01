@@ -15,6 +15,7 @@ import { Route as RequestRouteImport } from './routes/request'
 import { Route as PropertiesRouteImport } from './routes/properties'
 import { Route as ProjectsRouteImport } from './routes/projects'
 import { Route as LoginRouteImport } from './routes/login'
+import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
 import { Route as FavoritesRouteImport } from './routes/favorites'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CompareRouteImport } from './routes/compare'
@@ -50,6 +51,11 @@ const ProjectsRoute = ProjectsRouteImport.update({
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ForgotPasswordRoute = ForgotPasswordRouteImport.update({
+  id: '/forgot-password',
+  path: '/forgot-password',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FavoritesRoute = FavoritesRouteImport.update({
@@ -89,6 +95,7 @@ export interface FileRoutesByFullPath {
   '/compare': typeof CompareRoute
   '/contact': typeof ContactRoute
   '/favorites': typeof FavoritesRoute
+  '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
   '/projects': typeof ProjectsRoute
   '/properties': typeof PropertiesRouteWithChildren
@@ -103,6 +110,7 @@ export interface FileRoutesByTo {
   '/compare': typeof CompareRoute
   '/contact': typeof ContactRoute
   '/favorites': typeof FavoritesRoute
+  '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
   '/projects': typeof ProjectsRoute
   '/properties': typeof PropertiesRouteWithChildren
@@ -118,6 +126,7 @@ export interface FileRoutesById {
   '/compare': typeof CompareRoute
   '/contact': typeof ContactRoute
   '/favorites': typeof FavoritesRoute
+  '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
   '/projects': typeof ProjectsRoute
   '/properties': typeof PropertiesRouteWithChildren
@@ -134,6 +143,7 @@ export interface FileRouteTypes {
     | '/compare'
     | '/contact'
     | '/favorites'
+    | '/forgot-password'
     | '/login'
     | '/projects'
     | '/properties'
@@ -148,6 +158,7 @@ export interface FileRouteTypes {
     | '/compare'
     | '/contact'
     | '/favorites'
+    | '/forgot-password'
     | '/login'
     | '/projects'
     | '/properties'
@@ -162,6 +173,7 @@ export interface FileRouteTypes {
     | '/compare'
     | '/contact'
     | '/favorites'
+    | '/forgot-password'
     | '/login'
     | '/projects'
     | '/properties'
@@ -177,6 +189,7 @@ export interface RootRouteChildren {
   CompareRoute: typeof CompareRoute
   ContactRoute: typeof ContactRoute
   FavoritesRoute: typeof FavoritesRoute
+  ForgotPasswordRoute: typeof ForgotPasswordRoute
   LoginRoute: typeof LoginRoute
   ProjectsRoute: typeof ProjectsRoute
   PropertiesRoute: typeof PropertiesRouteWithChildren
@@ -227,6 +240,13 @@ declare module '@tanstack/react-router' {
       path: '/login'
       fullPath: '/login'
       preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/forgot-password': {
+      id: '/forgot-password'
+      path: '/forgot-password'
+      fullPath: '/forgot-password'
+      preLoaderRoute: typeof ForgotPasswordRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/favorites': {
@@ -292,6 +312,7 @@ const rootRouteChildren: RootRouteChildren = {
   CompareRoute: CompareRoute,
   ContactRoute: ContactRoute,
   FavoritesRoute: FavoritesRoute,
+  ForgotPasswordRoute: ForgotPasswordRoute,
   LoginRoute: LoginRoute,
   ProjectsRoute: ProjectsRoute,
   PropertiesRoute: PropertiesRouteWithChildren,
