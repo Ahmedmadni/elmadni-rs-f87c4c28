@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SignupRouteImport } from './routes/signup'
 import { Route as SellRouteImport } from './routes/sell'
+import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as RequestRouteImport } from './routes/request'
 import { Route as PropertiesRouteImport } from './routes/properties'
 import { Route as ProjectsRouteImport } from './routes/projects'
@@ -31,6 +32,11 @@ const SignupRoute = SignupRouteImport.update({
 const SellRoute = SellRouteImport.update({
   id: '/sell',
   path: '/sell',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResetPasswordRoute = ResetPasswordRouteImport.update({
+  id: '/reset-password',
+  path: '/reset-password',
   getParentRoute: () => rootRouteImport,
 } as any)
 const RequestRoute = RequestRouteImport.update({
@@ -100,6 +106,7 @@ export interface FileRoutesByFullPath {
   '/projects': typeof ProjectsRoute
   '/properties': typeof PropertiesRouteWithChildren
   '/request': typeof RequestRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/sell': typeof SellRoute
   '/signup': typeof SignupRoute
   '/properties/$id': typeof PropertiesIdRoute
@@ -115,6 +122,7 @@ export interface FileRoutesByTo {
   '/projects': typeof ProjectsRoute
   '/properties': typeof PropertiesRouteWithChildren
   '/request': typeof RequestRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/sell': typeof SellRoute
   '/signup': typeof SignupRoute
   '/properties/$id': typeof PropertiesIdRoute
@@ -131,6 +139,7 @@ export interface FileRoutesById {
   '/projects': typeof ProjectsRoute
   '/properties': typeof PropertiesRouteWithChildren
   '/request': typeof RequestRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/sell': typeof SellRoute
   '/signup': typeof SignupRoute
   '/properties/$id': typeof PropertiesIdRoute
@@ -148,6 +157,7 @@ export interface FileRouteTypes {
     | '/projects'
     | '/properties'
     | '/request'
+    | '/reset-password'
     | '/sell'
     | '/signup'
     | '/properties/$id'
@@ -163,6 +173,7 @@ export interface FileRouteTypes {
     | '/projects'
     | '/properties'
     | '/request'
+    | '/reset-password'
     | '/sell'
     | '/signup'
     | '/properties/$id'
@@ -178,6 +189,7 @@ export interface FileRouteTypes {
     | '/projects'
     | '/properties'
     | '/request'
+    | '/reset-password'
     | '/sell'
     | '/signup'
     | '/properties/$id'
@@ -194,6 +206,7 @@ export interface RootRouteChildren {
   ProjectsRoute: typeof ProjectsRoute
   PropertiesRoute: typeof PropertiesRouteWithChildren
   RequestRoute: typeof RequestRoute
+  ResetPasswordRoute: typeof ResetPasswordRoute
   SellRoute: typeof SellRoute
   SignupRoute: typeof SignupRoute
 }
@@ -212,6 +225,13 @@ declare module '@tanstack/react-router' {
       path: '/sell'
       fullPath: '/sell'
       preLoaderRoute: typeof SellRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reset-password': {
+      id: '/reset-password'
+      path: '/reset-password'
+      fullPath: '/reset-password'
+      preLoaderRoute: typeof ResetPasswordRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/request': {
@@ -317,6 +337,7 @@ const rootRouteChildren: RootRouteChildren = {
   ProjectsRoute: ProjectsRoute,
   PropertiesRoute: PropertiesRouteWithChildren,
   RequestRoute: RequestRoute,
+  ResetPasswordRoute: ResetPasswordRoute,
   SellRoute: SellRoute,
   SignupRoute: SignupRoute,
 }
