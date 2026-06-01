@@ -13,6 +13,7 @@ import { Route as SellRouteImport } from './routes/sell'
 import { Route as RequestRouteImport } from './routes/request'
 import { Route as PropertiesRouteImport } from './routes/properties'
 import { Route as ProjectsRouteImport } from './routes/projects'
+import { Route as LoginRouteImport } from './routes/login'
 import { Route as FavoritesRouteImport } from './routes/favorites'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CompareRouteImport } from './routes/compare'
@@ -38,6 +39,11 @@ const PropertiesRoute = PropertiesRouteImport.update({
 const ProjectsRoute = ProjectsRouteImport.update({
   id: '/projects',
   path: '/projects',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FavoritesRoute = FavoritesRouteImport.update({
@@ -77,6 +83,7 @@ export interface FileRoutesByFullPath {
   '/compare': typeof CompareRoute
   '/contact': typeof ContactRoute
   '/favorites': typeof FavoritesRoute
+  '/login': typeof LoginRoute
   '/projects': typeof ProjectsRoute
   '/properties': typeof PropertiesRouteWithChildren
   '/request': typeof RequestRoute
@@ -89,6 +96,7 @@ export interface FileRoutesByTo {
   '/compare': typeof CompareRoute
   '/contact': typeof ContactRoute
   '/favorites': typeof FavoritesRoute
+  '/login': typeof LoginRoute
   '/projects': typeof ProjectsRoute
   '/properties': typeof PropertiesRouteWithChildren
   '/request': typeof RequestRoute
@@ -102,6 +110,7 @@ export interface FileRoutesById {
   '/compare': typeof CompareRoute
   '/contact': typeof ContactRoute
   '/favorites': typeof FavoritesRoute
+  '/login': typeof LoginRoute
   '/projects': typeof ProjectsRoute
   '/properties': typeof PropertiesRouteWithChildren
   '/request': typeof RequestRoute
@@ -116,6 +125,7 @@ export interface FileRouteTypes {
     | '/compare'
     | '/contact'
     | '/favorites'
+    | '/login'
     | '/projects'
     | '/properties'
     | '/request'
@@ -128,6 +138,7 @@ export interface FileRouteTypes {
     | '/compare'
     | '/contact'
     | '/favorites'
+    | '/login'
     | '/projects'
     | '/properties'
     | '/request'
@@ -140,6 +151,7 @@ export interface FileRouteTypes {
     | '/compare'
     | '/contact'
     | '/favorites'
+    | '/login'
     | '/projects'
     | '/properties'
     | '/request'
@@ -153,6 +165,7 @@ export interface RootRouteChildren {
   CompareRoute: typeof CompareRoute
   ContactRoute: typeof ContactRoute
   FavoritesRoute: typeof FavoritesRoute
+  LoginRoute: typeof LoginRoute
   ProjectsRoute: typeof ProjectsRoute
   PropertiesRoute: typeof PropertiesRouteWithChildren
   RequestRoute: typeof RequestRoute
@@ -187,6 +200,13 @@ declare module '@tanstack/react-router' {
       path: '/projects'
       fullPath: '/projects'
       preLoaderRoute: typeof ProjectsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/favorites': {
@@ -252,6 +272,7 @@ const rootRouteChildren: RootRouteChildren = {
   CompareRoute: CompareRoute,
   ContactRoute: ContactRoute,
   FavoritesRoute: FavoritesRoute,
+  LoginRoute: LoginRoute,
   ProjectsRoute: ProjectsRoute,
   PropertiesRoute: PropertiesRouteWithChildren,
   RequestRoute: RequestRoute,
@@ -260,3 +281,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
