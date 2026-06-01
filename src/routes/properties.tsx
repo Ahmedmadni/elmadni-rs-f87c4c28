@@ -35,7 +35,7 @@ function PropertiesPage() {
         const okQ =
           !q ||
           p.title.includes(q) ||
-          p.location.includes(q);
+          (p.location ?? "").includes(q);
         return okType && okStatus && okQ;
       }),
     [type, status, q],

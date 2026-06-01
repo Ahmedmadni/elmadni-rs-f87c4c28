@@ -14,21 +14,96 @@ export type Database = {
   }
   public: {
     Tables: {
+      notifications: {
+        Row: {
+          body: string | null
+          created_at: string
+          id: string
+          link: string | null
+          read: boolean
+          title: string
+          type: string
+          user_id: string
+        }
+        Insert: {
+          body?: string | null
+          created_at?: string
+          id?: string
+          link?: string | null
+          read?: boolean
+          title: string
+          type: string
+          user_id: string
+        }
+        Update: {
+          body?: string | null
+          created_at?: string
+          id?: string
+          link?: string | null
+          read?: boolean
+          title?: string
+          type?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          created_at: string
+          email: string | null
+          full_name: string | null
+          id: string
+          phone: string | null
+          updated_at: string
+        }
+        Insert: {
+          avatar_url?: string | null
+          created_at?: string
+          email?: string | null
+          full_name?: string | null
+          id: string
+          phone?: string | null
+          updated_at?: string
+        }
+        Update: {
+          avatar_url?: string | null
+          created_at?: string
+          email?: string | null
+          full_name?: string | null
+          id?: string
+          phone?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       properties: {
         Row: {
+          address: string | null
           area: string | null
           badge: string | null
+          bathrooms: number
+          bedrooms: number
+          city: string | null
           code: string
+          contact_name: string | null
+          contact_phone: string | null
           created_at: string
           description: string | null
+          description_full: string | null
+          district: string | null
           featured: boolean
           id: string
           images: string[]
           lat: number | null
           lng: number | null
           location: string | null
+          owner_id: string | null
           price: string
           published: boolean
+          purpose: string | null
+          rejection_reason: string | null
+          review_status: Database["public"]["Enums"]["property_status"]
           rooms: number
           sort_order: number
           status: string
@@ -37,19 +112,31 @@ export type Database = {
           updated_at: string
         }
         Insert: {
+          address?: string | null
           area?: string | null
           badge?: string | null
+          bathrooms?: number
+          bedrooms?: number
+          city?: string | null
           code: string
+          contact_name?: string | null
+          contact_phone?: string | null
           created_at?: string
           description?: string | null
+          description_full?: string | null
+          district?: string | null
           featured?: boolean
           id?: string
           images?: string[]
           lat?: number | null
           lng?: number | null
           location?: string | null
+          owner_id?: string | null
           price: string
           published?: boolean
+          purpose?: string | null
+          rejection_reason?: string | null
+          review_status?: Database["public"]["Enums"]["property_status"]
           rooms?: number
           sort_order?: number
           status?: string
@@ -58,19 +145,31 @@ export type Database = {
           updated_at?: string
         }
         Update: {
+          address?: string | null
           area?: string | null
           badge?: string | null
+          bathrooms?: number
+          bedrooms?: number
+          city?: string | null
           code?: string
+          contact_name?: string | null
+          contact_phone?: string | null
           created_at?: string
           description?: string | null
+          description_full?: string | null
+          district?: string | null
           featured?: boolean
           id?: string
           images?: string[]
           lat?: number | null
           lng?: number | null
           location?: string | null
+          owner_id?: string | null
           price?: string
           published?: boolean
+          purpose?: string | null
+          rejection_reason?: string | null
+          review_status?: Database["public"]["Enums"]["property_status"]
           rooms?: number
           sort_order?: number
           status?: string
@@ -79,6 +178,123 @@ export type Database = {
           updated_at?: string
         }
         Relationships: []
+      }
+      property_images: {
+        Row: {
+          created_at: string
+          id: string
+          property_id: string
+          sort_order: number
+          url: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          property_id: string
+          sort_order?: number
+          url: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          property_id?: string
+          sort_order?: number
+          url?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "property_images_property_id_fkey"
+            columns: ["property_id"]
+            isOneToOne: false
+            referencedRelation: "properties"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      property_status_history: {
+        Row: {
+          changed_by: string | null
+          created_at: string
+          id: string
+          new_status: Database["public"]["Enums"]["property_status"]
+          old_status: Database["public"]["Enums"]["property_status"] | null
+          property_id: string
+          reason: string | null
+        }
+        Insert: {
+          changed_by?: string | null
+          created_at?: string
+          id?: string
+          new_status: Database["public"]["Enums"]["property_status"]
+          old_status?: Database["public"]["Enums"]["property_status"] | null
+          property_id: string
+          reason?: string | null
+        }
+        Update: {
+          changed_by?: string | null
+          created_at?: string
+          id?: string
+          new_status?: Database["public"]["Enums"]["property_status"]
+          old_status?: Database["public"]["Enums"]["property_status"] | null
+          property_id?: string
+          reason?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "property_status_history_property_id_fkey"
+            columns: ["property_id"]
+            isOneToOne: false
+            referencedRelation: "properties"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      purchase_requests: {
+        Row: {
+          buyer_email: string | null
+          buyer_name: string
+          buyer_phone: string
+          buyer_user_id: string | null
+          created_at: string
+          id: string
+          message: string | null
+          property_id: string
+          status: Database["public"]["Enums"]["purchase_request_status"]
+          updated_at: string
+        }
+        Insert: {
+          buyer_email?: string | null
+          buyer_name: string
+          buyer_phone: string
+          buyer_user_id?: string | null
+          created_at?: string
+          id?: string
+          message?: string | null
+          property_id: string
+          status?: Database["public"]["Enums"]["purchase_request_status"]
+          updated_at?: string
+        }
+        Update: {
+          buyer_email?: string | null
+          buyer_name?: string
+          buyer_phone?: string
+          buyer_user_id?: string | null
+          created_at?: string
+          id?: string
+          message?: string | null
+          property_id?: string
+          status?: Database["public"]["Enums"]["purchase_request_status"]
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "purchase_requests_property_id_fkey"
+            columns: ["property_id"]
+            isOneToOne: false
+            referencedRelation: "properties"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       user_roles: {
         Row: {
@@ -116,6 +332,8 @@ export type Database = {
     }
     Enums: {
       app_role: "admin" | "user"
+      property_status: "pending" | "approved" | "rejected"
+      purchase_request_status: "new" | "contacted" | "closed" | "cancelled"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -244,6 +462,8 @@ export const Constants = {
   public: {
     Enums: {
       app_role: ["admin", "user"],
+      property_status: ["pending", "approved", "rejected"],
+      purchase_request_status: ["new", "contacted", "closed", "cancelled"],
     },
   },
 } as const

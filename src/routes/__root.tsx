@@ -18,6 +18,7 @@ import { SoundEffects } from "@/components/site/SoundEffects";
 import { AIAssistant } from "@/components/site/AIAssistant";
 import { PageTransition } from "@/components/site/PageTransition";
 import { FloatingWhatsApp } from "@/components/site/FloatingWhatsApp";
+import { AuthProvider } from "@/hooks/use-auth";
 
 function NotFoundComponent() {
   return (
@@ -131,16 +132,18 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <SmoothScroll />
-      <CinematicIntro />
-      <PageTransition>
-        <Outlet />
-      </PageTransition>
-      <MobileBottomNav />
-      <SoundEffects />
-      <AIAssistant />
-      <FloatingWhatsApp />
-      <Toaster position="top-center" />
+      <AuthProvider>
+        <SmoothScroll />
+        <CinematicIntro />
+        <PageTransition>
+          <Outlet />
+        </PageTransition>
+        <MobileBottomNav />
+        <SoundEffects />
+        <AIAssistant />
+        <FloatingWhatsApp />
+        <Toaster position="top-center" />
+      </AuthProvider>
     </QueryClientProvider>
   );
 }
