@@ -23,9 +23,9 @@ function ComparePage() {
     { label: "السعر", key: (p) => p.price },
     { label: "النوع", key: (p) => p.type },
     { label: "الحالة", key: (p) => p.status },
-    { label: "المساحة", key: (p) => p.area },
+    { label: "المساحة", key: (p) => p.area ?? "—" },
     { label: "الغرف", key: (p) => `${p.rooms} غرف` },
-    { label: "الموقع", key: (p) => p.location },
+    { label: "الموقع", key: (p) => p.location ?? "—" },
   ];
 
   return (
