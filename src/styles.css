@@ -221,15 +221,13 @@
     font-weight: 600;
   }
 
-  .font-hero {
-    font-family: var(--font-hero);
-    letter-spacing: -0.01em;
-    font-feature-settings: "kern", "liga";
-  }
-
+  .font-hero,
+  h1.font-hero,
   :lang(ar) .font-hero,
   [dir="rtl"] .font-hero {
-    font-family: var(--font-hero);
+    font-family: var(--font-hero) !important;
+    letter-spacing: -0.01em;
+    font-feature-settings: "kern", "liga";
   }
 
   .glass {
