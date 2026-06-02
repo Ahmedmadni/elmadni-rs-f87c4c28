@@ -4,7 +4,7 @@
 
 @custom-variant dark (&:is(.dark *));
 
-@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=Tajawal:wght@300;400;500;700;800;900&family=Alexandria:wght@300;400;500;600;700;800;900&display=swap&v=20260527');
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=Tajawal:wght@300;400;500;700;800;900&family=Alexandria:wght@300;400;500;600;700;800;900&family=Reem+Kufi:wght@400;500;600;700&family=El+Messiri:wght@400;500;600;700&family=Amiri:wght@400;700&display=swap&v=20260603');
 
 /*
  * Design system definition.
@@ -65,6 +65,7 @@
   --font-sans: 'Tajawal', 'DIN Next Arabic', 'Alexandria', 'Cairo', system-ui, -apple-system, sans-serif;
   --font-display: 'Tajawal', 'DIN Next Arabic', 'Cairo', 'Alexandria', system-ui, sans-serif;
   --font-arabic-display: 'Tajawal', 'DIN Next Arabic', 'Cairo', 'Alexandria', system-ui, sans-serif;
+  --font-hero: 'Reem Kufi', 'El Messiri', 'Tajawal', 'Cairo', system-ui, sans-serif;
   --color-gold: var(--gold);
   --color-gold-soft: var(--gold-soft);
   --color-emerald-deep: var(--emerald-deep);
@@ -218,6 +219,15 @@
     letter-spacing: -0.02em;
     font-feature-settings: "kern", "liga", "dlig";
     font-weight: 600;
+  }
+
+  .font-hero,
+  h1.font-hero,
+  :lang(ar) .font-hero,
+  [dir="rtl"] .font-hero {
+    font-family: var(--font-hero) !important;
+    letter-spacing: -0.01em;
+    font-feature-settings: "kern", "liga";
   }
 
   .glass {

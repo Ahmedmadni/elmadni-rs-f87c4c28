@@ -44,13 +44,13 @@ export function Navbar() {
             <img
               src={logo}
               alt="مدني العقارية"
-              className="h-10 w-10 rounded-full object-cover ring-1 ring-gold/40 group-hover:ring-gold transition"
+              className="h-14 w-14 sm:h-16 sm:w-16 rounded-full object-cover ring-1 ring-gold/40 group-hover:ring-gold transition shadow-[0_0_20px_rgba(201,168,76,0.35)]"
             />
             <div className="leading-tight hidden sm:block">
-              <div className="font-display text-lg text-gold-gradient font-semibold">
+              <div className="font-display text-2xl text-gold-gradient font-bold tracking-tight">
                 مدني
               </div>
-              <div className="text-[10px] tracking-[0.25em] text-muted-foreground">
+              <div className="text-[10px] tracking-[0.3em] text-muted-foreground mt-0.5">
                 MADNI · MAGHAGHA
               </div>
             </div>
