@@ -91,7 +91,7 @@ function Hero() {
           initial={{ opacity: 0, scale: 0.85, y: -10 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-          className="mx-auto h-28 sm:h-36 md:h-44 w-auto object-contain drop-shadow-[0_0_40px_rgba(201,168,76,0.45)] mb-6"
+          className="mx-auto h-40 sm:h-52 md:h-64 lg:h-72 w-auto object-contain drop-shadow-[0_0_55px_rgba(201,168,76,0.55)] mb-6"
         />
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -106,7 +106,7 @@ function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.15 }}
-          className="font-display mt-6 text-[2rem] sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-semibold leading-[1.1]"
+          className="font-hero mt-6 text-[2.25rem] sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold leading-[1.15] tracking-tight"
         >
           مدني للعقارات
           <span className="block mt-3 text-gold-gradient">خبرة عقارية تثق بها</span>
