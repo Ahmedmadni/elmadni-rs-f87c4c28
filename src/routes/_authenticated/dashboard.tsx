@@ -215,6 +215,24 @@ function DashboardPage() {
           </section>
         )}
 
+        {isAdmin && (
+          <section className="mb-10">
+            <div className="flex items-center gap-2 mb-4">
+              <Home size={18} className="text-gold" />
+              <h2 className="text-lg font-semibold">كل العقارات ({all.filter(filterFn).length})</h2>
+            </div>
+            <PropList items={all.filter(filterFn)} loading={loading} renderActions={(p) => (
+              <>
+                <span className={`rounded-full px-3 py-1 text-[11px] ${p.review_status === "approved" ? "bg-emerald-600/20 text-emerald-400" : p.review_status === "pending" ? "bg-amber-500/20 text-amber-400" : "bg-red-600/20 text-red-400"}`}>
+                  {p.review_status === "approved" ? "موافق عليه" : p.review_status === "pending" ? "قيد المراجعة" : "مرفوض"}
+                </span>
+                <Link to="/properties/edit/$id" params={{ id: p.id }} className="rounded-full px-3 py-1.5 text-xs glass hover:text-gold inline-flex items-center gap-1"><Pencil size={12} /> تعديل</Link>
+                <button onClick={() => remove(p.id)} className="rounded-full px-3 py-1.5 text-xs bg-red-600/20 text-red-400 hover:bg-red-600/30">حذف</button>
+              </>
+            )} />
+          </section>
+        )}
+
         <section>
           <div className="flex items-center gap-2 mb-4">
             <Home size={18} className="text-gold" />
