@@ -4,7 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/use-auth";
 import { Navbar } from "@/components/site/Navbar";
 import { toast } from "sonner";
-import { LogOut, Plus, Home, ShieldCheck } from "lucide-react";
+import { LogOut, Plus, Home, ShieldCheck, Users, Inbox, Pencil } from "lucide-react";
 
 export const Route = createFileRoute("/_authenticated/dashboard")({
   head: () => ({ meta: [{ title: "لوحة التحكم | مدني العقارية" }] }),
@@ -74,6 +74,14 @@ function DashboardPage() {
             <Link to="/sell" className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm text-accent-foreground" style={{ background: "var(--gradient-gold)" }}>
               <Plus size={16} /> إضافة عقار
             </Link>
+            <Link to="/admin/requests" className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm glass hover:text-gold">
+              <Inbox size={16} /> طلبات الشراء
+            </Link>
+            {isAdmin && (
+              <Link to="/admin/users" className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm glass hover:text-gold">
+                <Users size={16} /> المستخدمون
+              </Link>
+            )}
             <button onClick={() => signOut()} className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm glass hover:text-gold">
               <LogOut size={16} /> خروج
             </button>
@@ -105,6 +113,9 @@ function DashboardPage() {
               <span className={`rounded-full px-3 py-1 text-[11px] ${p.review_status === "approved" ? "bg-emerald-600/20 text-emerald-400" : p.review_status === "pending" ? "bg-amber-500/20 text-amber-400" : "bg-red-600/20 text-red-400"}`}>
                 {p.review_status === "approved" ? "موافق عليه" : p.review_status === "pending" ? "قيد المراجعة" : "مرفوض"}
               </span>
+              {(p.review_status === "pending" || isAdmin) && (
+                <Link to="/properties/edit/$id" params={{ id: p.id }} className="rounded-full px-3 py-1.5 text-xs glass hover:text-gold inline-flex items-center gap-1"><Pencil size={12} /> تعديل</Link>
+              )}
               {(p.review_status === "pending" || isAdmin) && (
                 <button onClick={() => remove(p.id)} className="rounded-full px-3 py-1.5 text-xs bg-red-600/20 text-red-400 hover:bg-red-600/30">حذف</button>
               )}
