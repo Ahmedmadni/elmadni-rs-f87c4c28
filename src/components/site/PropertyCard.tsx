@@ -6,9 +6,9 @@ import { useFavorites, useCompare, COMPARE_LIMIT } from "@/lib/property-store";
 import { toast } from "sonner";
 
 const badgeColors: Record<string, string> = {
-  "جديد": "bg-primary/80 text-primary-foreground",
-  "مميز": "text-accent-foreground",
-  "فرصة استثمارية": "bg-emerald-deep text-foreground",
+  "جديد": "bg-primary text-[oklch(0.97_0.015_82)]",
+  "مميز": "text-[oklch(0.12_0.005_60)]",
+  "فرصة استثمارية": "bg-emerald-deep text-[oklch(0.97_0.015_82)]",
 };
 
 export function PropertyCard({ p }: { p: Property }) {
@@ -85,7 +85,7 @@ export function PropertyCard({ p }: { p: Property }) {
               {p.badge}
             </span>
           )}
-          <span className="px-3 py-1 rounded-full text-xs font-medium glass-strong text-gold">
+          <span className="px-3 py-1 rounded-full text-xs font-bold bg-primary text-gold border border-gold/40">
             {p.status}
           </span>
         </div>
