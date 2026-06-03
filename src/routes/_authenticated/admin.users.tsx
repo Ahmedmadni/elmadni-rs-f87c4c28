@@ -38,6 +38,7 @@ function AdminUsers() {
   const promote = async (uid: string) => {
     const { error } = await supabase.from("user_roles").insert({ user_id: uid, role: "admin" });
     if (error) return toast.error(error.message);
+    await logAudit("role_grant", "user", uid, { role: "admin" });
     toast.success("تمت الترقية لأدمن"); load();
   };
   const demote = async (uid: string) => {
