@@ -165,7 +165,7 @@ export function Navbar() {
         </nav>
 
         {open && (
-          <div className="lg:hidden mt-2 rounded-3xl glass-strong p-4 reveal">
+          <div className="lg:hidden mt-2 rounded-3xl bg-background border-2 border-gold/40 luxe-shadow p-4 reveal">
             <div className="flex flex-col">
               {links.map((l) => (
                 <Link
