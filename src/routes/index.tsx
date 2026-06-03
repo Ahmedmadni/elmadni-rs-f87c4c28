@@ -362,7 +362,7 @@ function SellCTA() {
         </div>
         <div className="relative aspect-[4/3] rounded-3xl overflow-hidden luxe-shadow">
           <img src={heroCairo} alt="Cairo" className="absolute inset-0 h-full w-full object-cover" loading="lazy" />
-          <div className="absolute inset-0" style={{ background: "var(--gradient-hero)" }} />
+          <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/40 to-transparent pointer-events-none" />
         </div>
       </div>
     </section>

@@ -53,7 +53,7 @@ export function PropertyCard({ p }: { p: Property }) {
           loading="lazy"
           className="h-full w-full object-cover transition-transform duration-[1200ms] group-hover:scale-110"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/55 via-black/20 to-transparent pointer-events-none" />
         <div className="absolute top-4 left-4 flex flex-col gap-2">
           <button
             onClick={onFav}

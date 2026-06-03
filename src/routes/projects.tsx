@@ -116,7 +116,7 @@ function ProjectsPage() {
                   loading="lazy"
                   className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1500ms] group-hover:scale-110"
                 />
-                <div className="absolute inset-0" style={{ background: "var(--gradient-hero)" }} />
+                <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/40 to-transparent pointer-events-none" />
                 <div className="absolute top-5 right-5 inline-flex items-center gap-1.5 rounded-full glass-strong px-3 py-1.5 text-xs text-gold">
                   <Building2 size={12} /> تسليم {p.delivery}
                 </div>
