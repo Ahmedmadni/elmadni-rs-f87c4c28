@@ -27,6 +27,7 @@ import { Route as PropertiesIdRouteImport } from './routes/properties.$id'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedAdminUsersRouteImport } from './routes/_authenticated/admin.users'
 import { Route as AuthenticatedAdminRequestsRouteImport } from './routes/_authenticated/admin.requests'
+import { Route as AuthenticatedAdminAuditRouteImport } from './routes/_authenticated/admin.audit'
 import { Route as LovableEmailQueueProcessRouteImport } from './routes/lovable/email/queue/process'
 import { Route as AuthenticatedPropertiesEditIdRouteImport } from './routes/_authenticated/properties.edit.$id'
 
@@ -120,6 +121,11 @@ const AuthenticatedAdminRequestsRoute =
     path: '/admin/requests',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
+const AuthenticatedAdminAuditRoute = AuthenticatedAdminAuditRouteImport.update({
+  id: '/admin/audit',
+  path: '/admin/audit',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
 const LovableEmailQueueProcessRoute =
   LovableEmailQueueProcessRouteImport.update({
     id: '/lovable/email/queue/process',
@@ -149,6 +155,7 @@ export interface FileRoutesByFullPath {
   '/signup': typeof SignupRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/properties/$id': typeof PropertiesIdRoute
+  '/admin/audit': typeof AuthenticatedAdminAuditRoute
   '/admin/requests': typeof AuthenticatedAdminRequestsRoute
   '/admin/users': typeof AuthenticatedAdminUsersRoute
   '/properties/edit/$id': typeof AuthenticatedPropertiesEditIdRoute
@@ -170,6 +177,7 @@ export interface FileRoutesByTo {
   '/signup': typeof SignupRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/properties/$id': typeof PropertiesIdRoute
+  '/admin/audit': typeof AuthenticatedAdminAuditRoute
   '/admin/requests': typeof AuthenticatedAdminRequestsRoute
   '/admin/users': typeof AuthenticatedAdminUsersRoute
   '/properties/edit/$id': typeof AuthenticatedPropertiesEditIdRoute
@@ -193,6 +201,7 @@ export interface FileRoutesById {
   '/signup': typeof SignupRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/properties/$id': typeof PropertiesIdRoute
+  '/_authenticated/admin/audit': typeof AuthenticatedAdminAuditRoute
   '/_authenticated/admin/requests': typeof AuthenticatedAdminRequestsRoute
   '/_authenticated/admin/users': typeof AuthenticatedAdminUsersRoute
   '/_authenticated/properties/edit/$id': typeof AuthenticatedPropertiesEditIdRoute
@@ -216,6 +225,7 @@ export interface FileRouteTypes {
     | '/signup'
     | '/dashboard'
     | '/properties/$id'
+    | '/admin/audit'
     | '/admin/requests'
     | '/admin/users'
     | '/properties/edit/$id'
@@ -237,6 +247,7 @@ export interface FileRouteTypes {
     | '/signup'
     | '/dashboard'
     | '/properties/$id'
+    | '/admin/audit'
     | '/admin/requests'
     | '/admin/users'
     | '/properties/edit/$id'
@@ -259,6 +270,7 @@ export interface FileRouteTypes {
     | '/signup'
     | '/_authenticated/dashboard'
     | '/properties/$id'
+    | '/_authenticated/admin/audit'
     | '/_authenticated/admin/requests'
     | '/_authenticated/admin/users'
     | '/_authenticated/properties/edit/$id'
@@ -411,6 +423,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminRequestsRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
+    '/_authenticated/admin/audit': {
+      id: '/_authenticated/admin/audit'
+      path: '/admin/audit'
+      fullPath: '/admin/audit'
+      preLoaderRoute: typeof AuthenticatedAdminAuditRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
     '/lovable/email/queue/process': {
       id: '/lovable/email/queue/process'
       path: '/lovable/email/queue/process'
@@ -430,6 +449,7 @@ declare module '@tanstack/react-router' {
 
 interface AuthenticatedRouteChildren {
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
+  AuthenticatedAdminAuditRoute: typeof AuthenticatedAdminAuditRoute
   AuthenticatedAdminRequestsRoute: typeof AuthenticatedAdminRequestsRoute
   AuthenticatedAdminUsersRoute: typeof AuthenticatedAdminUsersRoute
   AuthenticatedPropertiesEditIdRoute: typeof AuthenticatedPropertiesEditIdRoute
@@ -437,6 +457,7 @@ interface AuthenticatedRouteChildren {
 
 const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
+  AuthenticatedAdminAuditRoute: AuthenticatedAdminAuditRoute,
   AuthenticatedAdminRequestsRoute: AuthenticatedAdminRequestsRoute,
   AuthenticatedAdminUsersRoute: AuthenticatedAdminUsersRoute,
   AuthenticatedPropertiesEditIdRoute: AuthenticatedPropertiesEditIdRoute,
@@ -478,13 +499,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

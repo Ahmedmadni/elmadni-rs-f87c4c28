@@ -14,8 +14,9 @@ export const Route = createFileRoute("/login")({
 function LoginPage() {
   const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
+  const [identifier, setIdentifier] = useState("");
   const [password, setPassword] = useState("");
+  const [remember, setRemember] = useState(true);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -25,7 +26,27 @@ function LoginPage() {
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+    let email = identifier.trim();
+    // If looks like phone (no @), resolve to email via profiles
+    if (!email.includes("@")) {
+      const normalized = email.replace(/[^\d+]/g, "").toLowerCase();
+      const { data: prof } = await supabase
+        .from("profiles")
+        .select("email")
+        .or(`phone.eq.${normalized},phone.eq.${email}`)
+        .maybeSingle();
+      if (!prof?.email) {
+        setLoading(false);
+        toast.error("لم نعثر على حساب بهذا الرقم");
+        return;
+      }
+      email = prof.email;
+    }
     const { error } = await supabase.auth.signInWithPassword({ email, password });
+    if (!remember) {
+      // Best effort: clear localStorage on tab close
+      try { sessionStorage.setItem("madni:no-remember", "1"); } catch {}
+    }
     setLoading(false);
     if (error) toast.error(error.message);
     else toast.success("تم تسجيل الدخول");
@@ -46,13 +67,17 @@ function LoginPage() {
         <h1 className="text-2xl font-semibold text-center mb-6">تسجيل الدخول</h1>
         <form onSubmit={onSubmit} className="space-y-4">
           <div>
-            <label className="text-xs text-muted-foreground">البريد الإلكتروني</label>
-            <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} className="mt-1 w-full rounded-xl glass px-4 py-3 outline-none focus:ring-1 focus:ring-gold" />
+            <label className="text-xs text-muted-foreground">البريد الإلكتروني أو رقم الهاتف</label>
+            <input required value={identifier} onChange={(e) => setIdentifier(e.target.value)} placeholder="example@mail.com أو 01xxxxxxxxx" className="mt-1 w-full rounded-xl glass px-4 py-3 outline-none focus:ring-1 focus:ring-gold" />
           </div>
           <div>
             <label className="text-xs text-muted-foreground">كلمة السر</label>
             <input type="password" required value={password} onChange={(e) => setPassword(e.target.value)} className="mt-1 w-full rounded-xl glass px-4 py-3 outline-none focus:ring-1 focus:ring-gold" />
           </div>
+          <label className="flex items-center gap-2 text-xs text-muted-foreground cursor-pointer">
+            <input type="checkbox" checked={remember} onChange={(e) => setRemember(e.target.checked)} className="accent-gold" />
+            تذكّرني
+          </label>
           <button disabled={loading} className="w-full rounded-full py-3 text-sm font-medium text-accent-foreground transition disabled:opacity-60" style={{ background: "var(--gradient-gold)" }}>
             {loading ? "جارٍ الدخول..." : "دخول"}
           </button>

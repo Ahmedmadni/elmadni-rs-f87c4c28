@@ -25,7 +25,7 @@ const TYPES = ["شقة", "بيت", "فيلا", "تاون هاوس", "أرض", "�
 const PURPOSES = ["للبيع", "للإيجار"] as const;
 
 function SellPage() {
-  const { user, isAuthenticated, loading } = useAuth();
+  const { user, isAuthenticated, loading, canPublish } = useAuth();
   const [done, setDone] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [files, setFiles] = useState<File[]>([]);
@@ -59,6 +59,19 @@ function SellPage() {
             <Link to="/login" className="rounded-full px-6 py-2.5 text-sm text-accent-foreground" style={{ background: "var(--gradient-gold)" }}>تسجيل الدخول</Link>
             <Link to="/signup" className="rounded-full px-6 py-2.5 text-sm glass hover:text-gold">إنشاء حساب</Link>
           </div>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
+  if (!canPublish) {
+    return (
+      <div className="min-h-screen">
+        <Navbar />
+        <div className="pt-40 pb-20 px-6 text-center max-w-xl mx-auto">
+          <h1 className="font-display text-3xl text-gold-gradient mb-3">حساب مسوّق مطلوب</h1>
+          <p className="text-muted-foreground mb-6">نشر العقارات متاح للمسوّقين والإدارة فقط. تواصل مع الإدارة لترقية حسابك.</p>
+          <Link to="/dashboard" className="rounded-full px-6 py-2.5 text-sm glass hover:text-gold">لوحة التحكم</Link>
         </div>
         <Footer />
       </div>
