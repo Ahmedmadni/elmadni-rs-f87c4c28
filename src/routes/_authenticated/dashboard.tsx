@@ -19,6 +19,7 @@ function DashboardPage() {
   const { user, isAdmin, role, signOut } = useAuth();
   const [mine, setMine] = useState<Prop[]>([]);
   const [pending, setPending] = useState<Prop[]>([]);
+  const [all, setAll] = useState<Prop[]>([]);
   const [loading, setLoading] = useState(true);
   const [query, setQuery] = useState("");
   const [stats, setStats] = useState({ total: 0, approved: 0, pending: 0, rejected: 0, users: 0, marketers: 0 });
@@ -41,6 +42,12 @@ function DashboardPage() {
         .eq("review_status", "pending")
         .order("created_at", { ascending: false });
       setPending((p as Prop[]) ?? []);
+      const { data: a } = await supabase
+        .from("properties")
+        .select("id,title,price,review_status,rejection_reason,code")
+        .order("created_at", { ascending: false })
+        .limit(500);
+      setAll((a as Prop[]) ?? []);
       const [allCount, apr, pen, rej, profCount, mkts] = await Promise.all([
         supabase.from("properties").select("id", { count: "exact", head: true }),
         supabase.from("properties").select("id", { count: "exact", head: true }).eq("review_status", "approved"),
@@ -203,6 +210,24 @@ function DashboardPage() {
               <>
                 <button onClick={() => approve(p.id)} className="rounded-full px-3 py-1.5 text-xs bg-emerald-600/20 text-emerald-400 hover:bg-emerald-600/30">موافقة</button>
                 <button onClick={() => reject(p.id)} className="rounded-full px-3 py-1.5 text-xs bg-red-600/20 text-red-400 hover:bg-red-600/30">رفض</button>
+              </>
+            )} />
+          </section>
+        )}
+
+        {isAdmin && (
+          <section className="mb-10">
+            <div className="flex items-center gap-2 mb-4">
+              <Home size={18} className="text-gold" />
+              <h2 className="text-lg font-semibold">كل العقارات ({all.filter(filterFn).length})</h2>
+            </div>
+            <PropList items={all.filter(filterFn)} loading={loading} renderActions={(p) => (
+              <>
+                <span className={`rounded-full px-3 py-1 text-[11px] ${p.review_status === "approved" ? "bg-emerald-600/20 text-emerald-400" : p.review_status === "pending" ? "bg-amber-500/20 text-amber-400" : "bg-red-600/20 text-red-400"}`}>
+                  {p.review_status === "approved" ? "موافق عليه" : p.review_status === "pending" ? "قيد المراجعة" : "مرفوض"}
+                </span>
+                <Link to="/properties/edit/$id" params={{ id: p.id }} className="rounded-full px-3 py-1.5 text-xs glass hover:text-gold inline-flex items-center gap-1"><Pencil size={12} /> تعديل</Link>
+                <button onClick={() => remove(p.id)} className="rounded-full px-3 py-1.5 text-xs bg-red-600/20 text-red-400 hover:bg-red-600/30">حذف</button>
               </>
             )} />
           </section>
