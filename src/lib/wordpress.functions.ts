@@ -31,6 +31,21 @@ function base(): string | null {
   return v ? v.replace(/\/$/, "") : null;
 }
 
+const ALLOWED_CPTS = new Set(["posts", "pages", "properties", "news"]);
+function safeCpt(input: string | undefined): string {
+  const fallback = process.env.WORDPRESS_PROPERTY_CPT || "posts";
+  const candidate = (input ?? "").trim();
+  if (candidate && ALLOWED_CPTS.has(candidate)) return candidate;
+  // Strip to alphanumerics + hyphen as a defensive fallback for the env-configured value.
+  const safeFallback = fallback.replace(/[^a-z0-9-]/gi, "");
+  return safeFallback || "posts";
+}
+
+function clampInt(value: number | undefined, min: number, max: number, fallback: number): number {
+  const n = Number.isFinite(value) ? Math.floor(value as number) : fallback;
+  return Math.min(Math.max(n, min), max);
+}
+
 async function wpFetch<T>(path: string): Promise<T> {
   const root = base();
   if (!root) throw new Error("WORDPRESS_API_URL is not configured");
@@ -76,9 +91,9 @@ export const getWordPressPosts = createServerFn({ method: "GET" })
   )
   .handler(async ({ data }) => {
     if (!base()) return { configured: false as const, posts: [] as WpPost[] };
-    const cpt = data.cpt || process.env.WORDPRESS_PROPERTY_CPT || "posts";
-    const perPage = data.perPage ?? 12;
-    const page = data.page ?? 1;
+    const cpt = safeCpt(data.cpt);
+    const perPage = clampInt(data.perPage, 1, 100, 12);
+    const page = clampInt(data.page, 1, 10_000, 1);
     const raw = await wpFetch<Parameters<typeof normalize>[0][]>(
       `/${cpt}?per_page=${perPage}&page=${page}&_embed=wp:featuredmedia`,
     );
@@ -89,7 +104,7 @@ export const getWordPressPost = createServerFn({ method: "GET" })
   .inputValidator((d: { slug: string; cpt?: string }) => d)
   .handler(async ({ data }) => {
     if (!base()) return { configured: false as const, post: null as WpPost | null };
-    const cpt = data.cpt || process.env.WORDPRESS_PROPERTY_CPT || "posts";
+    const cpt = safeCpt(data.cpt);
     const raw = await wpFetch<Parameters<typeof normalize>[0][]>(
       `/${cpt}?slug=${encodeURIComponent(data.slug)}&_embed=wp:featuredmedia`,
     );
