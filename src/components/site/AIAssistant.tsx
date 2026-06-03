@@ -79,7 +79,7 @@ export function AIAssistant() {
               </div>
               <div>
                 <div className="font-display text-lg text-gold-gradient leading-none">مساعد مدني</div>
-                <div className="text-[10px] tracking-[0.3em] text-muted-foreground mt-1">AI · INSTANT</div>
+                <div className="text-[10px] tracking-[0.3em] text-gold/80 mt-1">AI · INSTANT</div>
               </div>
             </div>
 
