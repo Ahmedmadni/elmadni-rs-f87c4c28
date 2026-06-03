@@ -1,11 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { Navbar } from "@/components/site/Navbar";
 import { Footer } from "@/components/site/Footer";
 import { PropertyCard } from "@/components/site/PropertyCard";
-import { properties } from "@/lib/properties";
+import { properties as staticProps, type Property } from "@/lib/properties";
+import { supabase } from "@/integrations/supabase/client";
 import { SectionHeading } from "./index";
-import { Search } from "lucide-react";
+import { Search, Loader2 } from "lucide-react";
 
 export const Route = createFileRoute("/properties")({
   head: () => ({
@@ -27,9 +29,33 @@ function PropertiesPage() {
   const [status, setStatus] = useState("الكل");
   const [q, setQ] = useState("");
 
+  const { data: liveProps, isLoading } = useQuery({
+    queryKey: ["properties", "public"],
+    queryFn: async (): Promise<Property[]> => {
+      const { data, error } = await supabase
+        .from("properties")
+        .select("id,code,title,type,status,badge,price,area,rooms,location,images,featured,published,sort_order,description")
+        .eq("review_status", "approved")
+        .eq("published", true)
+        .order("featured", { ascending: false })
+        .order("sort_order", { ascending: true })
+        .order("created_at", { ascending: false });
+      if (error) throw error;
+      return (data ?? []) as Property[];
+    },
+    staleTime: 30_000,
+  });
+
+  const all = useMemo(() => {
+    const live = liveProps ?? [];
+    const liveIds = new Set(live.map((p) => p.id));
+    // Merge: live first, then static fallbacks not duplicated
+    return [...live, ...staticProps.filter((p) => !liveIds.has(p.id))];
+  }, [liveProps]);
+
   const filtered = useMemo(
     () =>
-      properties.filter((p) => {
+      all.filter((p) => {
         const okType = type === "الكل" || p.type === type;
         const okStatus = status === "الكل" || p.status === status;
         const okQ =
@@ -38,7 +64,7 @@ function PropertiesPage() {
           (p.location ?? "").includes(q);
         return okType && okStatus && okQ;
       }),
-    [type, status, q],
+    [all, type, status, q],
   );
 
   return (
@@ -65,7 +91,9 @@ function PropertiesPage() {
       </div>
 
       <div className="mx-auto max-w-7xl px-6 pb-20">
-        {filtered.length === 0 ? (
+        {isLoading && all.length === 0 ? (
+          <div className="flex items-center justify-center py-24 text-muted-foreground gap-2"><Loader2 className="animate-spin" size={18} /> جارٍ تحميل العقارات...</div>
+        ) : filtered.length === 0 ? (
           <div className="text-center py-24 text-muted-foreground">لا توجد نتائج مطابقة.</div>
         ) : (
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

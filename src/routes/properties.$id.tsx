@@ -1,7 +1,9 @@
-import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { useQuery } from "@tanstack/react-query";
 import { Navbar } from "@/components/site/Navbar";
 import { Footer } from "@/components/site/Footer";
-import { properties, WHATSAPP, PHONE, getPropertyImage, getPropertyCode } from "@/lib/properties";
+import { properties as staticProps, WHATSAPP, PHONE, getPropertyCode, getPropertyImage, type Property } from "@/lib/properties";
+import { supabase } from "@/integrations/supabase/client";
 import { useFavorites, useCompare, COMPARE_LIMIT } from "@/lib/property-store";
 import {
   MapPin,
@@ -21,24 +23,7 @@ import { MortgageCalculator } from "@/components/site/MortgageCalculator";
 import { PurchaseRequestForm } from "@/components/site/PurchaseRequestForm";
 
 export const Route = createFileRoute("/properties/$id")({
-  loader: ({ params }) => {
-    const property = properties.find((p) => p.id === params.id);
-    if (!property) throw notFound();
-    return { property };
-  },
-  head: ({ loaderData }) => ({
-    meta: loaderData
-      ? [
-          { title: `${loaderData.property.title} | مدني العقارية` },
-          {
-            name: "description",
-            content: `${loaderData.property.type} ${loaderData.property.status} في ${loaderData.property.location} — ${loaderData.property.price}.`,
-          },
-          { property: "og:title", content: loaderData.property.title },
-          { property: "og:image", content: getPropertyImage(loaderData.property) },
-        ]
-      : [],
-  }),
+  head: () => ({ meta: [{ title: "تفاصيل العقار | مدني العقارية" }] }),
   component: PropertyDetailsPage,
   notFoundComponent: () => (
     <div className="min-h-screen grid place-content-center text-center px-6">
@@ -51,14 +36,54 @@ export const Route = createFileRoute("/properties/$id")({
 });
 
 function PropertyDetailsPage() {
-  const { property: p } = Route.useLoaderData();
+  const { id } = Route.useParams();
   const fav = useFavorites();
   const cmp = useCompare();
+
+  const { data: live, isLoading } = useQuery({
+    queryKey: ["property", id],
+    queryFn: async (): Promise<Property | null> => {
+      const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id);
+      const base = supabase
+        .from("properties")
+        .select("id,code,title,type,status,badge,price,area,rooms,location,images,featured,published,sort_order,description,description_full")
+        .eq("review_status", "approved")
+        .eq("published", true);
+      const { data, error } = isUuid
+        ? await base.eq("id", id).maybeSingle()
+        : await base.eq("code", id).maybeSingle();
+      if (error) throw error;
+      return (data as Property | null) ?? null;
+    },
+    staleTime: 30_000,
+  });
+
+  const p = live ?? staticProps.find((x) => x.id === id || x.code === id) ?? null;
+
+  if (!p) {
+    return (
+      <div className="min-h-screen">
+        <Navbar />
+        <div className="pt-40 pb-20 text-center px-6">
+          {isLoading ? (
+            <div className="text-muted-foreground">جارٍ التحميل...</div>
+          ) : (
+            <>
+              <h1 className="font-display text-3xl text-gold-gradient mb-3">العقار غير موجود</h1>
+              <Link to="/properties" className="text-gold hover:underline">العودة للعقارات</Link>
+            </>
+          )}
+        </div>
+        <Footer />
+      </div>
+    );
+  }
+
   const isFav = fav.has(p.id);
   const isCmp = cmp.has(p.id);
-  const code = getPropertyCode(p.id);
+  const code = getPropertyCode(p);
 
-  const related = properties.filter((x) => x.id !== p.id && x.type === p.type).slice(0, 3);
+  const related = staticProps.filter((x) => x.id !== p.id && x.type === p.type).slice(0, 3);
 
   return (
     <div className="relative min-h-screen">
@@ -102,7 +127,7 @@ function PropertyDetailsPage() {
               </div>
 
               <div className="grid grid-cols-2 gap-3">
-                <Spec icon={<Maximize2 size={16} />} label="المساحة" value={p.area} />
+                <Spec icon={<Maximize2 size={16} />} label="المساحة" value={p.area ?? "—"} />
                 <Spec icon={<BedDouble size={16} />} label="الغرف" value={`${p.rooms} غرف`} />
               </div>
 
