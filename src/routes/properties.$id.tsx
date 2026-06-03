@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { Navbar } from "@/components/site/Navbar";
 import { Footer } from "@/components/site/Footer";
-import { properties as staticProps, WHATSAPP, PHONE, getPropertyCode, type Property } from "@/lib/properties";
+import { properties as staticProps, WHATSAPP, PHONE, getPropertyCode, getPropertyImage, type Property } from "@/lib/properties";
 import { supabase } from "@/integrations/supabase/client";
 import { useFavorites, useCompare, COMPARE_LIMIT } from "@/lib/property-store";
 import {
@@ -127,7 +127,7 @@ function PropertyDetailsPage() {
               </div>
 
               <div className="grid grid-cols-2 gap-3">
-                <Spec icon={<Maximize2 size={16} />} label="المساحة" value={p.area} />
+                <Spec icon={<Maximize2 size={16} />} label="المساحة" value={p.area ?? "—"} />
                 <Spec icon={<BedDouble size={16} />} label="الغرف" value={`${p.rooms} غرف`} />
               </div>
 
