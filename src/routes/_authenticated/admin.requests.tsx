@@ -44,7 +44,7 @@ function AdminRequests() {
   };
   useEffect(() => { load(); /* eslint-disable-next-line */ }, [user?.id]);
 
-  const setStatus = async (id: string, status: string) => {
+  const setStatus = async (id: string, status: "contacted" | "closed" | "cancelled" | "new") => {
     const { error } = await supabase.from("purchase_requests").update({ status }).eq("id", id);
     if (error) return toast.error(error.message);
     toast.success("تم التحديث"); load();
@@ -79,7 +79,7 @@ function AdminRequests() {
                 </div>
                 <div className="flex gap-2 items-start">
                   <span className="rounded-full px-3 py-1 text-[11px] bg-amber-500/20 text-amber-400">{r.status}</span>
-                  {r.status !== "done" && <button onClick={() => setStatus(r.id, "done")} className="rounded-full px-3 py-1.5 text-xs bg-emerald-600/20 text-emerald-400 hover:bg-emerald-600/30 inline-flex items-center gap-1"><CheckCheck size={12} /> تم</button>}
+                  {r.status !== "closed" && <button onClick={() => setStatus(r.id, "closed")} className="rounded-full px-3 py-1.5 text-xs bg-emerald-600/20 text-emerald-400 hover:bg-emerald-600/30 inline-flex items-center gap-1"><CheckCheck size={12} /> تم</button>}
                   {isAdmin && <button onClick={() => remove(r.id)} className="rounded-full px-3 py-1.5 text-xs bg-red-600/20 text-red-400 hover:bg-red-600/30 inline-flex items-center gap-1"><Trash2 size={12} /> حذف</button>}
                 </div>
               </div>
