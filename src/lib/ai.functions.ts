@@ -12,7 +12,18 @@ const SYSTEM_PROMPT = `أنت "مدني" — المساعد الذكي لشرك�
 export const chatWithAssistant = createServerFn({ method: "POST" })
   .inputValidator((data: { messages: Msg[] }) => {
     if (!Array.isArray(data?.messages)) throw new Error("messages required");
-    return { messages: data.messages.slice(-12) };
+    const cleaned = data.messages
+      .filter(
+        (m): m is Msg =>
+          !!m &&
+          typeof m.content === "string" &&
+          m.content.trim().length > 0 &&
+          (m.role === "user" || m.role === "assistant"),
+      )
+      .slice(-12)
+      .map((m) => ({ role: m.role, content: m.content.slice(0, 2000) }));
+    if (cleaned.length === 0) throw new Error("messages required");
+    return { messages: cleaned };
   })
   .handler(async ({ data }) => {
     const apiKey = process.env.LOVABLE_API_KEY;
