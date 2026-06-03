@@ -19,6 +19,7 @@ function DashboardPage() {
   const { user, isAdmin, role, signOut } = useAuth();
   const [mine, setMine] = useState<Prop[]>([]);
   const [pending, setPending] = useState<Prop[]>([]);
+  const [all, setAll] = useState<Prop[]>([]);
   const [loading, setLoading] = useState(true);
   const [query, setQuery] = useState("");
   const [stats, setStats] = useState({ total: 0, approved: 0, pending: 0, rejected: 0, users: 0, marketers: 0 });
@@ -41,6 +42,12 @@ function DashboardPage() {
         .eq("review_status", "pending")
         .order("created_at", { ascending: false });
       setPending((p as Prop[]) ?? []);
+      const { data: a } = await supabase
+        .from("properties")
+        .select("id,title,price,review_status,rejection_reason,code")
+        .order("created_at", { ascending: false })
+        .limit(500);
+      setAll((a as Prop[]) ?? []);
       const [allCount, apr, pen, rej, profCount, mkts] = await Promise.all([
         supabase.from("properties").select("id", { count: "exact", head: true }),
         supabase.from("properties").select("id", { count: "exact", head: true }).eq("review_status", "approved"),
