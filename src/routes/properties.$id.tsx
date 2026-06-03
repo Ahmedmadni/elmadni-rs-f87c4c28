@@ -18,6 +18,7 @@ import {
 import { toast } from "sonner";
 import { PropertyCard } from "@/components/site/PropertyCard";
 import { MortgageCalculator } from "@/components/site/MortgageCalculator";
+import { PurchaseRequestForm } from "@/components/site/PurchaseRequestForm";
 
 export const Route = createFileRoute("/properties/$id")({
   loader: ({ params }) => {
@@ -181,6 +182,10 @@ function PropertyDetailsPage() {
 
           <div className="mt-10">
             <MortgageCalculator defaultPrice={p.price} />
+          </div>
+
+          <div className="mt-10 max-w-2xl mx-auto">
+            <PurchaseRequestForm propertyId={p.id} />
           </div>
 
           {related.length > 0 && (
