@@ -4,7 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useRouter } from "@tanstack/react-router";
 import { useQueryClient } from "@tanstack/react-query";
 
-type Role = "admin" | "user";
+type Role = "admin" | "marketer" | "user";
 
 interface AuthCtx {
   user: User | null;
@@ -13,6 +13,8 @@ interface AuthCtx {
   loading: boolean;
   signOut: () => Promise<void>;
   isAdmin: boolean;
+  isMarketer: boolean;
+  canPublish: boolean;
   isAuthenticated: boolean;
 }
 
@@ -56,7 +58,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       .eq("user_id", uid)
       .then(({ data }) => {
         if (data?.some((r) => r.role === "admin")) setRole("admin");
-        else if (data && data.length > 0) setRole("user");
+        else if (data?.some((r) => r.role === "marketer")) setRole("marketer");
         else setRole("user");
       });
   }, [session?.user?.id]);
@@ -67,6 +69,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     role,
     loading,
     isAdmin: role === "admin",
+    isMarketer: role === "marketer",
+    canPublish: role === "admin" || role === "marketer",
     isAuthenticated: !!session?.user,
     signOut: async () => {
       await supabase.auth.signOut();
