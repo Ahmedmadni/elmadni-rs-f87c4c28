@@ -18,7 +18,6 @@ const links = [
   { to: "/", label: "الرئيسية" },
   { to: "/properties", label: "العقارات" },
   { to: "/projects", label: "المشاريع" },
-  { to: "/request", label: "طلب عقار" },
   { to: "/sell", label: "اعرض عقارك" },
   { to: "/about", label: "من نحن" },
   { to: "/contact", label: "تواصل معنا" },
@@ -52,7 +51,7 @@ export function Navbar() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <nav
           className={`flex items-center justify-between rounded-full px-4 sm:px-6 py-3 transition-all duration-500 ${
-            scrolled ? "glass-strong luxe-shadow" : "glass"
+            scrolled ? "bg-background border-2 border-gold/40 luxe-shadow" : "bg-background border border-gold/30 shadow-lg"
           }`}
         >
           <Link to="/" className="flex items-center gap-3 group">
@@ -76,7 +75,7 @@ export function Navbar() {
               <Link
                 key={l.to}
                 to={l.to}
-                className="relative px-4 py-2 text-sm text-foreground/85 hover:text-gold transition-colors"
+                className="relative px-4 py-2 text-sm font-bold text-foreground hover:text-gold transition-colors"
                 activeProps={{ className: "text-gold" }}
                 activeOptions={{ exact: l.to === "/" }}
               >
@@ -166,7 +165,7 @@ export function Navbar() {
         </nav>
 
         {open && (
-          <div className="lg:hidden mt-2 rounded-3xl glass-strong p-4 reveal">
+          <div className="lg:hidden mt-2 rounded-3xl bg-background border-2 border-gold/40 luxe-shadow p-4 reveal">
             <div className="flex flex-col">
               {links.map((l) => (
                 <Link

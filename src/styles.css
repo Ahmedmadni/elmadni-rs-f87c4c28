@@ -4,7 +4,7 @@
 
 @custom-variant dark (&:is(.dark *));
 
-@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=Tajawal:wght@300;400;500;700;800;900&family=Alexandria:wght@300;400;500;600;700;800;900&family=Reem+Kufi:wght@400;500;600;700&family=El+Messiri:wght@400;500;600;700&family=Amiri:wght@400;700&display=swap&v=20260603');
+/* Fonts are loaded via <link> in __root.tsx to avoid Lightning CSS @import issues. */
 
 /*
  * Design system definition.
@@ -61,11 +61,11 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
-  /* Premium Arabic stack — Tajawal first (matches reference), with Cairo/Alexandria/DIN Next Arabic */
-  --font-sans: 'Tajawal', 'DIN Next Arabic', 'Alexandria', 'Cairo', system-ui, -apple-system, sans-serif;
-  --font-display: 'Tajawal', 'DIN Next Arabic', 'Cairo', 'Alexandria', system-ui, sans-serif;
-  --font-arabic-display: 'Tajawal', 'DIN Next Arabic', 'Cairo', 'Alexandria', system-ui, sans-serif;
-  --font-hero: 'Reem Kufi', 'El Messiri', 'Tajawal', 'Cairo', system-ui, sans-serif;
+  /* Bold Arabic stack — Cairo/Almarai Black for headings (like "لامارا"), Tajawal for body */
+  --font-sans: 'Tajawal', 'Cairo', 'Almarai', system-ui, -apple-system, sans-serif;
+  --font-display: 'Cairo', 'Almarai', 'Tajawal', system-ui, sans-serif;
+  --font-arabic-display: 'Cairo', 'Almarai', 'Tajawal', system-ui, sans-serif;
+  --font-hero: 'Cairo', 'Almarai', 'Tajawal', system-ui, sans-serif;
   --color-gold: var(--gold);
   --color-gold-soft: var(--gold-soft);
   --color-emerald-deep: var(--emerald-deep);
@@ -73,42 +73,41 @@
 
 :root {
   --radius: 0.75rem;
-  /* LIGHT MODE — warm cream + emerald + gold */
-  --background: oklch(0.985 0.012 88);
-  --foreground: oklch(0.18 0.025 162);
-  --card: oklch(0.99 0.008 88);
-  --card-foreground: oklch(0.18 0.025 162);
-  --popover: oklch(0.99 0.008 88);
-  --popover-foreground: oklch(0.18 0.025 162);
-  --primary: oklch(0.40 0.12 162);
-  --primary-foreground: oklch(0.985 0.012 88);
-  --secondary: oklch(0.95 0.015 88);
-  --secondary-foreground: oklch(0.22 0.03 162);
-  --muted: oklch(0.94 0.012 88);
-  --muted-foreground: oklch(0.42 0.02 162);
-  /* Refined gold-emerald accent — replaces the previous orange/ivory tone */
-  --accent: oklch(0.55 0.11 155);
-  --accent-foreground: oklch(0.985 0.012 88);
+  /* LIGHT MODE — warm cream + charcoal + engraved gold (from MADNI logo) */
+  --background: oklch(0.98 0.008 80);
+  --foreground: oklch(0.16 0.006 60);
+  --card: oklch(0.99 0.006 80);
+  --card-foreground: oklch(0.16 0.006 60);
+  --popover: oklch(0.99 0.006 80);
+  --popover-foreground: oklch(0.16 0.006 60);
+  --primary: oklch(0.16 0.006 60);
+  --primary-foreground: oklch(0.95 0.04 82);
+  --secondary: oklch(0.94 0.012 80);
+  --secondary-foreground: oklch(0.18 0.008 60);
+  --muted: oklch(0.94 0.010 80);
+  --muted-foreground: oklch(0.38 0.012 60);
+  --accent: oklch(0.68 0.13 75);
+  --accent-foreground: oklch(0.12 0.006 60);
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.984 0.003 247.858);
-  --border: oklch(0.40 0.12 162 / 16%);
-  --input: oklch(0.18 0.025 162 / 8%);
-  --ring: oklch(0.72 0.14 78 / 50%);
+  --border: oklch(0.16 0.006 60 / 16%);
+  --input: oklch(0.16 0.006 60 / 10%);
+  --ring: oklch(0.72 0.14 78 / 55%);
 
-  --gold: oklch(0.80 0.135 84);
-  --gold-soft: oklch(0.90 0.08 84);
-  --gold-deep: oklch(0.62 0.14 70);
-  --emerald-deep: oklch(0.32 0.10 162);
-  --emerald-mid: oklch(0.40 0.12 162);
-  --ink-black: oklch(0.08 0.012 165);
+  --gold: oklch(0.78 0.13 82);
+  --gold-soft: oklch(0.88 0.09 82);
+  --gold-deep: oklch(0.58 0.14 70);
+  --emerald-deep: oklch(0.16 0.006 60);
+  --emerald-mid: oklch(0.22 0.006 60);
+  --ink-black: oklch(0.10 0.006 60);
 
-  --gradient-hero: linear-gradient(135deg, oklch(0.08 0.012 165 / 0.95) 0%, oklch(0.32 0.10 162 / 0.70) 60%, oklch(0.08 0.012 165 / 0.92) 100%);
-  --gradient-gold: linear-gradient(135deg, oklch(0.92 0.07 84) 0%, oklch(0.78 0.13 80) 45%, oklch(0.60 0.15 70) 100%);
-  --gradient-emerald: linear-gradient(135deg, oklch(0.40 0.12 162) 0%, oklch(0.18 0.04 162) 100%);
-  --gradient-noir: linear-gradient(180deg, oklch(0.08 0.012 165) 0%, oklch(0.13 0.018 162) 100%);
-  --shadow-luxe: 0 40px 100px -24px oklch(0 0 0 / 0.7), 0 0 0 1px oklch(0.80 0.135 84 / 0.10);
-  --shadow-gold-glow: 0 0 60px oklch(0.80 0.135 84 / 0.38);
-  --shadow-emerald-glow: 0 0 80px oklch(0.40 0.12 162 / 0.35);
+  --gradient-hero: linear-gradient(135deg, oklch(0.10 0.006 60 / 0.95) 0%, oklch(0.20 0.008 60 / 0.75) 60%, oklch(0.10 0.006 60 / 0.95) 100%);
+  --gradient-gold: linear-gradient(135deg, oklch(0.88 0.10 82) 0%, oklch(0.76 0.14 80) 45%, oklch(0.56 0.14 68) 100%);
+  --gradient-emerald: linear-gradient(135deg, oklch(0.20 0.008 60) 0%, oklch(0.10 0.006 60) 100%);
+  --gradient-noir: linear-gradient(180deg, oklch(0.10 0.006 60) 0%, oklch(0.16 0.006 60) 100%);
+  --shadow-luxe: 0 40px 100px -24px oklch(0 0 0 / 0.75), 0 0 0 1px oklch(0.78 0.13 82 / 0.16);
+  --shadow-gold-glow: 0 0 60px oklch(0.78 0.13 82 / 0.45);
+  --shadow-emerald-glow: 0 0 80px oklch(0.16 0.006 60 / 0.45);
 
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
@@ -126,42 +125,41 @@
 }
 
 .dark {
-  /* DARK MODE — Charcoal & Copper (distinct from light mode) */
-  --background: oklch(0.16 0.004 60);
-  --foreground: oklch(0.96 0.012 70);
-  --card: oklch(0.22 0.006 60);
-  --card-foreground: oklch(0.96 0.012 70);
-  --popover: oklch(0.20 0.006 60);
-  --popover-foreground: oklch(0.96 0.012 70);
-  --primary: oklch(0.62 0.13 50);
-  --primary-foreground: oklch(0.14 0.004 60);
-  --secondary: oklch(0.26 0.008 60);
-  --secondary-foreground: oklch(0.96 0.012 70);
-  --muted: oklch(0.24 0.006 60);
-  --muted-foreground: oklch(0.72 0.012 70);
-  --accent: oklch(0.78 0.10 50);
-  --accent-foreground: oklch(0.14 0.004 60);
+  /* DARK MODE — Charcoal black + engraved gold (from MADNI logo) */
+  --background: oklch(0.13 0.005 60);
+  --foreground: oklch(0.97 0.015 82);
+  --card: oklch(0.18 0.006 60);
+  --card-foreground: oklch(0.97 0.015 82);
+  --popover: oklch(0.17 0.006 60);
+  --popover-foreground: oklch(0.97 0.015 82);
+  --primary: oklch(0.78 0.13 82);
+  --primary-foreground: oklch(0.12 0.005 60);
+  --secondary: oklch(0.22 0.006 60);
+  --secondary-foreground: oklch(0.97 0.015 82);
+  --muted: oklch(0.22 0.006 60);
+  --muted-foreground: oklch(0.78 0.015 78);
+  --accent: oklch(0.78 0.13 82);
+  --accent-foreground: oklch(0.12 0.005 60);
   --destructive: oklch(0.6 0.22 27);
   --destructive-foreground: oklch(0.98 0.003 70);
-  --border: oklch(0.62 0.13 50 / 22%);
-  --input: oklch(1 0 0 / 10%);
-  --ring: oklch(0.62 0.13 50 / 55%);
+  --border: oklch(0.78 0.13 82 / 28%);
+  --input: oklch(1 0 0 / 12%);
+  --ring: oklch(0.78 0.13 82 / 60%);
 
-  /* Override the "gold" tokens with copper hues in dark mode only */
-  --gold: oklch(0.72 0.12 50);
-  --gold-soft: oklch(0.82 0.09 55);
-  --gold-deep: oklch(0.55 0.14 45);
-  --emerald-deep: oklch(0.22 0.006 60);
-  --emerald-mid: oklch(0.28 0.008 60);
-  --ink-black: oklch(0.10 0.004 60);
+  --gold: oklch(0.80 0.13 82);
+  --gold-soft: oklch(0.88 0.09 82);
+  --gold-deep: oklch(0.58 0.14 70);
+  --emerald-deep: oklch(0.16 0.006 60);
+  --emerald-mid: oklch(0.22 0.006 60);
+  --ink-black: oklch(0.10 0.005 60);
 
-  --gradient-hero: linear-gradient(135deg, oklch(0.10 0.004 60 / 0.95) 0%, oklch(0.22 0.012 50 / 0.65) 60%, oklch(0.10 0.004 60 / 0.94) 100%);
-  --gradient-gold: linear-gradient(135deg, oklch(0.82 0.09 55) 0%, oklch(0.68 0.13 50) 45%, oklch(0.50 0.14 42) 100%);
-  --gradient-emerald: linear-gradient(135deg, oklch(0.28 0.01 60) 0%, oklch(0.14 0.004 60) 100%);
-  --gradient-noir: linear-gradient(180deg, oklch(0.10 0.004 60) 0%, oklch(0.16 0.006 60) 100%);
-  --shadow-luxe: 0 40px 100px -24px oklch(0 0 0 / 0.75), 0 0 0 1px oklch(0.72 0.12 50 / 0.14);
-  --shadow-gold-glow: 0 0 60px oklch(0.68 0.13 50 / 0.42);
-  --shadow-emerald-glow: 0 0 80px oklch(0.28 0.01 60 / 0.40);
+  --gradient-hero: linear-gradient(135deg, oklch(0.10 0.005 60 / 0.96) 0%, oklch(0.20 0.008 60 / 0.72) 60%, oklch(0.10 0.005 60 / 0.95) 100%);
+  --gradient-gold: linear-gradient(135deg, oklch(0.90 0.10 82) 0%, oklch(0.78 0.14 80) 45%, oklch(0.58 0.14 68) 100%);
+  --gradient-emerald: linear-gradient(135deg, oklch(0.22 0.008 60) 0%, oklch(0.10 0.005 60) 100%);
+  --gradient-noir: linear-gradient(180deg, oklch(0.10 0.005 60) 0%, oklch(0.16 0.006 60) 100%);
+  --shadow-luxe: 0 40px 100px -24px oklch(0 0 0 / 0.80), 0 0 0 1px oklch(0.80 0.13 82 / 0.20);
+  --shadow-gold-glow: 0 0 60px oklch(0.80 0.13 82 / 0.45);
+  --shadow-emerald-glow: 0 0 80px oklch(0.22 0.008 60 / 0.45);
 }
 
 @layer base {
@@ -195,6 +193,8 @@
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-arabic-display) !important;
     font-feature-settings: "kern", "liga";
+    font-weight: 900;
+    letter-spacing: -0.01em;
   }
 
   html {
@@ -230,18 +230,15 @@
     font-feature-settings: "kern", "liga";
   }
 
+  /* Solid surfaces — no transparency so text underneath never bleeds through */
   .glass {
-    background: color-mix(in oklab, var(--card) 65%, transparent);
-    backdrop-filter: blur(24px) saturate(170%);
-    -webkit-backdrop-filter: blur(24px) saturate(170%);
-    border: 1px solid color-mix(in oklab, var(--gold) 22%, transparent);
+    background: var(--card);
+    border: 1px solid color-mix(in oklab, var(--gold) 35%, transparent);
   }
 
   .glass-strong {
-    background: color-mix(in oklab, var(--card) 85%, transparent);
-    backdrop-filter: blur(32px) saturate(180%);
-    -webkit-backdrop-filter: blur(32px) saturate(180%);
-    border: 1px solid color-mix(in oklab, var(--gold) 28%, transparent);
+    background: var(--card);
+    border: 1px solid color-mix(in oklab, var(--gold) 45%, transparent);
   }
 
   .text-gold-gradient {
