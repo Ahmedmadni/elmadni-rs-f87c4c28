@@ -1,47 +1,37 @@
-## الهدف
-تطبيق هوية بصرية فاخرة مستوحاة من لوجو مدني (أسود فحمي + ذهبي محفور)، بخطوط عربية قوية بارزة مثل موقع الستول وعنوان "لامارا"، مع تقوية وضوح النافبار والشريط السفلي وإصلاح التداخل بين المساعد الذكي وأيقونة الرئيسية على الموبايل.
+## الخطة
 
-## 1. نظام الألوان (`src/styles.css`)
-استبدال البالتة الحالية ببالتة موحّدة للوضعين مستلهمة من اللوجو:
-- **خلفية**: أسود فحمي عميق `oklch(0.13 0.005 60)` (Dark) / كريمي دافئ `oklch(0.98 0.008 80)` (Light).
-- **Primary / Gold**: ذهبي محفور `oklch(0.78 0.13 82)` مع تدرّج لذهبي أعمق `oklch(0.58 0.14 70)`.
-- **Accent**: نحاسي دافئ `oklch(0.68 0.13 55)`.
-- **Foreground**: أبيض دافئ ساطع للتباين العالي.
-- إعادة بناء `--gradient-gold` و`--gradient-hero` و`--shadow-gold-glow` على القيم الجديدة.
-- حذف الإطار الزمرّدي/الأخضر من التوكنز (الحالي يميل للأخضر العميق).
+### 1) إتاحة "اعرض عقارك" لجميع المستخدمين المسجلين
+- إزالة شرط `canPublish` من `src/routes/sell.tsx` — أي مستخدم مسجّل يستطيع تقديم عقار.
+- العقار يُحفظ بـ `review_status: "pending"` و `published: false` ولا يظهر علناً إلا بعد موافقة الأدمن من شاشة `admin.requests` (سلوك موجود مسبقاً).
+- migration لتأكيد سياسة RLS على `properties`: السماح للمستخدم بـ INSERT بشرط `owner_id = auth.uid()` و `review_status = 'pending'` و `published = false` فقط.
 
-## 2. الخطوط (مثل alostool.com.sa + اسم "لامارا")
-- إضافة عائلة عربية عريضة جداً (Display/Black) لجميع العناوين واسم الشركة:
-  - **خط رئيسي للعناوين والشعار**: `Cairo` بوزن 900 + `Almarai` 800 كبديل (متاحة في Google Fonts، تعطي نفس إحساس "لامارا" السميك).
-  - **خط الجسم**: `Tajawal` 500/700 للقراءة.
-- تحديث `--font-hero` و`--font-arabic-display` و`h1..h6` لتفرض الوزن 800–900 + `letter-spacing: -0.01em`.
-- تكبير clamp العناوين قليلاً لإظهار قوة الخط.
-- استبدال رابط `<link>` فونتس في `__root.tsx` بالعائلات الجديدة فقط (إزالة Reem Kufi / El Messiri / Amiri غير المستخدمة).
+### 2) كود العقار تسلسلي إجباري وغير قابل للتعديل
+- إنشاء `SEQUENCE public.property_code_seq` تبدأ من 1000.
+- إضافة دالة `gen_property_code()` تُرجع `'MAD-' || nextval('property_code_seq')`.
+- جعل عمود `code` في `properties`:
+  - `NOT NULL`
+  - `DEFAULT gen_property_code()`
+  - `UNIQUE`
+- Trigger `BEFORE INSERT`: يتجاهل أي قيمة يرسلها العميل لـ `code` ويُسند القيمة من السيكوينس دائماً.
+- Trigger `BEFORE UPDATE`: يمنع تغيير `code` (يُعيد القيمة القديمة دائماً، حتى للأدمن).
+- تحديث `src/routes/sell.tsx` لإزالة توليد الكود من جهة العميل (`"MAD-" + Math.random()...`) — قاعدة البيانات تتكفّل بذلك.
+- العقارات القديمة تحتفظ بأكوادها (الـ trigger يحافظ على القيم الموجودة عند UPDATE).
 
-## 3. النافبار (`src/components/site/Navbar.tsx`)
-- **إزالة التكرار**: حذف رابط "طلب عقار" من قائمة `links` والإبقاء فقط على زر CTA "اطلب عقارك" الذهبي على اليمين.
-- **إزالة الشفافية**: استبدال كلاس `glass` و`glass-strong` على شريط النافبار بخلفية صلبة `bg-background/100` مع `border border-gold/30` و `luxe-shadow`، حتى لا تظهر العناصر تحته.
-- تطبيق نفس الخلفية الصلبة على القائمة المنسدلة للموبايل (`mt-2 rounded-3xl`) وعلى DropdownMenu الحساب.
-- تكبير وزن روابط النافبار إلى `font-bold` لتوضيح القوة.
+### 3) رفع تباين الخطوط في الوضعين النهاري والليلي
+- `src/styles.css`: رفع تباين `--foreground` و `--muted-foreground` و `--card-foreground` و `--popover-foreground` و `--secondary-foreground` في الوضعين (نسبة ≥ 4.5:1 مع الخلفية).
+- استبدال الألوان الثابتة (`text-[oklch(0.97_...)]`, `text-[oklch(0.12_...)]`) بـ tokens دلالية في:
+  - `src/routes/index.tsx` (CTA heading + subtitle)
+  - `src/components/site/PropertyCard.tsx` (badges + status pill)
+  - `src/components/site/AIAssistant.tsx` (نص "AI · INSTANT")
+- رفع شفافيات النصوص الفرعية (`/85` → `/95`, `placeholder /60` → `/80`).
 
-## 4. الشريط السفلي للموبايل + المساعد الذكي
-**المشكلة**: زر المساعد الذكي (`fixed bottom-6 right-6`) يتداخل مع الأيقونة الأولى في الشريط السفلي (`bottom-3 inset-x-3`).
-- نقل زر المساعد الذكي في `AIAssistant.tsx` على الموبايل إلى `bottom-24` (فوق الشريط السفلي) مع `right-4`، والإبقاء على `bottom-6` للديسكتوب فقط عبر كلاسات responsive.
-- تحديث `MobileBottomNav.tsx`:
-  - استبدال `glass-strong` بخلفية صلبة `bg-card` + `border border-gold/40` + `luxe-shadow`.
-  - إضافة `ring-1 ring-gold/20` حول كل أيقونة لإظهار الحدود.
-  - تكبير الأيقونة إلى `size={20}` والنص إلى `text-[11px] font-bold` للوضوح.
+### ملفات ستتغيّر
+- `src/routes/sell.tsx` — إزالة `canPublish` gate، إزالة توليد كود من العميل، رفع تباين placeholders/labels.
+- `src/styles.css` — توكنات ألوان أوضح في الوضعين.
+- `src/routes/index.tsx`, `src/components/site/PropertyCard.tsx`, `src/components/site/AIAssistant.tsx` — استبدال الألوان الثابتة.
+- Migration واحد: سيكوينس + دالة + DEFAULT + triggers تمنع التعديل + سياسة RLS لـ INSERT للمستخدم العادي.
 
-## 5. القوائم المستعرضة الأخرى
-مراجعة وإزالة الشفافية من:
-- `DropdownMenuContent` (Navbar) → عبر إضافة كلاس `bg-popover` (مدعوم من shadcn، التأكد من أن `--popover` صلب وليس مزجاً شفافاً).
-- أي `glass` أو `glass-strong` على Sheets/Popovers ظاهرة في الصفحات الرئيسية.
-
-## تفاصيل تقنية
-- لا تعديل على ملفات `src/integrations/supabase/*` ولا على `routeTree.gen.ts`.
-- التغييرات محصورة في: `src/styles.css`, `src/routes/__root.tsx` (روابط الخطوط), `src/components/site/Navbar.tsx`, `src/components/site/MobileBottomNav.tsx`, `src/components/site/AIAssistant.tsx`.
-- استخدام التوكنز الدلالية حصراً (لا ألوان مباشرة في الكلاسات).
-
-## خارج النطاق
-- لا تغيير في منطق الباك-إند، الـ RLS، أو وظائف الإدمن.
-- لا تعديل على محتوى الصفحات أو تخطيطها الأساسي (فقط الألوان/الخطوط/النافبار/التراكب).
+### ضمانات الأمان
+- المستخدم العادي لا يستطيع نشر عقاره ذاتياً (السياسة تُجبر `pending` + `published=false` في `WITH CHECK`).
+- لا أحد (حتى المسوّق أو الأدمن من تطبيق العميل) يستطيع التحكم في كود العقار — الـ trigger يتجاوز أي قيمة مُرسلة.
+- الموافقة على النشر تبقى حصراً للأدمن.
