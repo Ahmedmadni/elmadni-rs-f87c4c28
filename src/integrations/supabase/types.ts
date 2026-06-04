@@ -235,7 +235,7 @@ export type Database = {
           bathrooms?: number
           bedrooms?: number
           city?: string | null
-          code: string
+          code?: string
           contact_name?: string | null
           contact_phone?: string | null
           created_at?: string
@@ -471,6 +471,7 @@ export type Database = {
         Args: { payload: Json; queue_name: string }
         Returns: number
       }
+      gen_property_code: { Args: never; Returns: string }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]

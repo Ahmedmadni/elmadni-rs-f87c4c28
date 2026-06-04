@@ -6,9 +6,9 @@ import { useFavorites, useCompare, COMPARE_LIMIT } from "@/lib/property-store";
 import { toast } from "sonner";
 
 const badgeColors: Record<string, string> = {
-  "جديد": "bg-primary text-[oklch(0.97_0.015_82)]",
+  "جديد": "bg-primary text-primary-foreground",
   "مميز": "text-[oklch(0.12_0.005_60)]",
-  "فرصة استثمارية": "bg-emerald-deep text-[oklch(0.97_0.015_82)]",
+  "فرصة استثمارية": "bg-emerald-deep text-primary-foreground",
 };
 
 export function PropertyCard({ p }: { p: Property }) {
