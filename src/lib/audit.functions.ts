@@ -15,6 +15,16 @@ export const writeAuditLog = createServerFn({ method: "POST" })
   .handler(async ({ data, context }) => {
     const { userId } = context;
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    // Only admins may write audit log entries — prevent any authenticated user
+    // from fabricating audit records.
+    const { data: roleRow, error: roleErr } = await supabaseAdmin
+      .from("user_roles")
+      .select("role")
+      .eq("user_id", userId)
+      .eq("role", "admin")
+      .maybeSingle();
+    if (roleErr) throw new Error(roleErr.message);
+    if (!roleRow) throw new Error("Forbidden");
     const { error } = await supabaseAdmin.from("audit_logs").insert({
       actor_id: userId,
       action: data.action,

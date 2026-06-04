@@ -80,7 +80,22 @@ function SellPage() {
 
   const addFiles = (list: FileList | null) => {
     if (!list) return;
-    const next = [...files, ...Array.from(list)].slice(0, 12);
+    const ALLOWED_MIME = ["image/jpeg", "image/png", "image/webp", "image/gif"];
+    const MAX_BYTES = 10 * 1024 * 1024; // 10 MB
+    const incoming = Array.from(list);
+    const valid: File[] = [];
+    for (const f of incoming) {
+      if (!ALLOWED_MIME.includes(f.type)) {
+        toast.error(`نوع الملف غير مدعوم: ${f.name}`);
+        continue;
+      }
+      if (f.size > MAX_BYTES) {
+        toast.error(`الملف أكبر من 10MB: ${f.name}`);
+        continue;
+      }
+      valid.push(f);
+    }
+    const next = [...files, ...valid].slice(0, 12);
     setFiles(next);
   };
 
@@ -128,9 +143,22 @@ function SellPage() {
       const uploadedUrls: string[] = [];
       for (let i = 0; i < files.length; i++) {
         const f = files[i];
-        const ext = f.name.split(".").pop() ?? "jpg";
+        const ALLOWED_MIME = ["image/jpeg", "image/png", "image/webp", "image/gif"];
+        if (!ALLOWED_MIME.includes(f.type)) {
+          toast.error(`تم تخطّي ملف غير صورة: ${f.name}`);
+          continue;
+        }
+        const extByMime: Record<string, string> = {
+          "image/jpeg": "jpg",
+          "image/png": "png",
+          "image/webp": "webp",
+          "image/gif": "gif",
+        };
+        const ext = extByMime[f.type] ?? "jpg";
         const path = `${user.id}/${propertyId}/${Date.now()}-${i}.${ext}`;
-        const { error: upErr } = await supabase.storage.from("property-images").upload(path, f, { upsert: false });
+        const { error: upErr } = await supabase.storage
+          .from("property-images")
+          .upload(path, f, { upsert: false, contentType: f.type });
         if (upErr) { toast.error("تعذّر رفع صورة: " + upErr.message); continue; }
         const { data: pub } = supabase.storage.from("property-images").getPublicUrl(path);
         uploadedUrls.push(pub.publicUrl);
