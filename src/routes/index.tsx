@@ -312,11 +312,11 @@ function RequestCTA() {
         <div className="absolute inset-0 opacity-30" style={{ background: "var(--gradient-gold)", mixBlendMode: "overlay" }} />
         <div className="relative">
           <div className="text-xs tracking-[0.4em] text-gold">REQUEST · طلب عقار</div>
-          <h2 className="font-display text-4xl md:text-6xl mt-4 leading-tight text-[oklch(0.97_0.015_82)]">
+          <h2 className="font-display text-4xl md:text-6xl mt-4 leading-tight text-primary-foreground">
             لم تجد ما تبحث عنه؟ <br />
             <span className="text-gold-gradient">سنجده لك.</span>
           </h2>
-          <p className="mt-6 max-w-2xl mx-auto text-[oklch(0.92_0.015_82)]/90 leading-loose">
+          <p className="mt-6 max-w-2xl mx-auto text-primary-foreground/95 leading-loose">
             أخبرنا بمواصفات عقارك المثالي وميزانيتك، وسيتواصل معك فريق الخبراء لدينا
             بأفضل الفرص المتاحة خلال 24 ساعة.
           </p>
