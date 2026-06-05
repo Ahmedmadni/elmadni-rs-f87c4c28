@@ -9,7 +9,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { SectionHeading } from "./index";
 import { Search, Loader2 } from "lucide-react";
 
-export const Route = createFileRoute("/properties")({
+export const Route = createFileRoute("/properties/")({
   head: () => ({
     meta: [
       { title: "العقارات | مدني العقارية" },
