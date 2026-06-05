@@ -4,7 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/use-auth";
 import { Navbar } from "@/components/site/Navbar";
 import { toast } from "sonner";
-import { LogOut, Plus, Home, ShieldCheck, Users, Inbox, Pencil, Bell, Search, FileText } from "lucide-react";
+import { LogOut, Plus, Home, ShieldCheck, Users, Inbox, Pencil, Bell, Search, FileText, Eye } from "lucide-react";
 import { logAudit } from "@/lib/audit";
 
 export const Route = createFileRoute("/_authenticated/dashboard")({
@@ -208,6 +208,7 @@ function DashboardPage() {
             </div>
             <PropList items={pending.filter(filterFn)} loading={loading} renderActions={(p) => (
               <>
+                <Link to="/properties/$id" params={{ id: p.id }} className="rounded-full px-3 py-1.5 text-xs glass hover:text-gold inline-flex items-center gap-1"><Eye size={12} /> عرض</Link>
                 <button onClick={() => approve(p.id)} className="rounded-full px-3 py-1.5 text-xs bg-emerald-600/20 text-emerald-400 hover:bg-emerald-600/30">موافقة</button>
                 <button onClick={() => reject(p.id)} className="rounded-full px-3 py-1.5 text-xs bg-red-600/20 text-red-400 hover:bg-red-600/30">رفض</button>
               </>
@@ -226,6 +227,7 @@ function DashboardPage() {
                 <span className={`rounded-full px-3 py-1 text-[11px] ${p.review_status === "approved" ? "bg-emerald-600/20 text-emerald-400" : p.review_status === "pending" ? "bg-amber-500/20 text-amber-400" : "bg-red-600/20 text-red-400"}`}>
                   {p.review_status === "approved" ? "موافق عليه" : p.review_status === "pending" ? "قيد المراجعة" : "مرفوض"}
                 </span>
+                <Link to="/properties/$id" params={{ id: p.id }} className="rounded-full px-3 py-1.5 text-xs glass hover:text-gold inline-flex items-center gap-1"><Eye size={12} /> عرض</Link>
                 <Link to="/properties/edit/$id" params={{ id: p.id }} className="rounded-full px-3 py-1.5 text-xs glass hover:text-gold inline-flex items-center gap-1"><Pencil size={12} /> تعديل</Link>
                 <button onClick={() => remove(p.id)} className="rounded-full px-3 py-1.5 text-xs bg-red-600/20 text-red-400 hover:bg-red-600/30">حذف</button>
               </>
@@ -243,6 +245,7 @@ function DashboardPage() {
               <span className={`rounded-full px-3 py-1 text-[11px] ${p.review_status === "approved" ? "bg-emerald-600/20 text-emerald-400" : p.review_status === "pending" ? "bg-amber-500/20 text-amber-400" : "bg-red-600/20 text-red-400"}`}>
                 {p.review_status === "approved" ? "موافق عليه" : p.review_status === "pending" ? "قيد المراجعة" : "مرفوض"}
               </span>
+              <Link to="/properties/$id" params={{ id: p.id }} className="rounded-full px-3 py-1.5 text-xs glass hover:text-gold inline-flex items-center gap-1"><Eye size={12} /> عرض</Link>
               {(p.review_status === "pending" || isAdmin) && (
                 <Link to="/properties/edit/$id" params={{ id: p.id }} className="rounded-full px-3 py-1.5 text-xs glass hover:text-gold inline-flex items-center gap-1"><Pencil size={12} /> تعديل</Link>
               )}
