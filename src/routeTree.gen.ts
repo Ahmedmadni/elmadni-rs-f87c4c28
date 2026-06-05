@@ -13,7 +13,6 @@ import { Route as SignupRouteImport } from './routes/signup'
 import { Route as SellRouteImport } from './routes/sell'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as RequestRouteImport } from './routes/request'
-import { Route as PropertiesRouteImport } from './routes/properties'
 import { Route as ProjectsRouteImport } from './routes/projects'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
@@ -23,6 +22,7 @@ import { Route as CompareRouteImport } from './routes/compare'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as PropertiesIndexRouteImport } from './routes/properties.index'
 import { Route as PropertiesIdRouteImport } from './routes/properties.$id'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedAdminUsersRouteImport } from './routes/_authenticated/admin.users'
@@ -49,11 +49,6 @@ const ResetPasswordRoute = ResetPasswordRouteImport.update({
 const RequestRoute = RequestRouteImport.update({
   id: '/request',
   path: '/request',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PropertiesRoute = PropertiesRouteImport.update({
-  id: '/properties',
-  path: '/properties',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ProjectsRoute = ProjectsRouteImport.update({
@@ -100,10 +95,15 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PropertiesIndexRoute = PropertiesIndexRouteImport.update({
+  id: '/properties/',
+  path: '/properties/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PropertiesIdRoute = PropertiesIdRouteImport.update({
-  id: '/$id',
-  path: '/$id',
-  getParentRoute: () => PropertiesRoute,
+  id: '/properties/$id',
+  path: '/properties/$id',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
   id: '/dashboard',
@@ -148,13 +148,13 @@ export interface FileRoutesByFullPath {
   '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
   '/projects': typeof ProjectsRoute
-  '/properties': typeof PropertiesRouteWithChildren
   '/request': typeof RequestRoute
   '/reset-password': typeof ResetPasswordRoute
   '/sell': typeof SellRoute
   '/signup': typeof SignupRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/properties/$id': typeof PropertiesIdRoute
+  '/properties/': typeof PropertiesIndexRoute
   '/admin/audit': typeof AuthenticatedAdminAuditRoute
   '/admin/requests': typeof AuthenticatedAdminRequestsRoute
   '/admin/users': typeof AuthenticatedAdminUsersRoute
@@ -170,13 +170,13 @@ export interface FileRoutesByTo {
   '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
   '/projects': typeof ProjectsRoute
-  '/properties': typeof PropertiesRouteWithChildren
   '/request': typeof RequestRoute
   '/reset-password': typeof ResetPasswordRoute
   '/sell': typeof SellRoute
   '/signup': typeof SignupRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/properties/$id': typeof PropertiesIdRoute
+  '/properties': typeof PropertiesIndexRoute
   '/admin/audit': typeof AuthenticatedAdminAuditRoute
   '/admin/requests': typeof AuthenticatedAdminRequestsRoute
   '/admin/users': typeof AuthenticatedAdminUsersRoute
@@ -194,13 +194,13 @@ export interface FileRoutesById {
   '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
   '/projects': typeof ProjectsRoute
-  '/properties': typeof PropertiesRouteWithChildren
   '/request': typeof RequestRoute
   '/reset-password': typeof ResetPasswordRoute
   '/sell': typeof SellRoute
   '/signup': typeof SignupRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/properties/$id': typeof PropertiesIdRoute
+  '/properties/': typeof PropertiesIndexRoute
   '/_authenticated/admin/audit': typeof AuthenticatedAdminAuditRoute
   '/_authenticated/admin/requests': typeof AuthenticatedAdminRequestsRoute
   '/_authenticated/admin/users': typeof AuthenticatedAdminUsersRoute
@@ -218,13 +218,13 @@ export interface FileRouteTypes {
     | '/forgot-password'
     | '/login'
     | '/projects'
-    | '/properties'
     | '/request'
     | '/reset-password'
     | '/sell'
     | '/signup'
     | '/dashboard'
     | '/properties/$id'
+    | '/properties/'
     | '/admin/audit'
     | '/admin/requests'
     | '/admin/users'
@@ -240,13 +240,13 @@ export interface FileRouteTypes {
     | '/forgot-password'
     | '/login'
     | '/projects'
-    | '/properties'
     | '/request'
     | '/reset-password'
     | '/sell'
     | '/signup'
     | '/dashboard'
     | '/properties/$id'
+    | '/properties'
     | '/admin/audit'
     | '/admin/requests'
     | '/admin/users'
@@ -263,13 +263,13 @@ export interface FileRouteTypes {
     | '/forgot-password'
     | '/login'
     | '/projects'
-    | '/properties'
     | '/request'
     | '/reset-password'
     | '/sell'
     | '/signup'
     | '/_authenticated/dashboard'
     | '/properties/$id'
+    | '/properties/'
     | '/_authenticated/admin/audit'
     | '/_authenticated/admin/requests'
     | '/_authenticated/admin/users'
@@ -287,11 +287,12 @@ export interface RootRouteChildren {
   ForgotPasswordRoute: typeof ForgotPasswordRoute
   LoginRoute: typeof LoginRoute
   ProjectsRoute: typeof ProjectsRoute
-  PropertiesRoute: typeof PropertiesRouteWithChildren
   RequestRoute: typeof RequestRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
   SellRoute: typeof SellRoute
   SignupRoute: typeof SignupRoute
+  PropertiesIdRoute: typeof PropertiesIdRoute
+  PropertiesIndexRoute: typeof PropertiesIndexRoute
   LovableEmailQueueProcessRoute: typeof LovableEmailQueueProcessRoute
 }
 
@@ -323,13 +324,6 @@ declare module '@tanstack/react-router' {
       path: '/request'
       fullPath: '/request'
       preLoaderRoute: typeof RequestRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/properties': {
-      id: '/properties'
-      path: '/properties'
-      fullPath: '/properties'
-      preLoaderRoute: typeof PropertiesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/projects': {
@@ -395,12 +389,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/properties/': {
+      id: '/properties/'
+      path: '/properties'
+      fullPath: '/properties/'
+      preLoaderRoute: typeof PropertiesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/properties/$id': {
       id: '/properties/$id'
-      path: '/$id'
+      path: '/properties/$id'
       fullPath: '/properties/$id'
       preLoaderRoute: typeof PropertiesIdRouteImport
-      parentRoute: typeof PropertiesRoute
+      parentRoute: typeof rootRouteImport
     }
     '/_authenticated/dashboard': {
       id: '/_authenticated/dashboard'
@@ -467,18 +468,6 @@ const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(
   AuthenticatedRouteChildren,
 )
 
-interface PropertiesRouteChildren {
-  PropertiesIdRoute: typeof PropertiesIdRoute
-}
-
-const PropertiesRouteChildren: PropertiesRouteChildren = {
-  PropertiesIdRoute: PropertiesIdRoute,
-}
-
-const PropertiesRouteWithChildren = PropertiesRoute._addFileChildren(
-  PropertiesRouteChildren,
-)
-
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRoute: AuthenticatedRouteWithChildren,
@@ -489,13 +478,24 @@ const rootRouteChildren: RootRouteChildren = {
   ForgotPasswordRoute: ForgotPasswordRoute,
   LoginRoute: LoginRoute,
   ProjectsRoute: ProjectsRoute,
-  PropertiesRoute: PropertiesRouteWithChildren,
   RequestRoute: RequestRoute,
   ResetPasswordRoute: ResetPasswordRoute,
   SellRoute: SellRoute,
   SignupRoute: SignupRoute,
+  PropertiesIdRoute: PropertiesIdRoute,
+  PropertiesIndexRoute: PropertiesIndexRoute,
   LovableEmailQueueProcessRoute: LovableEmailQueueProcessRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
