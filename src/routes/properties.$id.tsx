@@ -5,6 +5,7 @@ import { Footer } from "@/components/site/Footer";
 import { properties as staticProps, WHATSAPP, PHONE, getPropertyCode, getPropertyImage, type Property } from "@/lib/properties";
 import { supabase } from "@/integrations/supabase/client";
 import { useFavorites, useCompare, COMPARE_LIMIT } from "@/lib/property-store";
+import { useAuth } from "@/hooks/use-auth";
 import {
   MapPin,
   Maximize2,
@@ -39,21 +40,28 @@ function PropertyDetailsPage() {
   const { id } = Route.useParams();
   const fav = useFavorites();
   const cmp = useCompare();
+  const { user, isAdmin } = useAuth();
 
   const { data: live, isLoading } = useQuery({
-    queryKey: ["property", id],
+    queryKey: ["property", id, isAdmin ? "admin" : user?.id ?? "anon"],
     queryFn: async (): Promise<Property | null> => {
       const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id);
-      const base = supabase
-        .from("properties")
-        .select("id,code,title,type,status,badge,price,area,rooms,location,images,featured,published,sort_order,description,description_full")
-        .eq("review_status", "approved")
-        .eq("published", true);
+      const cols = "id,code,title,type,status,badge,price,area,rooms,location,images,featured,published,sort_order,description,description_full,owner_id,review_status";
+      const publicBase = supabase.from("properties").select(cols)
+        .eq("review_status", "approved").eq("published", true);
       const { data, error } = isUuid
-        ? await base.eq("id", id).maybeSingle()
-        : await base.eq("code", id).maybeSingle();
+        ? await publicBase.eq("id", id).maybeSingle()
+        : await publicBase.eq("code", id).maybeSingle();
       if (error) throw error;
-      return (data as Property | null) ?? null;
+      if (data) return data as Property;
+      // Fallback: admin or owner can preview pending/unpublished (RLS enforces it)
+      if (!user) return null;
+      const privBase = supabase.from("properties").select(cols);
+      const { data: priv, error: e2 } = isUuid
+        ? await privBase.eq("id", id).maybeSingle()
+        : await privBase.eq("code", id).maybeSingle();
+      if (e2) return null;
+      return (priv as Property | null) ?? null;
     },
     staleTime: 30_000,
   });
