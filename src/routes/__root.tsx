@@ -19,6 +19,9 @@ import { AIAssistant } from "@/components/site/AIAssistant";
 import { PageTransition } from "@/components/site/PageTransition";
 import { FloatingWhatsApp } from "@/components/site/FloatingWhatsApp";
 import { AuthProvider } from "@/hooks/use-auth";
+import { InstallPrompt } from "@/components/site/InstallPrompt";
+import { useEffect } from "react";
+import { registerServiceWorker } from "@/lib/pwa-register";
 
 function NotFoundComponent() {
   return (
@@ -92,12 +95,21 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "twitter:description", content: "منصة عقارية مصرية فاخرة لشراء وبيع وطلب العقارات بتجربة سينمائية حديثة." },
       { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/sHg6QnS04TcmbXVlhYYOOD3JhZB2/social-images/social-1779857606474-1000510384.webp" },
       { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/sHg6QnS04TcmbXVlhYYOOD3JhZB2/social-images/social-1779857606474-1000510384.webp" },
+      { name: "theme-color", content: "#0F172A" },
+      { name: "apple-mobile-web-app-capable", content: "yes" },
+      { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
+      { name: "apple-mobile-web-app-title", content: "Madni" },
+      { name: "mobile-web-app-capable", content: "yes" },
     ],
     links: [
       {
         rel: "stylesheet",
         href: appCss,
       },
+      { rel: "manifest", href: "/manifest.webmanifest" },
+      { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
+      { rel: "icon", type: "image/png", sizes: "192x192", href: "/icons/icon-192.png" },
+      { rel: "icon", type: "image/png", sizes: "512x512", href: "/icons/icon-512.png" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
@@ -130,6 +142,10 @@ function RootShell({ children }: { children: React.ReactNode }) {
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
 
+  useEffect(() => {
+    registerServiceWorker();
+  }, []);
+
   return (
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
@@ -142,6 +158,7 @@ function RootComponent() {
         <SoundEffects />
         <AIAssistant />
         <FloatingWhatsApp />
+        <InstallPrompt />
         <Toaster position="top-center" />
       </AuthProvider>
     </QueryClientProvider>
