@@ -10,6 +10,12 @@ import { Dashboard3D } from "@/components/site/Dashboard3D";
 import { ArrowLeft, Building2, Search, KeyRound, ShieldCheck, Sparkles, MessageCircle } from "lucide-react";
 
 export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { property: "og:url", content: "https://madni-realstate.online/" },
+    ],
+    links: [{ rel: "canonical", href: "https://madni-realstate.online/" }],
+  }),
   component: Index,
 });
 
