@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+
+Disallow: /dashboard
+Disallow: /admin
+Disallow: /login
+Disallow: /signup
+Disallow: /forgot-password
+Disallow: /reset-password
+Disallow: /lovable/
+Disallow: /api/
+
+Sitemap: https://madni-realstate.online/sitemap.xml
