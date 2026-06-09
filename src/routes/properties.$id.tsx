@@ -178,12 +178,18 @@ function PropertyDetailsPage() {
 
       <div className="pt-28 pb-16 px-4 sm:px-6">
         <div className="mx-auto max-w-7xl">
-          <Link
-            to="/properties"
-            className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-gold transition mb-6"
-          >
-            العودة للعقارات <ArrowRight size={14} />
-          </Link>
+          <nav aria-label="breadcrumb" className="mb-6 text-sm text-muted-foreground">
+            <ol className="flex flex-wrap items-center gap-1.5">
+              <li><Link to="/" className="hover:text-gold">الرئيسية</Link></li>
+              <li aria-hidden>/</li>
+              <li><Link to="/properties" className="hover:text-gold">العقارات</Link></li>
+              <li aria-hidden>/</li>
+              <li className="text-foreground/85 line-clamp-1 max-w-[60vw]">{p.title}</li>
+            </ol>
+            <Link to="/properties" className="mt-2 inline-flex items-center gap-1.5 hover:text-gold transition">
+              العودة للعقارات <ArrowRight size={14} />
+            </Link>
+          </nav>
 
           <div className="grid gap-8 lg:grid-cols-[1.5fr_1fr]">
             <div className="relative overflow-hidden rounded-3xl glass luxe-shadow">
