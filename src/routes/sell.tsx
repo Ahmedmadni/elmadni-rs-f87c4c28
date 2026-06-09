@@ -25,7 +25,7 @@ const TYPES = ["شقة", "بيت", "فيلا", "تاون هاوس", "أرض", "�
 const PURPOSES = ["للبيع", "للإيجار"] as const;
 
 function SellPage() {
-  const { user, isAuthenticated, loading } = useAuth();
+  const { user, isAuthenticated, loading, role } = useAuth();
   const [done, setDone] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [files, setFiles] = useState<File[]>([]);
