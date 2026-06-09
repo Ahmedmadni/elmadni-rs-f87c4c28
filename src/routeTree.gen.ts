@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as SignupRouteImport } from './routes/signup'
 import { Route as SellRouteImport } from './routes/sell'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
@@ -24,6 +25,8 @@ import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as PropertiesIndexRouteImport } from './routes/properties.index'
 import { Route as PropertiesIdRouteImport } from './routes/properties.$id'
+import { Route as LocationsMinyaRouteImport } from './routes/locations.minya'
+import { Route as LocationsMaghaghaRouteImport } from './routes/locations.maghagha'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedAdminUsersRouteImport } from './routes/_authenticated/admin.users'
 import { Route as AuthenticatedAdminRequestsRouteImport } from './routes/_authenticated/admin.requests'
@@ -31,6 +34,11 @@ import { Route as AuthenticatedAdminAuditRouteImport } from './routes/_authentic
 import { Route as LovableEmailQueueProcessRouteImport } from './routes/lovable/email/queue/process'
 import { Route as AuthenticatedPropertiesEditIdRouteImport } from './routes/_authenticated/properties.edit.$id'
 
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SignupRoute = SignupRouteImport.update({
   id: '/signup',
   path: '/signup',
@@ -105,6 +113,16 @@ const PropertiesIdRoute = PropertiesIdRouteImport.update({
   path: '/properties/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LocationsMinyaRoute = LocationsMinyaRouteImport.update({
+  id: '/locations/minya',
+  path: '/locations/minya',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LocationsMaghaghaRoute = LocationsMaghaghaRouteImport.update({
+  id: '/locations/maghagha',
+  path: '/locations/maghagha',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
@@ -152,7 +170,10 @@ export interface FileRoutesByFullPath {
   '/reset-password': typeof ResetPasswordRoute
   '/sell': typeof SellRoute
   '/signup': typeof SignupRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
+  '/locations/maghagha': typeof LocationsMaghaghaRoute
+  '/locations/minya': typeof LocationsMinyaRoute
   '/properties/$id': typeof PropertiesIdRoute
   '/properties/': typeof PropertiesIndexRoute
   '/admin/audit': typeof AuthenticatedAdminAuditRoute
@@ -174,7 +195,10 @@ export interface FileRoutesByTo {
   '/reset-password': typeof ResetPasswordRoute
   '/sell': typeof SellRoute
   '/signup': typeof SignupRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
+  '/locations/maghagha': typeof LocationsMaghaghaRoute
+  '/locations/minya': typeof LocationsMinyaRoute
   '/properties/$id': typeof PropertiesIdRoute
   '/properties': typeof PropertiesIndexRoute
   '/admin/audit': typeof AuthenticatedAdminAuditRoute
@@ -198,7 +222,10 @@ export interface FileRoutesById {
   '/reset-password': typeof ResetPasswordRoute
   '/sell': typeof SellRoute
   '/signup': typeof SignupRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
+  '/locations/maghagha': typeof LocationsMaghaghaRoute
+  '/locations/minya': typeof LocationsMinyaRoute
   '/properties/$id': typeof PropertiesIdRoute
   '/properties/': typeof PropertiesIndexRoute
   '/_authenticated/admin/audit': typeof AuthenticatedAdminAuditRoute
@@ -222,7 +249,10 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/sell'
     | '/signup'
+    | '/sitemap.xml'
     | '/dashboard'
+    | '/locations/maghagha'
+    | '/locations/minya'
     | '/properties/$id'
     | '/properties/'
     | '/admin/audit'
@@ -244,7 +274,10 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/sell'
     | '/signup'
+    | '/sitemap.xml'
     | '/dashboard'
+    | '/locations/maghagha'
+    | '/locations/minya'
     | '/properties/$id'
     | '/properties'
     | '/admin/audit'
@@ -267,7 +300,10 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/sell'
     | '/signup'
+    | '/sitemap.xml'
     | '/_authenticated/dashboard'
+    | '/locations/maghagha'
+    | '/locations/minya'
     | '/properties/$id'
     | '/properties/'
     | '/_authenticated/admin/audit'
@@ -291,6 +327,9 @@ export interface RootRouteChildren {
   ResetPasswordRoute: typeof ResetPasswordRoute
   SellRoute: typeof SellRoute
   SignupRoute: typeof SignupRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  LocationsMaghaghaRoute: typeof LocationsMaghaghaRoute
+  LocationsMinyaRoute: typeof LocationsMinyaRoute
   PropertiesIdRoute: typeof PropertiesIdRoute
   PropertiesIndexRoute: typeof PropertiesIndexRoute
   LovableEmailQueueProcessRoute: typeof LovableEmailQueueProcessRoute
@@ -298,6 +337,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/signup': {
       id: '/signup'
       path: '/signup'
@@ -403,6 +449,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PropertiesIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/locations/minya': {
+      id: '/locations/minya'
+      path: '/locations/minya'
+      fullPath: '/locations/minya'
+      preLoaderRoute: typeof LocationsMinyaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/locations/maghagha': {
+      id: '/locations/maghagha'
+      path: '/locations/maghagha'
+      fullPath: '/locations/maghagha'
+      preLoaderRoute: typeof LocationsMaghaghaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_authenticated/dashboard': {
       id: '/_authenticated/dashboard'
       path: '/dashboard'
@@ -482,6 +542,9 @@ const rootRouteChildren: RootRouteChildren = {
   ResetPasswordRoute: ResetPasswordRoute,
   SellRoute: SellRoute,
   SignupRoute: SignupRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
+  LocationsMaghaghaRoute: LocationsMaghaghaRoute,
+  LocationsMinyaRoute: LocationsMinyaRoute,
   PropertiesIdRoute: PropertiesIdRoute,
   PropertiesIndexRoute: PropertiesIndexRoute,
   LovableEmailQueueProcessRoute: LovableEmailQueueProcessRoute,

@@ -16,7 +16,13 @@ export const Route = createFileRoute("/properties/")({
       { name: "description", content: "تصفّح أفخم العقارات في مصر — شقق، فلل، مكاتب، شاليهات وأراضٍ." },
       { property: "og:title", content: "العقارات | مدني العقارية" },
       { property: "og:description", content: "أفخم العقارات في أرقى مناطق مصر." },
+      { property: "og:url", content: "https://madni-realstate.online/properties" },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "العقارات | مدني العقارية" },
+      { name: "twitter:description", content: "أفخم العقارات في أرقى مناطق مصر." },
     ],
+    links: [{ rel: "canonical", href: "https://madni-realstate.online/properties" }],
   }),
   component: PropertiesPage,
 });

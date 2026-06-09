@@ -25,7 +25,7 @@ const TYPES = ["شقة", "بيت", "فيلا", "تاون هاوس", "أرض", "�
 const PURPOSES = ["للبيع", "للإيجار"] as const;
 
 function SellPage() {
-  const { user, isAuthenticated, loading } = useAuth();
+  const { user, isAuthenticated, loading, role } = useAuth();
   const [done, setDone] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [files, setFiles] = useState<File[]>([]);
@@ -95,6 +95,7 @@ function SellPage() {
     }
     setSubmitting(true);
     try {
+      const adminPublish = role === "admin";
       const { data: ins, error } = await supabase
         .from("properties")
         .insert({
@@ -116,8 +117,8 @@ function SellPage() {
           description_full: form.description_full || null,
           contact_name: form.contact_name || null,
           contact_phone: form.contact_phone,
-          review_status: "pending",
-          published: false,
+          review_status: adminPublish ? "approved" : "pending",
+          published: adminPublish ? true : false,
           images: [],
         })
         .select("id")
@@ -152,7 +153,7 @@ function SellPage() {
       if (uploadedUrls.length > 0) {
         await supabase.from("properties").update({ images: uploadedUrls }).eq("id", propertyId);
       }
-      toast.success("تم استلام عقارك للمراجعة");
+      toast.success(adminPublish ? "تم نشر العقار مباشرة" : "تم استلام عقارك للمراجعة");
       setDone(true);
     } catch (err) {
       toast.error((err as Error).message);

@@ -24,7 +24,86 @@ import { MortgageCalculator } from "@/components/site/MortgageCalculator";
 import { PurchaseRequestForm } from "@/components/site/PurchaseRequestForm";
 
 export const Route = createFileRoute("/properties/$id")({
-  head: () => ({ meta: [{ title: "تفاصيل العقار | مدني العقارية" }] }),
+  loader: async ({ params }) => {
+    const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(params.id);
+    const base = supabase
+      .from("properties")
+      .select("id,code,title,type,status,price,area,rooms,location,images,description")
+      .eq("review_status", "approved")
+      .eq("published", true);
+    const { data } = isUuid
+      ? await base.eq("id", params.id).maybeSingle()
+      : await base.eq("code", params.id).maybeSingle();
+    return { seo: (data as Partial<Property> | null) ?? null };
+  },
+  head: ({ params, loaderData }) => {
+    const p = loaderData?.seo;
+    const slug = p?.code ?? params.id;
+    const url = `https://madni-realstate.online/properties/${slug}`;
+    const title = p
+      ? `${p.title} — ${p.type} ${p.status} في ${p.location} | مدني العقارية`
+      : "تفاصيل العقار | مدني العقارية";
+    const description = p
+      ? `${p.type} ${p.status} في ${p.location}. السعر ${p.price}، المساحة ${p.area ?? "—"}، عدد الغرف ${p.rooms ?? "—"}. ${p.description ?? ""}`.slice(0, 300)
+      : "تفاصيل عقار مميز على منصة مدني العقارية في مغاغة، المنيا.";
+    const image = (p?.images && p.images[0]) || "https://madni-realstate.online/icons/icon-512.png";
+
+    const meta = [
+      { title },
+      { name: "description", content: description },
+      { property: "og:title", content: title },
+      { property: "og:description", content: description },
+      { property: "og:type", content: "product" },
+      { property: "og:url", content: url },
+      { property: "og:image", content: image },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: title },
+      { name: "twitter:description", content: description },
+      { name: "twitter:image", content: image },
+    ];
+
+    const scripts = p
+      ? [
+          {
+            type: "application/ld+json",
+            children: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Product",
+              name: p.title,
+              description,
+              image: p.images ?? [image],
+              sku: p.code,
+              category: p.type,
+              offers: {
+                "@type": "Offer",
+                price: String(p.price ?? "").replace(/[^0-9.]/g, "") || undefined,
+                priceCurrency: "EGP",
+                availability: "https://schema.org/InStock",
+                url,
+              },
+            }),
+          },
+          {
+            type: "application/ld+json",
+            children: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "BreadcrumbList",
+              itemListElement: [
+                { "@type": "ListItem", position: 1, name: "الرئيسية", item: "https://madni-realstate.online/" },
+                { "@type": "ListItem", position: 2, name: "العقارات", item: "https://madni-realstate.online/properties" },
+                { "@type": "ListItem", position: 3, name: p.title, item: url },
+              ],
+            }),
+          },
+        ]
+      : [];
+
+    return {
+      meta,
+      links: [{ rel: "canonical", href: url }],
+      scripts,
+    };
+  },
   component: PropertyDetailsPage,
   notFoundComponent: () => (
     <div className="min-h-screen grid place-content-center text-center px-6">
@@ -99,12 +178,18 @@ function PropertyDetailsPage() {
 
       <div className="pt-28 pb-16 px-4 sm:px-6">
         <div className="mx-auto max-w-7xl">
-          <Link
-            to="/properties"
-            className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-gold transition mb-6"
-          >
-            العودة للعقارات <ArrowRight size={14} />
-          </Link>
+          <nav aria-label="breadcrumb" className="mb-6 text-sm text-muted-foreground">
+            <ol className="flex flex-wrap items-center gap-1.5">
+              <li><Link to="/" className="hover:text-gold">الرئيسية</Link></li>
+              <li aria-hidden>/</li>
+              <li><Link to="/properties" className="hover:text-gold">العقارات</Link></li>
+              <li aria-hidden>/</li>
+              <li className="text-foreground/85 line-clamp-1 max-w-[60vw]">{p.title}</li>
+            </ol>
+            <Link to="/properties" className="mt-2 inline-flex items-center gap-1.5 hover:text-gold transition">
+              العودة للعقارات <ArrowRight size={14} />
+            </Link>
+          </nav>
 
           <div className="grid gap-8 lg:grid-cols-[1.5fr_1fr]">
             <div className="relative overflow-hidden rounded-3xl glass luxe-shadow">
