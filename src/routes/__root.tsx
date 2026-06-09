@@ -90,16 +90,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:title", content: "مدني العقارية | MADNI Real Estate — خبرة عقارية تثق بها" },
       { property: "og:description", content: "منصة عقارية مصرية فاخرة لشراء وبيع وطلب العقارات بتجربة سينمائية حديثة." },
       { property: "og:type", content: "website" },
+      { property: "og:site_name", content: "مدني العقارية" },
+      { property: "og:locale", content: "ar_EG" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:title", content: "مدني العقارية | MADNI Real Estate — خبرة عقارية تثق بها" },
       { name: "twitter:description", content: "منصة عقارية مصرية فاخرة لشراء وبيع وطلب العقارات بتجربة سينمائية حديثة." },
-      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/sHg6QnS04TcmbXVlhYYOOD3JhZB2/social-images/social-1779857606474-1000510384.webp" },
-      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/sHg6QnS04TcmbXVlhYYOOD3JhZB2/social-images/social-1779857606474-1000510384.webp" },
       { name: "theme-color", content: "#0F172A" },
       { name: "apple-mobile-web-app-capable", content: "yes" },
       { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
       { name: "apple-mobile-web-app-title", content: "Madni" },
       { name: "mobile-web-app-capable", content: "yes" },
+      { name: "robots", content: "index, follow, max-image-preview:large" },
+      { name: "format-detection", content: "telephone=no" },
     ],
     links: [
       {
@@ -115,6 +117,38 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         rel: "stylesheet",
         href: "https://fonts.googleapis.com/css2?family=Cairo:wght@500;700;800;900&family=Almarai:wght@400;700;800&family=Tajawal:wght@400;500;700;900&display=swap&v=20260603-2",
+      },
+    ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "RealEstateAgent",
+          name: "مدني العقارية",
+          alternateName: "MADNI Real Estate",
+          url: "https://madni-realstate.online",
+          logo: "https://madni-realstate.online/icons/icon-512.png",
+          areaServed: [
+            { "@type": "City", name: "مغاغة" },
+            { "@type": "AdministrativeArea", name: "محافظة المنيا" },
+          ],
+          address: { "@type": "PostalAddress", addressLocality: "مغاغة", addressRegion: "المنيا", addressCountry: "EG" },
+        }),
+      },
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          name: "مدني العقارية",
+          url: "https://madni-realstate.online",
+          potentialAction: {
+            "@type": "SearchAction",
+            target: "https://madni-realstate.online/properties?q={search_term_string}",
+            "query-input": "required name=search_term_string",
+          },
+        }),
       },
     ],
   }),
