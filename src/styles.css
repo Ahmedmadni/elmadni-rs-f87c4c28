@@ -62,10 +62,10 @@
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
   /* Bold Arabic stack — Cairo/Almarai Black for headings (like "لامارا"), Tajawal for body */
-  --font-sans: 'Tajawal', 'Cairo', 'Almarai', system-ui, -apple-system, sans-serif;
-  --font-display: 'Cairo', 'Almarai', 'Tajawal', system-ui, sans-serif;
-  --font-arabic-display: 'Cairo', 'Almarai', 'Tajawal', system-ui, sans-serif;
-  --font-hero: 'Cairo', 'Almarai', 'Tajawal', system-ui, sans-serif;
+  --font-sans: 'Cairo', system-ui, -apple-system, sans-serif;
+  --font-display: 'Cairo', system-ui, sans-serif;
+  --font-arabic-display: 'Cairo', system-ui, sans-serif;
+  --font-hero: 'Cairo', system-ui, sans-serif;
   --color-gold: var(--gold);
   --color-gold-soft: var(--gold-soft);
   --color-emerald-deep: var(--emerald-deep);
@@ -171,6 +171,7 @@
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-sans);
+    font-weight: 300;
     font-feature-settings: "ss01", "ss02", "kern";
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
@@ -186,14 +187,14 @@
   [dir="rtl"] .font-display {
     font-family: var(--font-arabic-display);
     letter-spacing: 0;
-    font-weight: 700;
+    font-weight: 300;
   }
 
   /* Force the reference Arabic heading font on ALL headings across the site */
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-arabic-display) !important;
     font-feature-settings: "kern", "liga";
-    font-weight: 900;
+    font-weight: 300;
     letter-spacing: -0.01em;
   }
 
@@ -218,7 +219,7 @@
     font-family: var(--font-display);
     letter-spacing: -0.02em;
     font-feature-settings: "kern", "liga", "dlig";
-    font-weight: 600;
+    font-weight: 300;
   }
 
   .font-hero,
