@@ -61,11 +61,11 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
-  /* Bold Arabic stack — Cairo/Almarai Black for headings (like "لامارا"), Tajawal for body */
-  --font-sans: 'Cairo', system-ui, -apple-system, sans-serif;
-  --font-display: 'Cairo', system-ui, sans-serif;
-  --font-arabic-display: 'Cairo', system-ui, sans-serif;
-  --font-hero: 'Cairo', system-ui, sans-serif;
+  /* Arabic stack — Kufam for headings, Alexandria/Tajawal/Cairo mix for body */
+  --font-sans: 'Alexandria', 'Tajawal', 'Cairo', system-ui, -apple-system, sans-serif;
+  --font-display: 'Kufam', 'Alexandria', 'Tajawal', 'Cairo', system-ui, sans-serif;
+  --font-arabic-display: 'Kufam', 'Alexandria', 'Tajawal', 'Cairo', system-ui, sans-serif;
+  --font-hero: 'Kufam', 'Alexandria', 'Tajawal', 'Cairo', system-ui, sans-serif;
   --color-gold: var(--gold);
   --color-gold-soft: var(--gold-soft);
   --color-emerald-deep: var(--emerald-deep);
@@ -194,7 +194,7 @@
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-arabic-display) !important;
     font-feature-settings: "kern", "liga";
-    font-weight: 300;
+    font-weight: 400;
     letter-spacing: -0.01em;
   }
 
