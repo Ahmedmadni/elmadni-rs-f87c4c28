@@ -202,7 +202,7 @@ function PropertyDetailsPage() {
                     كود: {code}
                   </span>
                 </div>
-                <h1 className="mt-2 font-display text-3xl sm:text-5xl text-foreground font-semibold leading-tight">
+                <h1 className="mt-2 font-listing text-3xl sm:text-5xl text-foreground leading-tight">
                   {p.title}
                 </h1>
                 <div className="mt-3 flex items-center gap-1.5 text-sm text-foreground/85">

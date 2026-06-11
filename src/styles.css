@@ -66,6 +66,7 @@
   --font-display: 'Kufam', 'Alexandria', 'Tajawal', 'Cairo', system-ui, sans-serif;
   --font-arabic-display: 'Kufam', 'Alexandria', 'Tajawal', 'Cairo', system-ui, sans-serif;
   --font-hero: 'Kufam', 'Alexandria', 'Tajawal', 'Cairo', system-ui, sans-serif;
+  --font-listing: 'Alexandria', 'Tajawal', 'Cairo', system-ui, sans-serif;
   --color-gold: var(--gold);
   --color-gold-soft: var(--gold-soft);
   --color-emerald-deep: var(--emerald-deep);
@@ -229,6 +230,18 @@
     font-family: var(--font-hero) !important;
     letter-spacing: -0.01em;
     font-feature-settings: "kern", "liga";
+  }
+
+  /* Property/listing titles — Alexandria for maximum Arabic clarity (overrides Kufam headings) */
+  .font-listing,
+  h1.font-listing,
+  h2.font-listing,
+  h3.font-listing,
+  :lang(ar) .font-listing,
+  [dir="rtl"] .font-listing {
+    font-family: var(--font-listing) !important;
+    letter-spacing: 0;
+    font-weight: 500;
   }
 
   /* Solid surfaces — no transparency so text underneath never bleeds through */

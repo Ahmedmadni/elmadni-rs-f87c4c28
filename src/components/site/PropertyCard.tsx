@@ -96,7 +96,7 @@ export function PropertyCard({ p }: { p: Property }) {
               {code}
             </span>
           </div>
-          <h3 className="mt-1 font-display text-xl text-foreground font-semibold leading-tight">
+          <h3 className="mt-1 font-listing text-xl text-foreground leading-tight">
             {p.title}
           </h3>
         </div>
