@@ -187,7 +187,7 @@
   [dir="rtl"] .font-display {
     font-family: var(--font-arabic-display);
     letter-spacing: 0;
-    font-weight: 300;
+    font-weight: 400;
   }
 
   /* Force the reference Arabic heading font on ALL headings across the site */
@@ -219,7 +219,7 @@
     font-family: var(--font-display);
     letter-spacing: -0.02em;
     font-feature-settings: "kern", "liga", "dlig";
-    font-weight: 300;
+    font-weight: 400;
   }
 
   .font-hero,
