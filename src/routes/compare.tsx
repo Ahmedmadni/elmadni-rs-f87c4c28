@@ -85,7 +85,7 @@ function ComparePage() {
                       <Link
                         to="/properties/$id"
                         params={{ id: p.id }}
-                        className="font-display text-lg text-foreground hover:text-gold transition leading-tight block"
+                        className="font-listing text-lg text-foreground hover:text-gold transition leading-tight block"
                       >
                         {p.title}
                       </Link>
