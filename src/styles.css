@@ -232,6 +232,18 @@
     font-feature-settings: "kern", "liga";
   }
 
+  /* Property/listing titles — Alexandria for maximum Arabic clarity (overrides Kufam headings) */
+  .font-listing,
+  h1.font-listing,
+  h2.font-listing,
+  h3.font-listing,
+  :lang(ar) .font-listing,
+  [dir="rtl"] .font-listing {
+    font-family: var(--font-listing) !important;
+    letter-spacing: 0;
+    font-weight: 500;
+  }
+
   /* Solid surfaces — no transparency so text underneath never bleeds through */
   .glass {
     background: var(--card);
