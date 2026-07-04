@@ -1,4 +1,5 @@
 import { Client } from "pg";
+import { randomUUID } from "crypto";
 import "dotenv/config";
 
 /**
@@ -74,10 +75,42 @@ export async function expectDenied(promise: Promise<unknown>): Promise<void> {
 }
 
 export function newUuid(): string {
-  // deterministic random UUID v4 without importing crypto types
-  return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (c) => {
-    const r = (Math.random() * 16) | 0;
-    const v = c === "x" ? r : (r & 0x3) | 0x8;
-    return v.toString(16);
-  });
+  return randomUUID();
+}
+
+/** Run cb inside a transaction that always rolls back; keeps DB pristine. */
+export async function inRollbackTx(client: Client, cb: () => Promise<void>): Promise<void> {
+  await client.query("BEGIN");
+  try {
+    await cb();
+  } finally {
+    await client.query("ROLLBACK");
+  }
+}
+
+/**
+ * Switch the current transaction to act as PostgREST does for a Supabase user:
+ * sets the request-scoped JWT claims, then `SET LOCAL ROLE`. Call between
+ * subtests inside the same transaction with `resetRole(client)` first.
+ */
+export async function switchTo(
+  client: Client,
+  opts: { userId?: string | null; role?: "anon" | "authenticated" | "service_role" },
+): Promise<void> {
+  const role = opts.role ?? (opts.userId ? "authenticated" : "anon");
+  const claims: Record<string, unknown> = { role };
+  if (opts.userId) claims.sub = opts.userId;
+  await client.query(`SELECT set_config('request.jwt.claims', $1, true)`, [JSON.stringify(claims)]);
+  await client.query(`SELECT set_config('request.jwt.claim.role', $1, true)`, [role]);
+  if (opts.userId) {
+    await client.query(`SELECT set_config('request.jwt.claim.sub', $1, true)`, [opts.userId]);
+  }
+  await client.query(`SET LOCAL ROLE ${role}`);
+}
+
+export async function resetRole(client: Client): Promise<void> {
+  await client.query("RESET ROLE");
+  await client.query(`SELECT set_config('request.jwt.claims', '', true)`);
+  await client.query(`SELECT set_config('request.jwt.claim.sub', '', true)`);
+  await client.query(`SELECT set_config('request.jwt.claim.role', '', true)`);
 }
