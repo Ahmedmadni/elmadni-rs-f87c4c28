@@ -1,0 +1,107 @@
+{
+  "version": 1,
+  "sdk_version": "0.20.0",
+  "path": "/mcp",
+  "auth": {
+    "type": "none"
+  },
+  "mcp": {
+    "server": {
+      "name": "madni-realstate-mcp",
+      "version": "0.1.0",
+      "title": "Madni Real Estate MCP"
+    },
+    "tools": [
+      {
+        "name": "list_properties",
+        "title": "List properties",
+        "description": "List approved real estate properties from Madni Real Estate. Supports filtering by city, purpose (sale/rent), and limit.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "city": {
+              "description": "Filter by city name (e.g. Maghagha, Minya).",
+              "type": "string"
+            },
+            "purpose": {
+              "description": "Filter by listing purpose.",
+              "type": "string",
+              "enum": [
+                "sale",
+                "rent"
+              ]
+            },
+            "limit": {
+              "description": "Max number of results (default 10).",
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 50
+            }
+          }
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "get_property",
+        "title": "Get property details",
+        "description": "Fetch full details of a single approved property by its ID or code (e.g. MAD-123).",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "idOrCode": {
+              "type": "string",
+              "minLength": 1,
+              "description": "The property UUID or its human code (e.g. MAD-42)."
+            }
+          },
+          "required": [
+            "idOrCode"
+          ]
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "search_properties",
+        "title": "Search properties",
+        "description": "Full-text search over approved properties by keyword across title, description, city, and district.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "query": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Free-text search query (Arabic or English)."
+            },
+            "limit": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 50
+            }
+          },
+          "required": [
+            "query"
+          ]
+        },
+        "outputSchema": null
+      }
+    ]
+  }
+}
