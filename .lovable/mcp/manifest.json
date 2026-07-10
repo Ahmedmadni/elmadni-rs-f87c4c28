@@ -3,7 +3,11 @@
   "sdk_version": "0.20.0",
   "path": "/mcp",
   "auth": {
-    "type": "none"
+    "type": "oauth",
+    "issuer": "https://kfswoozgizlqlvkauawn.supabase.co/auth/v1",
+    "accepted_audiences": [
+      "authenticated"
+    ]
   },
   "mcp": {
     "server": {
@@ -88,6 +92,7 @@
             "query": {
               "type": "string",
               "minLength": 1,
+              "maxLength": 100,
               "description": "Free-text search query (Arabic or English)."
             },
             "limit": {
