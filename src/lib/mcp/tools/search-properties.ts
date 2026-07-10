@@ -7,7 +7,11 @@ export default defineTool({
   title: "Search properties",
   description: "Full-text search over approved properties by keyword across title, description, city, and district.",
   inputSchema: {
-    query: z.string().min(1).describe("Free-text search query (Arabic or English)."),
+    query: z
+      .string()
+      .min(1)
+      .max(100)
+      .describe("Free-text search query (Arabic or English)."),
     limit: z.number().int().min(1).max(50).optional(),
   },
   annotations: { readOnlyHint: true, idempotentHint: true, openWorldHint: false },
@@ -17,12 +21,24 @@ export default defineTool({
       process.env.SUPABASE_PUBLISHABLE_KEY!,
       { auth: { persistSession: false, autoRefreshToken: false } },
     );
-    const like = `%${query}%`;
+    // Strip PostgREST filter metacharacters (commas, parentheses, quotes,
+    // backslashes, colons, asterisks) so caller input cannot break out of the
+    // .or() filter template and inject extra conditions.
+    const sanitized = query.replace(/[,()"'\\*:]/g, " ").trim();
+    if (!sanitized) {
+      return {
+        content: [{ type: "text", text: JSON.stringify([], null, 2) }],
+        structuredContent: { items: [] },
+      };
+    }
+    const like = `*${sanitized}*`;
     const { data, error } = await supabase
       .from("properties")
       .select("id, code, title, city, district, price, purpose, bedrooms, bathrooms, area")
       .eq("review_status", "approved")
-      .or(`title.ilike.${like},description.ilike.${like},city.ilike.${like},district.ilike.${like}`)
+      .or(
+        `title.ilike.${like},description.ilike.${like},city.ilike.${like},district.ilike.${like}`,
+      )
       .limit(limit ?? 10);
     if (error) return { content: [{ type: "text", text: error.message }], isError: true };
     return {
