@@ -41,11 +41,11 @@ export function PropertyCard({ p }: { p: Property }) {
   );
 
   return (
-    <article className="group relative overflow-hidden rounded-3xl glass luxe-shadow transition-all duration-500 hover:-translate-y-1">
+    <article className="group relative overflow-hidden rounded-2xl glass luxe-shadow transition-all duration-500 hover:-translate-y-1">
       <Link
         to="/properties/$id"
         params={{ id: p.id }}
-        className="relative block aspect-[4/3] overflow-hidden"
+        className="relative block aspect-[16/10] overflow-hidden"
       >
         <img
           src={getPropertyImage(p)}
@@ -54,101 +54,100 @@ export function PropertyCard({ p }: { p: Property }) {
           className="h-full w-full object-cover transition-transform duration-[1200ms] group-hover:scale-110"
         />
         <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/55 via-black/20 to-transparent pointer-events-none" />
-        <div className="absolute top-4 left-4 flex flex-col gap-2">
+        <div className="absolute top-2.5 left-2.5 flex flex-col gap-1.5">
           <button
             onClick={onFav}
             aria-label="المفضلة"
             aria-pressed={isFav}
-            className={`grid place-content-center h-9 w-9 rounded-full glass-strong transition hover:text-gold ${
+            className={`grid place-content-center h-8 w-8 rounded-full glass-strong transition hover:text-gold ${
               isFav ? "text-gold" : "text-foreground/80"
             }`}
           >
-            <Heart size={16} fill={isFav ? "currentColor" : "none"} />
+            <Heart size={14} fill={isFav ? "currentColor" : "none"} />
           </button>
           <button
             onClick={onCmp}
             aria-label="المقارنة"
             aria-pressed={isCmp}
-            className={`grid place-content-center h-9 w-9 rounded-full glass-strong transition hover:text-gold ${
+            className={`grid place-content-center h-8 w-8 rounded-full glass-strong transition hover:text-gold ${
               isCmp ? "text-gold" : "text-foreground/80"
             }`}
           >
-            <GitCompare size={16} />
+            <GitCompare size={14} />
           </button>
         </div>
-        <div className="absolute top-4 right-4 flex gap-2">
+        <div className="absolute top-2.5 right-2.5 flex gap-1.5">
           {p.badge && (
             <span
-              className={`px-3 py-1 rounded-full text-xs font-semibold ${badgeColors[p.badge] ?? ""}`}
+              className={`px-2.5 py-0.5 rounded-full text-[11px] font-semibold ${badgeColors[p.badge] ?? ""}`}
               style={p.badge === "مميز" ? { background: "var(--gradient-gold)" } : undefined}
             >
               {p.badge}
             </span>
           )}
-          <span className="px-3 py-1 rounded-full text-xs font-bold bg-primary text-gold border border-gold/40">
+          <span
+            className="px-2.5 py-0.5 rounded-full text-[11px] font-bold border border-gold/40"
+            style={{ background: "var(--gradient-gold)", color: "var(--ink-black)" }}
+          >
             {p.status}
           </span>
         </div>
-        <div className="absolute bottom-4 right-4 left-4">
+        <div className="absolute bottom-2.5 right-3 left-3">
           <div className="flex items-center justify-between gap-2">
-            <div className="text-xs text-gold/90 font-medium tracking-wider">{p.type}</div>
-            <span className="px-2 py-0.5 rounded-md text-[10px] font-bold tracking-wider glass-strong text-gold">
+            <div className="text-[11px] text-gold/90 font-medium tracking-wider">{p.type}</div>
+            <span className="px-1.5 py-0.5 rounded text-[10px] font-bold tracking-wider glass-strong text-gold">
               {code}
             </span>
           </div>
-          <h3 className="mt-1 font-listing text-xl text-foreground leading-tight">
+          <h3 className="mt-0.5 font-listing text-base sm:text-lg text-foreground leading-snug line-clamp-1">
             {p.title}
           </h3>
         </div>
       </Link>
 
-      <div className="p-5">
-        <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
-          <MapPin size={14} className="text-gold" />
-          <span>{p.location}</span>
+      <div className="p-3.5">
+        <div className="flex items-center justify-between gap-2 text-xs text-muted-foreground">
+          <span className="inline-flex items-center gap-1 min-w-0">
+            <MapPin size={12} className="text-gold shrink-0" />
+            <span className="truncate">{p.location}</span>
+          </span>
+          <span className="inline-flex items-center gap-1 text-[11px] text-primary shrink-0">
+            <Wallet size={12} /> كاش
+          </span>
         </div>
 
-        <div className="mt-4 flex items-center justify-between text-sm text-foreground/85">
-          <div className="flex items-center gap-1.5"><Maximize2 size={14} className="text-gold" /> {p.area}</div>
-          <div className="flex items-center gap-1.5"><BedDouble size={14} className="text-gold" /> {p.rooms} غرف</div>
+        <div className="mt-2 flex items-center gap-3 text-xs text-foreground/85">
+          <span className="inline-flex items-center gap-1"><Maximize2 size={12} className="text-gold" /> {p.area}</span>
+          <span className="inline-flex items-center gap-1"><BedDouble size={12} className="text-gold" /> {p.rooms} غرف</span>
         </div>
 
-        <div className="mt-5 flex items-center justify-between border-t border-gold/15 pt-4">
-          <div className="font-display text-xl text-gold-gradient font-semibold">
+        <div className="mt-3 flex items-center justify-between gap-2 border-t border-gold/15 pt-3">
+          <div className="font-display text-base text-gold-gradient font-semibold truncate">
             {p.price}
           </div>
-          <a
-            href={`${WHATSAPP}?text=${inquiryMsg}`}
-            target="_blank"
-            rel="noreferrer"
-            onClick={(e) => e.stopPropagation()}
-            className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-medium glass hover:text-gold transition"
-          >
-            <Info size={12} /> التفاصيل
-          </a>
-        </div>
-
-        {/* Payment method box */}
-        <div className="mt-4 rounded-2xl border border-primary/25 bg-primary/5 p-3">
-          <div className="flex items-center gap-1.5 text-xs font-semibold text-primary">
-            <Wallet size={14} /> طريقة الدفع
+          <div className="flex items-center gap-1.5 shrink-0">
+            <a
+              href={`${WHATSAPP}?text=${inquiryMsg}`}
+              target="_blank"
+              rel="noreferrer"
+              onClick={(e) => e.stopPropagation()}
+              aria-label="التفاصيل"
+              className="inline-flex items-center gap-1 rounded-full px-2.5 py-1.5 text-[11px] font-medium glass hover:text-gold transition"
+            >
+              <Info size={12} /> التفاصيل
+            </a>
+            <a
+              href={`${WHATSAPP}?text=${chooseMsg}`}
+              target="_blank"
+              rel="noreferrer"
+              onClick={(e) => e.stopPropagation()}
+              className="inline-flex items-center gap-1 rounded-full px-3 py-1.5 text-[11px] font-semibold transition hover:opacity-90"
+              style={{ background: "var(--gradient-gold)", color: "var(--ink-black)" }}
+            >
+              <CheckCircle2 size={12} /> اختيار
+            </a>
           </div>
-          <div className="mt-1 text-xs text-foreground/85 leading-relaxed">
-            الدفع <span className="font-semibold">كاش</span> فقط. للدفع على دفعات
-            <span className="font-semibold"> تواصل معنا</span>.
-          </div>
         </div>
-
-        <a
-          href={`${WHATSAPP}?text=${chooseMsg}`}
-          target="_blank"
-          rel="noreferrer"
-          onClick={(e) => e.stopPropagation()}
-          className="mt-3 flex items-center justify-center gap-2 rounded-full px-4 py-2.5 text-sm font-semibold transition hover:opacity-90"
-          style={{ background: "var(--gradient-gold)", color: "var(--ink-black)" }}
-        >
-          <CheckCircle2 size={16} /> اختيار
-        </a>
       </div>
     </article>
   );
