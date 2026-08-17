@@ -192,43 +192,47 @@ function ServiceSplit() {
     },
   ];
   return (
-    <section className="relative py-28 px-6">
-      <div className="mx-auto max-w-7xl">
+    <section className="relative py-20 px-6">
+      <div className="mx-auto max-w-6xl">
         <SectionHeading
           kicker="خدماتنا"
           title="تجربتان عقاريتان فاخرتان"
           subtitle="اختر التجربة التي تناسبك — استعرض المتاح أو اطلب ما تتمناه."
         />
-        <div className="mt-14 grid gap-6 lg:grid-cols-2">
+        <div className="mt-10 grid gap-5 lg:grid-cols-2">
           {cards.map((c, i) => (
             <motion.div
               key={c.to}
-              initial={{ opacity: 0, y: 40 }}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.8, delay: i * 0.1 }}
-              className="group relative overflow-hidden rounded-[2rem] glass-strong luxe-shadow p-10 min-h-[380px] flex flex-col justify-between"
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.7, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
+              className="group relative overflow-hidden rounded-2xl border border-gold/30 luxe-shadow transition-all duration-500 hover:border-gold/60 hover:shadow-[0_0_30px_oklch(0.80_0.135_84_/0.10)]"
+              style={{ background: "var(--gradient-noir)" }}
             >
-              <div
-                className="absolute -top-32 -left-32 h-72 w-72 rounded-full opacity-30 blur-3xl transition-opacity group-hover:opacity-60"
-                style={{ background: "var(--gradient-gold)" }}
-              />
-              <div className="relative">
-                <div className="inline-flex items-center gap-2 rounded-full glass px-3 py-1 text-[10px] tracking-[0.3em] text-gold">
-                  <c.icon size={12} /> {c.kicker}
+              <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-transparent via-gold/40 to-transparent" />
+              <div className="relative p-7 sm:p-8 min-h-[280px] flex flex-col justify-between">
+                <div>
+                  <div className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-gold/10 border border-gold/20 text-gold transition-colors group-hover:bg-gold/15">
+                    <c.icon size={22} strokeWidth={1.5} />
+                  </div>
+                  <div className="inline-flex items-center gap-2 rounded-full bg-gold/10 border border-gold/20 px-3 py-1 text-[10px] tracking-[0.3em] text-gold mb-4">
+                    {c.kicker}
+                  </div>
+                  <h3 className="font-display text-2xl sm:text-3xl text-foreground leading-tight">
+                    {c.title}
+                  </h3>
+                  <p className="mt-3 text-sm text-muted-foreground leading-relaxed max-w-md">
+                    {c.desc}
+                  </p>
                 </div>
-                <h3 className="font-display text-4xl sm:text-5xl mt-6 leading-tight">
-                  {c.title}
-                </h3>
-                <p className="mt-4 text-muted-foreground leading-loose max-w-md">{c.desc}</p>
+                <Link
+                  to={c.to}
+                  className="mt-6 inline-flex items-center gap-2 self-start text-sm font-medium text-gold transition-all hover:gap-3 hover:text-gold-soft"
+                >
+                  {c.cta} <ArrowLeft size={16} />
+                </Link>
               </div>
-              <Link
-                to={c.to}
-                className="relative inline-flex items-center gap-2 self-start rounded-full px-6 py-3 text-sm font-semibold text-accent-foreground transition hover:gap-3"
-                style={{ background: "var(--gradient-gold)" }}
-              >
-                {c.cta} <ArrowLeft size={16} />
-              </Link>
             </motion.div>
           ))}
         </div>
