@@ -51,7 +51,7 @@ export function AIAssistant() {
         whileHover={{ scale: 1.08 }}
         whileTap={{ scale: 0.95 }}
         aria-label="المساعد الذكي"
-        className="fixed bottom-24 lg:bottom-6 right-4 lg:right-6 z-40 grid place-content-center h-14 w-14 rounded-full text-accent-foreground border-2 border-background"
+        className="fixed bottom-24 lg:bottom-6 left-[5.5rem] lg:left-24 z-50 grid place-content-center h-14 w-14 rounded-full text-accent-foreground border-2 border-background"
         style={{ background: "var(--gradient-gold)", boxShadow: "var(--shadow-gold-glow)" }}
       >
         {open ? <X size={22} /> : <Sparkles size={22} />}
@@ -64,7 +64,7 @@ export function AIAssistant() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-            className="fixed bottom-44 lg:bottom-24 right-4 sm:right-6 z-40 w-[calc(100vw-2rem)] sm:w-96 rounded-3xl bg-card luxe-shadow border-2 border-gold/40 overflow-hidden flex flex-col"
+            className="fixed bottom-44 lg:bottom-24 left-4 sm:left-6 z-40 w-[calc(100vw-2rem)] sm:w-96 rounded-3xl bg-card luxe-shadow border-2 border-gold/40 overflow-hidden flex flex-col"
             style={{ maxHeight: "min(70vh, 600px)" }}
           >
             <div
